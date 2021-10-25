@@ -1,3 +1,10 @@
+@font-face {
+	font-family: "linja sike";
+	font-style: normal;
+	font-weight: 400;
+	src: url(https://wyub.github.io/tokipona/linja-sike-5.otf);
+}
+
 body {
 	font-family: "Noto Serif", Verdana, "Lucida Sans Unicode", sans-serif;
 	text-align: center;
@@ -37,7 +44,7 @@ hr {
 		'source source creator creator creator'
 		'etymology etymology etymology coined coined'
 		'book book book book book'
-		'. word word word .'
+		'sitelenpona word word word .'
 		'. definition definition definition .';
 }
 .word {
@@ -73,4 +80,9 @@ hr {
 }
 .definition {
 	grid-area: definition;
+}
+.sitelenpona {
+	grid-area: sitelenpona;
+	font-family: "linja sike";
+	font-size: 300%;
 }
