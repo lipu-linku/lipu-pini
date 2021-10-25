@@ -10,7 +10,7 @@ body {
 	--bg-color: #000000;
 	--txt-color: #ffffff;
 	--highlight-color: #ffab40;
-	--shade-color: #050833;
+	--shade-color: #999999;
 }
 
 input {
@@ -22,21 +22,23 @@ h1 {
 	font-family: "Palatino Linotype", "Book Antiqua", serif;
 	font-size: 250%;
 }
+hr {
+	border-color: var(--shade-color)
+}
 #dictionary {
 	margin: auto;
 	max-width: 840px;
 }
 .entry {
 	display: grid;
-	grid-template-columns: minmax(0, 1fr) minmax(0, 3fr) minmax(0, 3fr) minmax(0, 1fr);
+	grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 2fr) minmax(0, 2fr) minmax(0, 1fr);
 	grid-column-gap: 10px;
 	grid-template-areas: 
-		'source creator creator creator'
-		'etymology etymology etymology coined'
-		'book book book book'
-		'. word word .'
-		'. definition definition .';
-	margin: 50px 0px;
+		'source source creator creator creator'
+		'etymology etymology etymology coined coined'
+		'book book book book book'
+		'. word word word .'
+		'. definition definition definition .';
 }
 .word {
 	grid-area: word;
@@ -51,19 +53,22 @@ h1 {
 }
 .etymology {
 	grid-area: etymology;
-	font-style: italic;
+	color: var(--shade-color);
 	text-align: left;
 }
 .source {
 	grid-area: source;
+	color: var(--shade-color);
 	text-align: left;
 }
 .creator {
 	grid-area: creator;
+	color: var(--shade-color);
 	text-align: right;
 }
 .coined {
 	grid-area: coined;
+	color: var(--shade-color);
 	text-align: right;
 }
 .definition {

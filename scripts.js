@@ -34,7 +34,6 @@ function build_word(word) {
 	add_element(word_container, "div", word["word"], "word")
 	add_element(word_container, "div", word["def_english"], "definition")
 	
-	word_container.appendChild(document.createElement("br"))
 	return word_container
 }
 
@@ -43,6 +42,7 @@ function generate_words() {
 		dictionary = document.getElementById("dictionary")
 		word = build_word(data[i])
 		dictionary.appendChild(word)
+		dictionary.appendChild(document.createElement("hr"))
 	}
 }
 
