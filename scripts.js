@@ -19,6 +19,7 @@ function add_text_element(parent, text, classname) {
 
 function build_word(word) {
 	var word_container = document.createElement("div")
+	word_container.id = word["id"]
 	add_text_element(word_container, word["word"], "word")
 	add_text_element(word_container, word["book"], "book")
 	add_text_element(word_container, word["def_english"], "def_english")
