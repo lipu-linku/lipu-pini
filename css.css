@@ -28,8 +28,8 @@ h1 {
 }
 .entry {
 	display: grid;
-	grid-template-columns: 1fr 3fr 3fr 1fr;
-	grid-column-gap: 15px;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 3fr) minmax(0, 3fr) minmax(0, 1fr);
+	grid-column-gap: 10px;
 	grid-template-areas: 
 		'source creator creator creator'
 		'etymology etymology etymology coined'
