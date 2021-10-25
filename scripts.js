@@ -24,15 +24,27 @@ function build_word(word) {
 	word_container.id = word["id"]
 	word_container.className = "entry"
 	
-	add_element(word_container, "div", word["source"], "source")
-	add_element(word_container, "div", word["creator"], "creator")
+	if (word["source"]) {
+		add_element(word_container, "div", word["source"], "source")
+	}
+	if (word["creator"]) {
+		add_element(word_container, "div", word["creator"], "creator")
+	}
 
-	add_element(word_container, "div", word["etymology"], "etymology")
-	add_element(word_container, "div", word["coined"], "coined")
+	if (word["etymology"]) {
+		add_element(word_container, "div", word["etymology"], "etymology")
+	}
+	if (word["coined"]) {
+		add_element(word_container, "div", word["coined"], "coined")
+	}
+	if (word["book"]) {
+		add_element(word_container, "div", word["book"], "book")
+	}
 	
-	add_element(word_container, "div", word["book"], "book")
 	add_element(word_container, "div", word["word"], "word")
-	add_element(word_container, "div", word["sitelen_pona"], "sitelenpona")
+	if (word["sitelen_pona"]) {
+		add_element(word_container, "div", word["sitelen_pona"], "sitelenpona")
+	}
 	add_element(word_container, "div", word["def_english"], "definition")
 	
 	return word_container
