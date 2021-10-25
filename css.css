@@ -4,6 +4,7 @@ body {
 	background-color: var(--bg-color);
 	color: var(--txt-color);
 	font-size: 120%;
+	display: grid;
 }
 :root {
 	--bg-color: #000000;
@@ -21,17 +22,50 @@ h1 {
 	font-family: "Palatino Linotype", "Book Antiqua", serif;
 	font-size: 250%;
 }
-.dictionary {
+#dictionary {
+	margin: auto;
 	max-width: 840px;
 }
+.entry {
+	display: grid;
+	grid-template-columns: 1fr 3fr 3fr 1fr;
+	grid-column-gap: 15px;
+	grid-template-areas: 
+		'source creator creator creator'
+		'etymology etymology etymology coined'
+		'book book book book'
+		'. word word .'
+		'. definition definition .';
+	margin: 50px 0px;
+}
 .word {
+	grid-area: word;
+	font-size: 200%;
 	color: var(--highlight-color);
 	font-weight: bold;
 	font-style: italic;
 }
 .book {
+	grid-area: book;
 	font-style: italic;
 }
 .etymology {
+	grid-area: etymology;
 	font-style: italic;
+	text-align: left;
+}
+.source {
+	grid-area: source;
+	text-align: left;
+}
+.creator {
+	grid-area: creator;
+	text-align: right;
+}
+.coined {
+	grid-area: coined;
+	text-align: right;
+}
+.definition {
+	grid-area: definition;
 }

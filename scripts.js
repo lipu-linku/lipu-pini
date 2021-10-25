@@ -22,23 +22,17 @@ function add_element(parent, tag, text, classname=null) {
 function build_word(word) {
 	var word_container = document.createElement("div")
 	word_container.id = word["id"]
-	add_element(word_container, "div", word["word"], "word")
-	add_element(word_container, "div", word["book"], "book")
-	add_element(word_container, "div", word["def_english"], "def_english")
+	word_container.className = "entry"
 	
-	var etymology_container = document.createElement("div")
-	add_element(etymology_container, "span", "← ")
-	add_element(etymology_container, "span", word["source"], "source")
-	add_element(etymology_container, "span", " ")
-	add_element(etymology_container, "span", word["etymology"], "etymology")
-	word_container.appendChild(etymology_container)
+	add_element(word_container, "div", word["source"], "source")
+	add_element(word_container, "div", word["creator"], "creator")
 
-	var creation_container = document.createElement("div")
-	add_element(creation_container, "span", "created by ")
-	add_element(creation_container, "span", word["creator"], "creator")
-	add_element(creation_container, "span", " in ")
-	add_element(creation_container, "span", word["coined"], "coined")
-	word_container.appendChild(creation_container)
+	add_element(word_container, "div", word["etymology"], "etymology")
+	add_element(word_container, "div", word["coined"], "coined")
+	
+	add_element(word_container, "div", word["book"], "book")
+	add_element(word_container, "div", word["word"], "word")
+	add_element(word_container, "div", word["def_english"], "definition")
 	
 	word_container.appendChild(document.createElement("br"))
 	return word_container
