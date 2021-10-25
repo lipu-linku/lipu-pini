@@ -1,6 +1,17 @@
 body {
-	font-family: Verdana, "Lucida Sans Unicode", sans-serif;
+	font-family: "Noto Serif", Verdana, "Lucida Sans Unicode", sans-serif;
 	text-align: center;
+	background-color: var(--main-bg-color);
+	color: var(--main-txt-color);
+}
+:root {
+	--main-bg-color: #09080e;
+	--main-txt-color: #cccccc;
+	--opposite-bg-color: #dddddd;
+	--opposite-txt-color: #050833;
+	--highlight-bg-color: #f5f5f5;
+	--main-card-color: #242537;
+	--highlight-card-color: #303255;
 }
 
 #colour {
