@@ -10,9 +10,11 @@ function add_text(parent, text) {
 	parent.appendChild(text_node)
 }
 
-function add_text_element(parent, text, classname) {
-	var div = document.createElement("div")
-	div.className = classname
+function add_element(parent, tag, text, classname=null) {
+	var div = document.createElement(tag)
+	if (classname) {
+		div.className = classname
+	}
 	add_text(div, text)
 	parent.appendChild(div)
 }
@@ -20,11 +22,24 @@ function add_text_element(parent, text, classname) {
 function build_word(word) {
 	var word_container = document.createElement("div")
 	word_container.id = word["id"]
-	add_text_element(word_container, word["word"], "word")
-	add_text_element(word_container, word["book"], "book")
-	add_text_element(word_container, word["def_english"], "def_english")
-	add_text_element(word_container, word["etymology"], "etymology")
-	add_text_element(word_container, word["creator"], "creator")
+	add_element(word_container, "div", word["word"], "word")
+	add_element(word_container, "div", word["book"], "book")
+	add_element(word_container, "div", word["def_english"], "def_english")
+	
+	var etymology_container = document.createElement("div")
+	add_element(etymology_container, "span", "← ")
+	add_element(etymology_container, "span", word["source"], "source")
+	add_element(etymology_container, "span", " ")
+	add_element(etymology_container, "span", word["etymology"], "etymology")
+	word_container.appendChild(etymology_container)
+
+	var creation_container = document.createElement("div")
+	add_element(creation_container, "span", "created by ")
+	add_element(creation_container, "span", word["creator"], "creator")
+	add_element(creation_container, "span", " in ")
+	add_element(creation_container, "span", word["coined"], "coined")
+	word_container.appendChild(creation_container)
+	
 	word_container.appendChild(document.createElement("br"))
 	return word_container
 }

@@ -3,6 +3,7 @@ body {
 	text-align: center;
 	background-color: var(--main-bg-color);
 	color: var(--main-txt-color);
+	font-size: 120%;
 }
 :root {
 	--main-bg-color: #09080e;
@@ -28,5 +29,8 @@ h1 {
 	font-style: italic;
 }
 .book {
+	font-style: italic;
+}
+.etymology {
 	font-style: italic;
 }
