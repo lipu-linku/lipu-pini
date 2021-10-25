@@ -14,16 +14,6 @@ body {
 	--highlight-card-color: #303255;
 }
 
-#colour {
-	width: 45%;
-	height: 25%;
-	margin: auto;
-	border-radius: 50%;
-}
-table {
-	border-collapse: collapse;
-	margin: auto;
-}
 input {
 	text-align: center;
 	font-size: 100%;
@@ -32,4 +22,11 @@ input {
 h1 {
 	font-family: "Palatino Linotype", "Book Antiqua", serif;
 	font-size: 250%;
+}
+.word {
+	font-weight: bold;
+	font-style: italic;
+}
+.book {
+	font-style: italic;
 }
