@@ -41,10 +41,10 @@ function build_word(word) {
 		add_element(word_container, "div", word["book"], "book")
 	}
 	
-	add_element(word_container, "div", word["word"], "word")
 	if (word["sitelen_pona"]) {
 		add_element(word_container, "div", word["sitelen_pona"], "sitelenpona")
 	}
+	add_element(word_container, "div", word["word"], "word")
 	add_element(word_container, "div", word["def_english"], "definition")
 	
 	return word_container
