@@ -41,12 +41,7 @@ function build_word(word) {
 	}
 	
 	if (word["sitelen_pona"]) {
-		sp = build_element("div", word["sitelen_pona"], "sitelenpona")
-		//<div style="display:flex;justify-content:center;align-items:center;">Text Content</div>//
-		sp.style.display = "flex"
-		sp.style.justifyContent = "center"
-		sp.style.alignItems = "center"
-		word_container.appendChild(sp)
+		word_container.appendChild(build_element("div", word["sitelen_pona"], "sitelenpona"))
 	}
 	word_container.appendChild(build_element("div", word["word"], "word"))
 	word_container.appendChild(build_element("div", word["def_english"], "definition"))

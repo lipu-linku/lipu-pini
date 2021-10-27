@@ -83,6 +83,9 @@ hr {
 }
 .sitelenpona {
 	grid-area: sitelenpona;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	font-family: "linja sike";
 	font-size: 300%;
 }
