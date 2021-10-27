@@ -5,18 +5,17 @@ function Get(yourUrl) {
     return Httpreq.responseText
 }
 
-function add_text(parent, text) {
-	var text_node = document.createTextNode(text)
-	parent.appendChild(text_node)
+function build_text(text) {
+	return document.createTextNode(text)
 }
 
-function add_element(parent, tag, text, classname=null) {
+function build_element(tag, text, classname=null) {
 	var div = document.createElement(tag)
 	if (classname) {
 		div.className = classname
 	}
-	add_text(div, text)
-	parent.appendChild(div)
+	div.appendChild(build_text(text))
+	return div
 }
 
 function build_word(word) {
@@ -25,36 +24,41 @@ function build_word(word) {
 	word_container.className = "entry"
 	
 	if (word["source"]) {
-		add_element(word_container, "div", word["source"], "source")
+		word_container.appendChild(build_element("div", word["source"], "source"))
 	}
 	if (word["creator"]) {
-		add_element(word_container, "div", word["creator"], "creator")
+		word_container.appendChild(build_element("div", word["creator"], "creator"))
 	}
 
 	if (word["etymology"]) {
-		add_element(word_container, "div", word["etymology"], "etymology")
+		word_container.appendChild(build_element("div", word["etymology"], "etymology"))
 	}
 	if (word["coined"]) {
-		add_element(word_container, "div", word["coined"], "coined")
+		word_container.appendChild(build_element("div", word["coined"], "coined"))
 	}
 	if (word["book"]) {
-		add_element(word_container, "div", word["book"], "book")
+		word_container.appendChild(build_element("div", word["book"], "book"))
 	}
 	
 	if (word["sitelen_pona"]) {
-		add_element(word_container, "div", word["sitelen_pona"], "sitelenpona")
+		sp = build_element("div", word["sitelen_pona"], "sitelenpona")
+		//<div style="display:flex;justify-content:center;align-items:center;">Text Content</div>//
+		sp.style.display = "flex"
+		sp.style.justifyContent = "center"
+		sp.style.alignItems = "center"
+		word_container.appendChild(sp)
 	}
-	add_element(word_container, "div", word["word"], "word")
-	add_element(word_container, "div", word["def_english"], "definition")
+	word_container.appendChild(build_element("div", word["word"], "word"))
+	word_container.appendChild(build_element("div", word["def_english"], "definition"))
 	
 	return word_container
 }
 
-function generate_words() {
+function main() {
+	// Generate words
 	for (var i = 0; i < data.length; i++) {
 		dictionary = document.getElementById("dictionary")
-		word = build_word(data[i])
-		dictionary.appendChild(word)
+		dictionary.appendChild(build_word(data[i]))
 		dictionary.appendChild(document.createElement("hr"))
 	}
 }

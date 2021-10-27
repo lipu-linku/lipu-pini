@@ -32,7 +32,7 @@ h1 {
 hr {
 	border-color: var(--shade-color)
 }
-#dictionary {
+.page_width_limiter {
 	margin: auto;
 	max-width: 840px;
 }
@@ -43,7 +43,7 @@ hr {
 	grid-template-areas: 
 		'source source creator creator creator'
 		'etymology etymology etymology coined coined'
-		'book book book book book'
+		'sitelenpona book book book .'
 		'sitelenpona word word word .'
 		'sitelenpona definition definition definition .';
 }
