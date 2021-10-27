@@ -89,3 +89,6 @@ hr {
 	font-family: "linja sike";
 	font-size: 300%;
 }
+.shaded {
+	color: var(--shade-color);
+}
