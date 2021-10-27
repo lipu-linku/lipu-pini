@@ -25,6 +25,7 @@ function fill_dictionary() {
 			dictionary.appendChild(build_word(data[i]))
 		}
 	}
+	search_changed(document.getElementById("searchbar"))
 }
 function clear_dictionary() {
 	dictionary = document.getElementById("dictionary")
@@ -81,8 +82,6 @@ function main() {
 	book_select_default()
 	// Generate words
 	fill_dictionary()
-	// Satisfy search bar
-	search_changed(document.getElementById("searchbar"))
 }
 
 function build_select_option(option_value, text) {
