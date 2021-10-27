@@ -22,8 +22,20 @@ body {
 
 input {
 	text-align: center;
-	font-size: 100%;
-	width: 45%;
+	font-size: 180%;
+	font-family: inherit;
+	font-weight: bold;
+	font-style: italic;
+	width: 400px;
+	background-color: var(--bg-color);
+	color: var(--highlight-color);
+	padding: 0;
+	border-color: var(--shade-color);
+	margin-top: 10px;
+}
+::placeholder {
+  color: var(--shade-color);
+  opacity: 0.5;
 }
 h1 {
 	font-family: "Palatino Linotype", "Book Antiqua", serif;
@@ -35,17 +47,25 @@ hr {
 .page_width_limiter {
 	margin: auto;
 	max-width: 840px;
+	width: -moz-available;          /* WebKit-based browsers will ignore this. */
+    width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+    width: fill-available;
 }
 .entry {
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 2fr) minmax(0, 2fr) minmax(0, 1fr);
 	grid-column-gap: 10px;
 	grid-template-areas: 
+		'hr hr hr hr hr'
 		'source source creator creator creator'
 		'etymology etymology etymology coined coined'
 		'sitelenpona book book book .'
 		'sitelenpona word word word .'
 		'sitelenpona definition definition definition .';
+}
+hr {
+	grid-area: hr;
+	width: 100%;
 }
 .word {
 	grid-area: word;

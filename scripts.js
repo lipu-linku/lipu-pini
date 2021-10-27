@@ -23,7 +23,6 @@ function fill_dictionary() {
 	for (var i = 0; i < data.length; i++) {
 		if (localStorage.getItem(books_to_checkboxes[data[i]["book"]]) === "true") {
 			dictionary.appendChild(build_word(data[i]))
-			dictionary.appendChild(document.createElement("hr"))
 		}
 	}
 }
@@ -38,6 +37,8 @@ function build_word(word) {
 	var word_container = document.createElement("div")
 	word_container.id = word["id"]
 	word_container.className = "entry"
+	
+	word_container.appendChild(document.createElement("hr"))
 	
 	if (word["source"]) {
 		word_container.appendChild(build_element("div", word["source"], "source"))
@@ -80,6 +81,8 @@ function main() {
 	book_select_default()
 	// Generate words
 	fill_dictionary()
+	// Satisfy search bar
+	search_changed(document.getElementById("searchbar"))
 }
 
 function build_select_option(option_value, text) {
@@ -163,6 +166,18 @@ function book_select_changed() {
 	}
 	clear_dictionary()
 	fill_dictionary()
+}
+
+function search_changed(searchbar) {
+	search = searchbar.value.trim()
+	entries = document.getElementsByClassName("entry")
+	for (var i = 0; i < entries.length; i++) {
+		if (entries[i].id.startsWith(search)) {
+			entries[i].style.display = "grid"
+		} else {
+			entries[i].style.display = "none"
+		}
+	}
 }
 
 const data_url = "https://lipu-linku.github.io/jasima/data.json"
