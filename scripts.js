@@ -21,8 +21,10 @@ function build_element(tag, text, classname=null) {
 function fill_dictionary() {
 	dictionary = document.getElementById("dictionary")
 	for (var i = 0; i < data.length; i++) {
-		dictionary.appendChild(build_word(data[i]))
-		dictionary.appendChild(document.createElement("hr"))
+		if (localStorage.getItem(books_to_checkboxes[data[i]["book"]]) === "true") {
+			dictionary.appendChild(build_word(data[i]))
+			dictionary.appendChild(document.createElement("hr"))
+		}
 	}
 }
 function clear_dictionary() {
@@ -74,10 +76,18 @@ function build_word(word) {
 function main() {
 	// Select language
 	language_select_default()
+	// Select book
+	book_select_default()
 	// Generate words
 	fill_dictionary()
 }
 
+function build_select_option(option_value, text) {
+	option_node = document.createElement("option")
+	option_node.value = option_value
+	option_node.appendChild(build_text(text))
+	return option_node
+}
 function language_select_default() {
 	if (!localStorage.getItem("selected_language")) {
 		localStorage.setItem("selected_language", "en")
@@ -99,12 +109,62 @@ function language_select_changed(select_node) {
 	fill_dictionary()
 }
 
-function build_select_option(option_value, text) {
-	option_node = document.createElement("option")
-	option_node.value = option_value
-	option_node.appendChild(build_text(text))
-	return option_node
+function book_select_default() {
+	if (!localStorage.getItem("checkbox_pu")) {
+		localStorage.setItem("checkbox_pu", true)
+	}
+	if (!localStorage.getItem("checkbox_kusuli")) {
+		localStorage.setItem("checkbox_kusuli", true)
+	}
+	if (!localStorage.getItem("checkbox_kulili")) {
+		localStorage.setItem("checkbox_kulili", false)
+	}
+	if (!localStorage.getItem("checkbox_none")) {
+		localStorage.setItem("checkbox_none", false)
+	}
+	book_selector = document.getElementById("book_selector")
+	for (var i = 0; i < checkbox_names.length; i++) {
+		book_selector.appendChild(build_checkbox_option(checkbox_names[i], localStorage.getItem(checkbox_names[i]) === "true"))
+	}
 }
+function build_checkbox_option(name, value) {
+	container = document.createElement("label")
+	container.className = "container"
+	container.appendChild(build_text(checkbox_labels[name]))
+	
+	checkbox = document.createElement("input")
+	checkbox.type = "checkbox"
+	checkbox.id = name
+	checkbox.checked = value
+	checkbox.onchange = book_select_changed
+	
+	container.appendChild(checkbox)
+	
+	checkmark = document.createElement("span")
+	checkmark.className = "checkmark"
+	container.appendChild(checkmark)
+	return container
+	/*checkbox = document.createElement("input")
+	checkbox.type = "checkbox"
+	checkbox.id = name
+	checkbox.checked = value
+	checkbox.onchange = book_select_changed
+	return checkbox*/
+}
+function book_select_changed() {
+	for (var i = 0; i < checkbox_names.length; i++) {
+		if ((localStorage.getItem(checkbox_names[i]) === "true") != document.getElementById(checkbox_names[i]).checked) {
+			if (localStorage.getItem(checkbox_names[i]) === "true") {
+				localStorage.setItem(checkbox_names[i], false)
+			} else {
+				localStorage.setItem(checkbox_names[i], true)
+			}
+		}
+	}
+	clear_dictionary()
+	fill_dictionary()
+}
+
 const data_url = "https://lipu-linku.github.io/jasima/data.json"
 var data = JSON.parse(Get(data_url))
 const languages = {
@@ -133,3 +193,6 @@ const language_keys = {
 	"tok": "def_toki_pona",
 	"ur": "def_urdu"
 }
+const checkbox_names = ["checkbox_pu", "checkbox_kusuli", "checkbox_kulili", "checkbox_none"]
+const books_to_checkboxes = {"pu": "checkbox_pu", "ku suli": "checkbox_kusuli", "ku lili": "checkbox_kulili", "none": "checkbox_none"}
+const checkbox_labels = {"checkbox_pu": "show pu words", "checkbox_kusuli": "show ku suli words", "checkbox_kulili": "show ku lili words", "checkbox_none": "show other words"}

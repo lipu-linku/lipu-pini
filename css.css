@@ -10,7 +10,7 @@ body {
 	text-align: center;
 	background-color: var(--bg-color);
 	color: var(--txt-color);
-	font-size: 120%;
+	font-size: 110%;
 	display: grid;
 }
 :root {
@@ -91,4 +91,7 @@ hr {
 }
 .shaded {
 	color: var(--shade-color);
+}
+#book_selector {
+	display: inline-grid;
 }
