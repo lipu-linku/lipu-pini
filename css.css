@@ -62,7 +62,8 @@ hr {
 		'sitelenpona book book book sitelensitelen'
 		'sitelenpona word word word sitelensitelen'
 		'sitelenpona definition definition definition sitelensitelen'
-		'. seealso seealso seealso .';
+		'. seealso seealso seealso .'
+		'. sources sources sources .';
 }
 hr {
 	grid-area: hr;
@@ -104,6 +105,10 @@ hr {
 }
 .seealso {
 	grid-area: seealso;
+	color: var(--shade-color);
+}
+.sources {
+	grid-area: sources;
 	color: var(--shade-color);
 }
 .sitelenpona {
