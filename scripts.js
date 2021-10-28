@@ -48,7 +48,7 @@ function build_word(word) {
 	word_container.appendChild(document.createElement("hr"))
 	
 	if (word["source"]) {
-		word_container.appendChild(build_element("div", word["source"], "source"))
+		word_container.appendChild(build_element("div", word["source_language"], "sourcelanguage"))
 	}
 	if (word["creator"]) {
 		word_container.appendChild(build_element("div", word["creator"], "creator"))

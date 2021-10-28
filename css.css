@@ -57,7 +57,7 @@ hr {
 	grid-column-gap: 10px;
 	grid-template-areas: 
 		'hr hr hr hr hr'
-		'source source creator creator creator'
+		'sourcelanguage sourcelanguage creator creator creator'
 		'etymology etymology etymology coined coined'
 		'sitelenpona book book book sitelensitelen'
 		'sitelenpona word word word sitelensitelen'
@@ -84,8 +84,8 @@ hr {
 	color: var(--shade-color);
 	text-align: left;
 }
-.source {
-	grid-area: source;
+.sourcelanguage {
+	grid-area: sourcelanguage;
 	color: var(--shade-color);
 	text-align: left;
 }
