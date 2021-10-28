@@ -61,7 +61,8 @@ hr {
 		'etymology etymology etymology coined coined'
 		'sitelenpona book book book .'
 		'sitelenpona word word word .'
-		'sitelenpona definition definition definition .';
+		'sitelenpona definition definition definition .'
+		'. seealso seealso seealso .';
 }
 hr {
 	grid-area: hr;
@@ -100,6 +101,10 @@ hr {
 }
 .definition {
 	grid-area: definition;
+}
+.seealso {
+	grid-area: seealso;
+	color: var(--shade-color);
 }
 .sitelenpona {
 	grid-area: sitelenpona;

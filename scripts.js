@@ -70,6 +70,9 @@ function build_word(word) {
 	} else {
 		word_container.appendChild(build_element("div", "(en) " + word["def_english"], "shaded definition"))
 	}
+	if (word["see_also"]) {
+		word_container.appendChild(build_element("div", "{see " + word["see_also"] + "}", "seealso"))
+	}
 	
 	
 	return word_container
