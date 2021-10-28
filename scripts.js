@@ -21,8 +21,14 @@ function build_element(tag, text, classname=null) {
 function fill_dictionary() {
 	dictionary = document.getElementById("dictionary")
 	for (var i = 0; i < data.length; i++) {
-		if (localStorage.getItem(books_to_checkboxes[data[i]["book"]]) === "true") {
-			dictionary.appendChild(build_word(data[i]))
+		if (!show_word) {
+			if (localStorage.getItem(books_to_checkboxes[data[i]["book"]]) === "true") {
+				dictionary.appendChild(build_word(data[i]))
+			}
+		} else {
+			if (show_word == data[i]["word"]) {
+				dictionary.appendChild(build_word(data[i]))
+			}
 		}
 	}
 	search_changed(document.getElementById("searchbar"))
@@ -89,6 +95,9 @@ function build_word(word) {
 }
 
 function main() {
+	if (urlParams.get('q')) {
+		single_word_mode()
+	}
 	// Select language
 	language_select_default()
 	// Select book
@@ -185,11 +194,32 @@ function search_changed(searchbar) {
 	entries = document.getElementsByClassName("entry")
 	for (var i = 0; i < entries.length; i++) {
 		if (entries[i].id.startsWith(search)) {
-			entries[i].style.display = "grid"
+			entries[i].style.display = ""
 		} else {
 			entries[i].style.display = "none"
 		}
 	}
+}
+
+function single_word_mode() {
+	show_word = urlParams.get('q')
+	document.getElementById("searchbar").value = ""
+	document.getElementById("book_selector").style.display = "none"
+	document.getElementById("searchbar").style.display = "none"
+	document.getElementById("normal_mode_button").style.display = "initial"
+	/*normal_mode_button = document.createElement("button")
+	normal_mode_button.appendChild(build_text("Show other words"))
+	normal_mode_button.id = "normal_mode_button"
+	normal_mode_button.addEventListener("click", normal_mode)
+	document.getElementsByClassName("page_width_limiter")[0].appendChild(normal_mode_button)*/
+}
+function normal_mode() {
+	show_word = null
+	clear_dictionary()
+	fill_dictionary()
+	document.getElementById("book_selector").style.display = ""
+	document.getElementById("searchbar").style.display = ""
+	document.getElementById("normal_mode_button").style.display = "none"
 }
 
 const data_url = "https://lipu-linku.github.io/jasima/data.json"
@@ -223,3 +253,5 @@ const language_keys = {
 const checkbox_names = ["checkbox_pu", "checkbox_kusuli", "checkbox_kulili", "checkbox_none"]
 const books_to_checkboxes = {"pu": "checkbox_pu", "ku suli": "checkbox_kusuli", "ku lili": "checkbox_kulili", "none": "checkbox_none"}
 const checkbox_labels = {"checkbox_pu": "show pu words", "checkbox_kusuli": "show ku suli words", "checkbox_kulili": "show ku lili words", "checkbox_none": "show other words"}
+const urlParams = new URLSearchParams(window.location.search)
+var show_word = null

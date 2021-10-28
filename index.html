@@ -11,7 +11,6 @@
 	</head>
 	<body onload="main()">
 		<div class="page_width_limiter">
-
 			<select id="language_selector" onchange="language_select_changed(this)">
 			</select>
 			<div>
@@ -19,6 +18,7 @@
 				</div>
 			</div>
 			<input id="searchbar" placeholder="nimi" onkeyup="search_changed(this)"></input>
+			<button id="normal_mode_button" onclick="normal_mode()">More words</button>
 			<div id="dictionary">
 			</div>
 		</div>

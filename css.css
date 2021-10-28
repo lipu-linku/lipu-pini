@@ -126,3 +126,6 @@ hr {
 #book_selector {
 	display: inline-grid;
 }
+#normal_mode_button {
+	display: none;
+}
