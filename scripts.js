@@ -70,6 +70,16 @@ function build_word(word) {
 	} else {
 		word_container.appendChild(build_element("div", "(en) " + word["def_english"], "shaded definition"))
 	}
+	if (word["sitelen_sitelen"]) {
+		sitelen_sitelen = document.createElement("img")
+		sitelen_sitelen.className = "sitelensitelen"
+		sitelen_sitelen.style.filter = "invert(100%)"
+		sitelen_sitelen.style.height = "50px"
+		sitelen_sitelen.style.width = "50px"
+		sitelen_sitelen.style.margin = "auto"
+		sitelen_sitelen.src = word["sitelen_sitelen"]
+		word_container.appendChild(sitelen_sitelen)
+	}
 	if (word["see_also"]) {
 		word_container.appendChild(build_element("div", "{see " + word["see_also"] + "}", "seealso"))
 	}

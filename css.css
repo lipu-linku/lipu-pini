@@ -59,9 +59,9 @@ hr {
 		'hr hr hr hr hr'
 		'source source creator creator creator'
 		'etymology etymology etymology coined coined'
-		'sitelenpona book book book .'
-		'sitelenpona word word word .'
-		'sitelenpona definition definition definition .'
+		'sitelenpona book book book sitelensitelen'
+		'sitelenpona word word word sitelensitelen'
+		'sitelenpona definition definition definition sitelensitelen'
 		'. seealso seealso seealso .';
 }
 hr {
@@ -113,6 +113,12 @@ hr {
 	align-items: center;
 	font-family: "linja sike";
 	font-size: 300%;
+}
+.sitelensitelen {
+	grid-area: sitelensitelen;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .shaded {
 	color: var(--shade-color);
