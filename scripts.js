@@ -89,8 +89,8 @@ function build_word(id, word) {
 	if (word["see_also"]) {
 		word_container.appendChild(build_element("div", "{see " + word["see_also"] + "}", "seealso"))
 	}
-	if (word["sources"]) {
-		word_container.appendChild(build_element("div", word["sources"], "sources"))
+	if (word["commentary"]) {
+		word_container.appendChild(build_element("div", word["commentary"], "commentary"))
 	}
 	
 	
