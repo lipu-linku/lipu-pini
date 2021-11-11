@@ -57,8 +57,9 @@ function build_word(id, word) {
 	if (word["etymology"]) {
 		word_container.appendChild(build_element("div", word["etymology"], "etymology"))
 	}
-	if (word["coined"]) {
-		word_container.appendChild(build_element("div", word["coined"], "coined"))
+	coined = [word["coined_year"] ? word["coined_year"] + " " : "", word["coined_era"] ? "(" + word["coined_era"] + ")" : ""].join(" ")
+	if (coined) {
+		word_container.appendChild(build_element("div", coined, "coined"))
 	}
 	if (word["book"]) {
 		word_container.appendChild(build_element("div", word["book"], "book"))
