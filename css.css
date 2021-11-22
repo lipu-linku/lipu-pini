@@ -17,6 +17,7 @@ body {
 	--bg-color: #000000;
 	--txt-color: #ffffff;
 	--highlight-color: #ffab40;
+	--link-color: #008472;
 	--shade-color: #999999;
 }
 
@@ -33,16 +34,27 @@ input {
 	border-color: var(--shade-color);
 	margin-top: 10px;
 }
+a {
+	color: var(--link-color);
+	text-decoration: none;
+}
+.navlink {
+	display: block;
+	margin: 10px 0px 15px 0px;
+	font-size: 120%;
+}
+.code {
+	color: var(--shade-color);
+	font-family: "Courier New";
+	font-weight: bold;
+	margin: 4px;
+}
+h1, h2 {
+	color: var(--highlight-color);
+}
 ::placeholder {
   color: var(--shade-color);
   opacity: 0.5;
-}
-h1 {
-	font-family: "Palatino Linotype", "Book Antiqua", serif;
-	font-size: 250%;
-}
-hr {
-	border-color: var(--shade-color)
 }
 .page_width_limiter {
 	margin: auto;
@@ -68,6 +80,7 @@ hr {
 		'commentary commentary commentary commentary commentary';
 }
 hr {
+	border-color: var(--shade-color);
 	grid-area: hr;
 	width: 100%;
 }
