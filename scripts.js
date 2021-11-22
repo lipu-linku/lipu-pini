@@ -64,6 +64,14 @@ function build_word(id, word) {
 	if (word["book"]) {
 		word_container.appendChild(build_element("div", word["book"], "book"))
 	}
+	if (word["recognition"]) {
+		for (var date in word["recognition"]) {
+			percent = word["recognition"][date]
+			recognition = "recognition: " + percent + "% (" + date + ")"
+			word_container.appendChild(build_element("div", recognition, "recognition"))
+			break
+		}
+	}
 	
 	if (word["sitelen_pona"]) {
 		word_container.appendChild(build_element("div", word["sitelen_pona"], "sitelenpona"))

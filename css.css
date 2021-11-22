@@ -60,6 +60,7 @@ hr {
 		'sourcelanguage sourcelanguage creator creator creator'
 		'etymology etymology etymology coined coined'
 		'sitelenpona book book book sitelensitelen'
+		'sitelenpona recognition recognition recognition sitelensitelen'
 		'sitelenpona word word word sitelensitelen'
 		'sitelenpona definition definition definition sitelensitelen'
 		'. seealso seealso seealso .'
@@ -79,6 +80,11 @@ hr {
 }
 .book {
 	grid-area: book;
+	font-style: italic;
+}
+.recognition {
+	grid-area: recognition;
+	color: var(--shade-color);
 	font-style: italic;
 }
 .etymology {
