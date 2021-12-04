@@ -88,10 +88,10 @@ function build_word(id, word) {
 	if (word["sitelen_sitelen"]) {
 		sitelen_sitelen = document.createElement("img")
 		sitelen_sitelen.className = "sitelensitelen"
-		sitelen_sitelen.style.filter = "invert(100%)"
-		sitelen_sitelen.style.height = "50px"
-		sitelen_sitelen.style.width = "50px"
-		sitelen_sitelen.style.margin = "auto"
+		//sitelen_sitelen.style.filter = "invert(100%)"
+		//sitelen_sitelen.style.height = "50px"
+		//sitelen_sitelen.style.width = "50px"
+		//sitelen_sitelen.style.margin = "auto"
 		sitelen_sitelen.src = word["sitelen_sitelen"]
 		word_container.appendChild(sitelen_sitelen)
 	}
@@ -119,6 +119,25 @@ function main() {
 	book_select_default()
 	// Generate words
 	fill_dictionary()
+	
+	// Yes, it doesn't belong here. yes, its a hack. no, i don't care
+	checkbox_ku_data = document.getElementById("checkbox_ku_data")
+	checkbox_ku_data.checked = localStorage.display_ku_data === 'true';
+	if (checkbox_ku_data.checked) document.body.classList.add('display_ku_data');
+	checkbox_ku_data.addEventListener('change', function(e) {
+		localStorage.display_ku_data = e.target.checked;
+		if (e.target.checked) document.body.classList.add('display_ku_data');
+		else document.body.classList.remove('display_ku_data')
+	});
+	// Yes, its the same code copied twice. no, i don't care
+	checkbox_light_mode = document.getElementById("checkbox_light_mode")
+	checkbox_light_mode.checked = localStorage.light_mode === 'true';
+	if (checkbox_light_mode.checked) document.body.classList.add('light_mode');
+	checkbox_light_mode.addEventListener('change', function(e) {
+		localStorage.light_mode = e.target.checked;
+		if (e.target.checked) document.body.classList.add('light_mode');
+		else document.body.classList.remove('light_mode')
+	});
 }
 
 function build_select_option(option_value, text) {
@@ -236,6 +255,7 @@ function normal_mode() {
 	document.getElementById("searchbar").style.display = ""
 	document.getElementById("normal_mode_button").style.display = "none"
 }
+
 
 const bundle_url = "https://lipu-linku.github.io/jasima/data.json"
 const bundle = JSON.parse(Get(bundle_url))
