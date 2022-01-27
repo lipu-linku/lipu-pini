@@ -227,7 +227,7 @@ function search_changed(searchbar) {
 	search = searchbar.value.trim()
 	entries = document.getElementsByClassName("entry")
 	for (var i = 0; i < entries.length; i++) {
-		if (entries[i].id.startsWith(search)) {
+		if (entries[i].id.includes(search)) {
 			entries[i].style.display = ""
 		} else {
 			entries[i].style.display = "none"
