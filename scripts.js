@@ -224,7 +224,7 @@ function book_select_changed() {
 }
 
 function search_changed(searchbar) {
-	search = searchbar.value.trim()
+	search = searchbar.value.trim().toLowerCase()
 	entries = document.getElementsByClassName("entry")
 	for (var i = 0; i < entries.length; i++) {
 		if (entries[i].id.includes(search)) {
