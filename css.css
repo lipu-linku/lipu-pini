@@ -169,7 +169,13 @@ hr {
 .shaded {
 	color: var(--shade-color);
 }
+#checkbox_container {
+	display: inline-block;
+}
 #book_selector {
+	display: inline-grid;
+}
+#search_selector {
 	display: inline-grid;
 }
 #normal_mode_button {
