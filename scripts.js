@@ -191,6 +191,11 @@ function book_select_default() {
 	for (var i = 0; i < checkbox_names.length; i++) {
 		book_selector.appendChild(build_checkbox_option(checkbox_names[i], localStorage.getItem(checkbox_names[i]) === "true"))
 	}
+
+	search_selector = document.getElementById("search_selector")
+	for (var i = 0; i < checkbox_search_names.length; i++) {
+		search_selector.appendChild(build_checkbox_option(checkbox_search_names[i], localStorage.getItem(checkbox_search_names[i]) === "true"))
+	}
 }
 function build_checkbox_option(name, value) {
 	container = document.createElement("label")
@@ -269,8 +274,9 @@ const bundle = JSON.parse(Get(bundle_url))
 const data = bundle["data"]
 const languages = bundle["languages"]
 
+const checkbox_search_names = ["checkbox_fuzzy", "checkbox_definitions"]
 const checkbox_names = ["checkbox_pu", "checkbox_kusuli", "checkbox_kulili", "checkbox_none"]
 const books_to_checkboxes = {"pu": "checkbox_pu", "ku suli": "checkbox_kusuli", "ku lili": "checkbox_kulili", "none": "checkbox_none"}
-const checkbox_labels = {"checkbox_pu": "show pu words", "checkbox_kusuli": "show ku suli words", "checkbox_kulili": "show ku lili words", "checkbox_none": "show other words"}
+const checkbox_labels = {"checkbox_pu": "show pu words", "checkbox_kusuli": "show ku suli words", "checkbox_kulili": "show ku lili words", "checkbox_none": "show other words", "checkbox_fuzzy": "fuzzy search", "checkbox_definitions": "definition search"}
 const urlParams = new URLSearchParams(window.location.search)
 var show_word = null
