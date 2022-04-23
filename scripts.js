@@ -244,9 +244,14 @@ function str_matches(str1, str2) {
 
 function search_changed(searchbar) {
 	search = searchbar.value.trim()
+    search_defs = document.getElementById("checkbox_definitions").checked
 	entries = document.getElementsByClassName("entry")
 	for (var i = 0; i < entries.length; i++) {
         var match = entries[i].id
+        if (search_defs) {
+            match = entries[i].querySelector(".definition").textContent
+        }
+
 		if (str_matches(match, search)) {
 			entries[i].style.display = ""
 		} else {
