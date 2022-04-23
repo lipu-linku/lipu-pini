@@ -235,11 +235,19 @@ function book_select_changed() {
 	fill_dictionary()
 }
 
+function str_matches(str1, str2) {
+	fuzzy = document.getElementById("checkbox_fuzzy").checked
+    if (fuzzy) {
+        return str1.fuzzy(str2)
+    } return str1.includes(str2)
+}
+
 function search_changed(searchbar) {
 	search = searchbar.value.trim()
 	entries = document.getElementsByClassName("entry")
 	for (var i = 0; i < entries.length; i++) {
-		if (entries[i].id.includes(search)) {
+        var match = entries[i].id
+		if (str_matches(match, search)) {
 			entries[i].style.display = ""
 		} else {
 			entries[i].style.display = "none"
