@@ -206,7 +206,7 @@ function build_checkbox_option(name, value) {
 	checkbox.type = "checkbox"
 	checkbox.id = name
 	checkbox.checked = value
-	checkbox.onchange = book_select_changed
+	checkbox.onchange = checkbox_changed
 	
 	container.appendChild(checkbox)
 	
@@ -218,16 +218,17 @@ function build_checkbox_option(name, value) {
 	checkbox.type = "checkbox"
 	checkbox.id = name
 	checkbox.checked = value
-	checkbox.onchange = book_select_changed
+	checkbox.onchange = checkbox_changed
 	return checkbox*/
 }
-function book_select_changed() {
-	for (var i = 0; i < checkbox_names.length; i++) {
-		if ((localStorage.getItem(checkbox_names[i]) === "true") != document.getElementById(checkbox_names[i]).checked) {
-			if (localStorage.getItem(checkbox_names[i]) === "true") {
-				localStorage.setItem(checkbox_names[i], false)
+function checkbox_changed() {
+    var all_checkboxes = checkbox_names.concat(checkbox_search_names)
+	for (var i = 0; i < all_checkboxes.length; i++) {
+		if ((localStorage.getItem(all_checkboxes[i]) === "true") != document.getElementById(all_checkboxes[i]).checked) {
+			if (localStorage.getItem(all_checkboxes[i]) === "true") {
+				localStorage.setItem(all_checkboxes[i], false)
 			} else {
-				localStorage.setItem(checkbox_names[i], true)
+				localStorage.setItem(all_checkboxes[i], true)
 			}
 		}
 	}
