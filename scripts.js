@@ -1,3 +1,10 @@
+String.prototype.fuzzy = function (s) {
+    var hay = this.toLowerCase(), i = 0, n = -1, l;
+    s = s.toLowerCase();
+    for (; l = s[i++] ;) if (!~(n = hay.indexOf(l, n + 1))) return false;
+    return true;
+};
+
 function Get(yourUrl) {
     var Httpreq = new XMLHttpRequest()
     Httpreq.open("GET", yourUrl, false)
@@ -184,6 +191,11 @@ function book_select_default() {
 	for (var i = 0; i < checkbox_names.length; i++) {
 		book_selector.appendChild(build_checkbox_option(checkbox_names[i], localStorage.getItem(checkbox_names[i]) === "true"))
 	}
+
+	search_selector = document.getElementById("search_selector")
+	for (var i = 0; i < checkbox_search_names.length; i++) {
+		search_selector.appendChild(build_checkbox_option(checkbox_search_names[i], localStorage.getItem(checkbox_search_names[i]) === "true"))
+	}
 }
 function build_checkbox_option(name, value) {
 	container = document.createElement("label")
@@ -194,7 +206,7 @@ function build_checkbox_option(name, value) {
 	checkbox.type = "checkbox"
 	checkbox.id = name
 	checkbox.checked = value
-	checkbox.onchange = book_select_changed
+	checkbox.onchange = checkbox_changed
 	
 	container.appendChild(checkbox)
 	
@@ -206,16 +218,17 @@ function build_checkbox_option(name, value) {
 	checkbox.type = "checkbox"
 	checkbox.id = name
 	checkbox.checked = value
-	checkbox.onchange = book_select_changed
+	checkbox.onchange = checkbox_changed
 	return checkbox*/
 }
-function book_select_changed() {
-	for (var i = 0; i < checkbox_names.length; i++) {
-		if ((localStorage.getItem(checkbox_names[i]) === "true") != document.getElementById(checkbox_names[i]).checked) {
-			if (localStorage.getItem(checkbox_names[i]) === "true") {
-				localStorage.setItem(checkbox_names[i], false)
+function checkbox_changed() {
+    var all_checkboxes = checkbox_names.concat(checkbox_search_names)
+	for (var i = 0; i < all_checkboxes.length; i++) {
+		if ((localStorage.getItem(all_checkboxes[i]) === "true") != document.getElementById(all_checkboxes[i]).checked) {
+			if (localStorage.getItem(all_checkboxes[i]) === "true") {
+				localStorage.setItem(all_checkboxes[i], false)
 			} else {
-				localStorage.setItem(checkbox_names[i], true)
+				localStorage.setItem(all_checkboxes[i], true)
 			}
 		}
 	}
@@ -223,11 +236,24 @@ function book_select_changed() {
 	fill_dictionary()
 }
 
+function str_matches(str1, str2) {
+	fuzzy = document.getElementById("checkbox_fuzzy").checked
+    if (fuzzy) {
+        return str1.fuzzy(str2)
+    } return str1.includes(str2)
+}
+
 function search_changed(searchbar) {
 	search = searchbar.value.trim()
+    search_defs = document.getElementById("checkbox_definitions").checked
 	entries = document.getElementsByClassName("entry")
 	for (var i = 0; i < entries.length; i++) {
-		if (entries[i].id.includes(search)) {
+        var match = entries[i].id
+        if (search_defs) {
+            match = entries[i].querySelector(".definition").textContent
+        }
+
+		if (str_matches(match, search)) {
 			entries[i].style.display = ""
 		} else {
 			entries[i].style.display = "none"
@@ -262,8 +288,9 @@ const bundle = JSON.parse(Get(bundle_url))
 const data = bundle["data"]
 const languages = bundle["languages"]
 
+const checkbox_search_names = ["checkbox_fuzzy", "checkbox_definitions"]
 const checkbox_names = ["checkbox_pu", "checkbox_kusuli", "checkbox_kulili", "checkbox_none"]
 const books_to_checkboxes = {"pu": "checkbox_pu", "ku suli": "checkbox_kusuli", "ku lili": "checkbox_kulili", "none": "checkbox_none"}
-const checkbox_labels = {"checkbox_pu": "show pu words", "checkbox_kusuli": "show ku suli words", "checkbox_kulili": "show ku lili words", "checkbox_none": "show other words"}
+const checkbox_labels = {"checkbox_pu": "show pu words", "checkbox_kusuli": "show ku suli words", "checkbox_kulili": "show ku lili words", "checkbox_none": "show other words", "checkbox_fuzzy": "fuzzy search", "checkbox_definitions": "definition search"}
 const urlParams = new URLSearchParams(window.location.search)
 var show_word = null
