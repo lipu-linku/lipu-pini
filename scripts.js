@@ -1,7 +1,6 @@
 String.prototype.fuzzy = function (s) {
-    var hay = this.toLowerCase(), i = 0, n = -1, l;
-    s = s.toLowerCase();
-    for (; l = s[i++] ;) if (!~(n = hay.indexOf(l, n + 1))) return false;
+    var i = 0, n = -1, l;
+    for (; l = s[i++] ;) if (!~(n = this.indexOf(l, n + 1))) return false;
     return true;
 };
 
@@ -122,8 +121,8 @@ function main() {
 	}
 	// Select language
 	language_select_default()
-	// Select book
-	book_select_default()
+	// Select options
+	checkbox_select_default()
 	// Generate words
 	fill_dictionary()
 	
@@ -174,19 +173,12 @@ function language_select_changed(select_node) {
 	fill_dictionary()
 }
 
-function book_select_default() {
-	if (!localStorage.getItem("checkbox_pu")) {
-		localStorage.setItem("checkbox_pu", true)
-	}
-	if (!localStorage.getItem("checkbox_kusuli")) {
-		localStorage.setItem("checkbox_kusuli", true)
-	}
-	if (!localStorage.getItem("checkbox_kulili")) {
-		localStorage.setItem("checkbox_kulili", false)
-	}
-	if (!localStorage.getItem("checkbox_none")) {
-		localStorage.setItem("checkbox_none", false)
-	}
+function checkbox_select_default() {
+    for (let [checkbox, dvalue] of Object.entries(checkbox_defaults)) {
+        if (!localStorage.getItem(checkbox)) {
+            localStorage.setItem(checkbox, dvalue)
+        }
+    }
 	book_selector = document.getElementById("book_selector")
 	for (var i = 0; i < checkbox_names.length; i++) {
 		book_selector.appendChild(build_checkbox_option(checkbox_names[i], localStorage.getItem(checkbox_names[i]) === "true"))
@@ -237,6 +229,14 @@ function checkbox_changed() {
 }
 
 function str_matches(str1, str2) {
+    // ignore_diacritics = document.getElementById("checkbox_ignore_diacritics").checked
+    // if (ignore_diacritics) { }
+    // ignore_case = document.getElementById("checkbox_ignore_case").checked
+    // if (ignore_case) { }
+    str1 = str1.normalize("NFD").replace(/\p{Diacritic}/gu, "")
+    str2 = str2.normalize("NFD").replace(/\p{Diacritic}/gu, "")
+    str1 = str1.toLowerCase()
+    str2 = str2.toLowerCase()
 	fuzzy = document.getElementById("checkbox_fuzzy").checked
     if (fuzzy) {
         return str1.fuzzy(str2)
@@ -288,9 +288,43 @@ const bundle = JSON.parse(Get(bundle_url))
 const data = bundle["data"]
 const languages = bundle["languages"]
 
-const checkbox_search_names = ["checkbox_fuzzy", "checkbox_definitions"]
-const checkbox_names = ["checkbox_pu", "checkbox_kusuli", "checkbox_kulili", "checkbox_none"]
-const books_to_checkboxes = {"pu": "checkbox_pu", "ku suli": "checkbox_kusuli", "ku lili": "checkbox_kulili", "none": "checkbox_none"}
-const checkbox_labels = {"checkbox_pu": "show pu words", "checkbox_kusuli": "show ku suli words", "checkbox_kulili": "show ku lili words", "checkbox_none": "show other words", "checkbox_fuzzy": "fuzzy search", "checkbox_definitions": "definition search"}
+const checkbox_search_names = [
+    // "checkbox_ignore_case",
+    // "checkbox_ignore_diacritics",
+    "checkbox_fuzzy",
+    "checkbox_definitions"
+]
+const checkbox_names = [
+    "checkbox_pu",
+    "checkbox_kusuli",
+    "checkbox_kulili",
+    "checkbox_none"
+]
+const books_to_checkboxes = {
+    "pu": "checkbox_pu",
+    "ku suli": "checkbox_kusuli",
+    "ku lili": "checkbox_kulili",
+    "none": "checkbox_none"
+}
+const checkbox_labels = {
+    "checkbox_pu": "show pu words",
+    "checkbox_kusuli": "show ku suli words",
+    "checkbox_kulili": "show ku lili words",
+    "checkbox_none": "show other words",
+    // "checkbox_ignore_diacritics": "ignore diacritics",
+    // "checkbox_ignore_case": "ignore case"
+    "checkbox_fuzzy": "fuzzy search",
+    "checkbox_definitions": "definition search",
+}
+const checkbox_defaults = {
+    "checkbox_pu": true,
+    "checkbox_kusuli": true,
+    "checkbox_kulili": false,
+    "checkbox_none": false,
+    // "checkbox_ignore_diacritics": true,
+    // "checkbox_ignore_case": true
+    "checkbox_fuzzy": false,
+    "checkbox_definitions": false,
+}
 const urlParams = new URLSearchParams(window.location.search)
 var show_word = null
