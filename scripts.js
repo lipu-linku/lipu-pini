@@ -121,8 +121,8 @@ function main() {
 	}
 	// Select language
 	language_select_default()
-	// Select book
-	book_select_default()
+	// Select options
+	checkbox_select_default()
 	// Generate words
 	fill_dictionary()
 	
@@ -173,19 +173,12 @@ function language_select_changed(select_node) {
 	fill_dictionary()
 }
 
-function book_select_default() {
-	if (!localStorage.getItem("checkbox_pu")) {
-		localStorage.setItem("checkbox_pu", true)
-	}
-	if (!localStorage.getItem("checkbox_kusuli")) {
-		localStorage.setItem("checkbox_kusuli", true)
-	}
-	if (!localStorage.getItem("checkbox_kulili")) {
-		localStorage.setItem("checkbox_kulili", false)
-	}
-	if (!localStorage.getItem("checkbox_none")) {
-		localStorage.setItem("checkbox_none", false)
-	}
+function checkbox_select_default() {
+    for (let [checkbox, dvalue] of Object.entries(checkbox_defaults)) {
+        if (!localStorage.getItem(checkbox)) {
+            localStorage.setItem(checkbox, dvalue)
+        }
+    }
 	book_selector = document.getElementById("book_selector")
 	for (var i = 0; i < checkbox_names.length; i++) {
 		book_selector.appendChild(build_checkbox_option(checkbox_names[i], localStorage.getItem(checkbox_names[i]) === "true"))
