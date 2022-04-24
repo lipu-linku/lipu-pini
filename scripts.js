@@ -229,6 +229,14 @@ function checkbox_changed() {
 }
 
 function str_matches(str1, str2) {
+    // ignore_diacritics = document.getElementById("checkbox_ignore_diacritics").checked
+    // if (ignore_diacritics) { }
+    // ignore_case = document.getElementById("checkbox_ignore_case").checked
+    // if (ignore_case) { }
+    str1 = str1.normalize("NFD").replace(/\p{Diacritic}/gu, "")
+    str2 = str2.normalize("NFD").replace(/\p{Diacritic}/gu, "")
+    str1 = str1.toLowerCase()
+    str2 = str2.toLowerCase()
 	fuzzy = document.getElementById("checkbox_fuzzy").checked
     if (fuzzy) {
         return str1.fuzzy(str2)
