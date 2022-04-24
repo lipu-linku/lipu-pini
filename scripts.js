@@ -287,9 +287,43 @@ const bundle = JSON.parse(Get(bundle_url))
 const data = bundle["data"]
 const languages = bundle["languages"]
 
-const checkbox_search_names = ["checkbox_fuzzy", "checkbox_definitions"]
-const checkbox_names = ["checkbox_pu", "checkbox_kusuli", "checkbox_kulili", "checkbox_none"]
-const books_to_checkboxes = {"pu": "checkbox_pu", "ku suli": "checkbox_kusuli", "ku lili": "checkbox_kulili", "none": "checkbox_none"}
-const checkbox_labels = {"checkbox_pu": "show pu words", "checkbox_kusuli": "show ku suli words", "checkbox_kulili": "show ku lili words", "checkbox_none": "show other words", "checkbox_fuzzy": "fuzzy search", "checkbox_definitions": "definition search"}
+const checkbox_search_names = [
+    // "checkbox_ignore_case",
+    // "checkbox_ignore_diacritics",
+    "checkbox_fuzzy",
+    "checkbox_definitions"
+]
+const checkbox_names = [
+    "checkbox_pu",
+    "checkbox_kusuli",
+    "checkbox_kulili",
+    "checkbox_none"
+]
+const books_to_checkboxes = {
+    "pu": "checkbox_pu",
+    "ku suli": "checkbox_kusuli",
+    "ku lili": "checkbox_kulili",
+    "none": "checkbox_none"
+}
+const checkbox_labels = {
+    "checkbox_pu": "show pu words",
+    "checkbox_kusuli": "show ku suli words",
+    "checkbox_kulili": "show ku lili words",
+    "checkbox_none": "show other words",
+    // "checkbox_ignore_diacritics": "ignore diacritics",
+    // "checkbox_ignore_case": "ignore case"
+    "checkbox_fuzzy": "fuzzy search",
+    "checkbox_definitions": "definition search",
+}
+const checkbox_defaults = {
+    "checkbox_pu": true,
+    "checkbox_kusuli": true,
+    "checkbox_kulili": false,
+    "checkbox_none": false,
+    // "checkbox_ignore_diacritics": true,
+    // "checkbox_ignore_case": true
+    "checkbox_fuzzy": false,
+    "checkbox_definitions": false,
+}
 const urlParams = new URLSearchParams(window.location.search)
 var show_word = null
