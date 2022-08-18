@@ -71,7 +71,8 @@ function build_word(id, word) {
         word_container.appendChild(build_element("div", word["book"], "book"))
     }
     if (word["recognition"]) {
-        for (var date in word["recognition"]) {
+        // Iterating over an object in reverse. this feels dirty.
+        for (var date in Object.fromEntries(Object.entries(word["recognition"]).reverse())) {
             percent = word["recognition"][date]
             recognition = "recognition: " + percent + "% (" + date + ")"
             word_container.appendChild(build_element("div", recognition, "recognition"))
