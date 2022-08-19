@@ -16,10 +16,10 @@
 /* Hide the browser's default checkbox */
 .container input {
   position: absolute;
-  opacity: 0px;
+  opacity: 0;
   cursor: pointer;
-  height: 0px;
-  width: 0px;
+  height: 0;
+  width: 0;
 }
 
 /* Create a custom checkbox */
