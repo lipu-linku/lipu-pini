@@ -266,6 +266,7 @@ function single_word_mode() {
     show_word = urlParams.get('q')
     document.getElementById("searchbar").value = ""
     document.getElementById("book_selector").style.display = "none"
+    document.getElementById("search_selector").style.display = "none"
     document.getElementById("searchbar").style.display = "none"
     document.getElementById("normal_mode_button").style.display = "initial"
     /*normal_mode_button = document.createElement("button")
