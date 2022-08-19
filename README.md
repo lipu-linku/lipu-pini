@@ -29,9 +29,11 @@ make stopdev
 
 ## Contributing
 
-<a href="https://github.com/lipu-linku/lipu-linku.github.io/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=lipu-linku/lipu-linku.github.io" />
-</a>
+<div align="center">
+  <a href="https://github.com/lipu-linku/lipu-linku.github.io/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=lipu-linku/lipu-linku.github.io" />
+  </a>
+</div>
 
 Feel free to post issues, fork the repo, and open pull requests with your changes.
 You can also join the discord to contribute translations and talk to the maintainers.
