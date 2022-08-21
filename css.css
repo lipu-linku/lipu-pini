@@ -20,7 +20,7 @@ body {
 	--link-color: #008472;
 	--shade-color: #999999;
 }
-.light_mode {
+.lightmode {
 	--bg-color: #ffffff;
 	--txt-color: #000000;
 	--highlight-color: #ffab40;
@@ -83,8 +83,25 @@ h1, h2 {
 		'sitelenpona word word word sitelensitelen'
 		'sitelenpona definition definition definition sitelensitelen'
 		'. seealso seealso seealso .'
-		'kudata kudata kudata kudata kudata'
-		'commentary commentary commentary commentary commentary';
+        'details details details details details';
+}
+details {
+    margin: 5px;
+    border: 1px;
+	border-color: var(--shade-color);
+    grid-area: details;
+}
+.details {
+    display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 2fr) minmax(0, 2fr) minmax(0, 1fr);
+	grid-column-gap: 10px;
+	grid-template-areas:
+        'emosi . . lukapona lukapona'
+        'emosi . . lukapona lukapona'
+		'spetymology spetymology . commentary commentary'
+		'spetymology spetymology . commentary commentary'
+        'kudata kudata kudata kudata kudata '
+        'audio_kalaasi audio_kalaasi . audio_janlakuse audio_janlakuse'
 }
 hr {
 	border-color: var(--shade-color);
@@ -138,8 +155,27 @@ hr {
 	grid-area: kudata;
 	color: var(--shade-color);
 }
-.kudata { display: none }
-.display_ku_data .kudata { display: block }
+.lukapona {
+    grid-area: lukapona;
+	color: var(--shade-color);
+}
+summary {
+	color: var(--shade-color);
+}
+.audio_janlakuse {
+    grid-area: audio_janlakuse
+}
+.audio_kalaasi {
+    grid-area: audio_kalaasi;
+}
+.sitelenemosi {
+    font-size: 300%;
+    grid-area: emosi
+}
+.sitelenponaetymology {
+    grid-area: spetymology;
+	color: var(--shade-color);
+}
 .commentary {
 	grid-area: commentary;
 	color: var(--shade-color);
@@ -163,7 +199,7 @@ hr {
     width: 50px;
     margin: auto;
 }
-.light_mode .sitelensitelen {
+.lightmode .sitelensitelen {
     filter: none;
 }
 .shaded {
@@ -176,6 +212,9 @@ hr {
 	display: inline-grid;
 }
 #search_selector {
+	display: inline-grid;
+}
+#settings_selector {
 	display: inline-grid;
 }
 #normal_mode_button {

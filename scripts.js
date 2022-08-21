@@ -15,10 +15,15 @@ function build_text(text) {
     return document.createTextNode(text)
 }
 
-function build_element(tag, text, classname=null) {
+const tag_link_map = { "a": "href", "audio": "src", "video": "src", "img": "src" }
+
+function build_element(tag, text, classname = null, src = null) {
     var div = document.createElement(tag)
     if (classname) {
         div.className = classname
+    }
+    if (src) {
+        div[tag_link_map[tag]] = src
     }
     div.appendChild(build_text(text))
     return div
@@ -93,23 +98,54 @@ function build_word(id, word) {
         word_container.appendChild(build_element("div", "(en) " + word["def"]["en"], "shaded definition"))
     }
     if (word["sitelen_sitelen"]) {
-        sitelen_sitelen = document.createElement("img")
-        sitelen_sitelen.className = "sitelensitelen"
-        //sitelen_sitelen.style.filter = "invert(100%)"
-        //sitelen_sitelen.style.height = "50px"
-        //sitelen_sitelen.style.width = "50px"
-        //sitelen_sitelen.style.margin = "auto"
-        sitelen_sitelen.src = word["sitelen_sitelen"]
-        word_container.appendChild(sitelen_sitelen)
+        word_container.appendChild(build_element("img", "", "sitelensitelen", word["sitelen_sitelen"]))
     }
     if (word["see_also"]) {
         word_container.appendChild(build_element("div", "{see " + word["see_also"] + "}", "seealso"))
     }
-    if (word["ku_data"]) {
-        word_container.appendChild(build_element("div", word["ku_data"], "kudata"))
-    }
-    if (word["commentary"]) {
-        word_container.appendChild(build_element("div", word["commentary"], "commentary"))
+    var details = document.getElementById("checkbox_detailed").checked
+    if (details === true) {
+        var details_div = build_element("div", "", "details")
+        var details_container = build_element("details", "")
+        details_container.appendChild(build_element("summary", "more info"))
+        details_container.appendChild(details_div)
+
+        if (word["commentary"]) {
+            details_div.appendChild(build_element("div", word["commentary"], "commentary"))
+        }
+        if (word["ku_data"]) {
+            details_div.appendChild(build_element("div", word["ku_data"], "kudata"))
+        }
+        if (word["sitelen_pona_etymology"]) {
+            details_div.appendChild(build_element("div", word["sitelen_pona_etymology"], "sitelenponaetymology", word["sitelen_pona_etymology"]))
+        }
+
+        // NOTE: not currently working; third party links to the site won't load the image
+        if (word["luka_pona"]) {
+            details_div.appendChild(build_element("div", "luka pona coming later!", "lukapona"))
+            // details_div.appendChild(build_element("img", "", "lukapona", word["luka_pona"]["gif"]))
+        }
+        if (word["sitelen_emosi"]) {
+            details_div.appendChild(build_element("div", word["sitelen_emosi"], "sitelenemosi"))
+        }
+
+        if (word["audio"]) {
+            audio_kalaasi = build_element("a", "kala asi speaks", "audio_kalaasi", word["audio"]["kala_asi"])
+            audio_janlakuse = build_element("a", "jan lakuse speaks", "audio_janlakuse", word["audio"]["jan_lakuse"])
+            // audio_kalaasi = build_element("audio", "", "audio_kalaasi", word["audio"]["kala_asi"])
+            // audio_janlakuse = build_element("audio", "", "audio_janlakuse", word["audio"]["jan_lakuse"])
+            // audio_kalaasi.controls = true
+            // audio_janlakuse.controls = true
+            details_div.appendChild(audio_kalaasi)
+            details_div.appendChild(audio_janlakuse)
+        }
+
+        // TODO: hide or show by default?
+        details_container.open = true;
+        if (details_div.childNodes.length > 1) { 
+            // only append if non-empty; # text is present tho
+            word_container.appendChild(details_container)
+        }  
     }
     
     
@@ -127,23 +163,15 @@ function main() {
     // Generate words
     fill_dictionary()
     
-    // Yes, it doesn't belong here. yes, its a hack. no, i don't care
-    checkbox_ku_data = document.getElementById("checkbox_ku_data")
-    checkbox_ku_data.checked = localStorage.display_ku_data === 'true';
-    if (checkbox_ku_data.checked) document.body.classList.add('display_ku_data');
-    checkbox_ku_data.addEventListener('change', function(e) {
-        localStorage.display_ku_data = e.target.checked;
-        if (e.target.checked) document.body.classList.add('display_ku_data');
-        else document.body.classList.remove('display_ku_data')
-    });
-    // Yes, its the same code copied twice. no, i don't care
-    checkbox_light_mode = document.getElementById("checkbox_light_mode")
-    checkbox_light_mode.checked = localStorage.light_mode === 'true';
-    if (checkbox_light_mode.checked) document.body.classList.add('light_mode');
-    checkbox_light_mode.addEventListener('change', function(e) {
-        localStorage.light_mode = e.target.checked;
-        if (e.target.checked) document.body.classList.add('light_mode');
-        else document.body.classList.remove('light_mode')
+    checkbox_lightmode = document.getElementById("checkbox_lightmode")
+    checkbox_lightmode.checked = localStorage.checkbox_lightmode === 'true';
+    if (checkbox_lightmode.checked) {
+        document.body.classList.add('lightmode');
+    }
+    checkbox_lightmode.addEventListener('change', function(e) {
+        localStorage.checkbox_lightmode = e.target.checked;
+        if (e.target.checked) {document.body.classList.add('lightmode');}
+        else document.body.classList.remove('lightmode')
     });
 }
 
@@ -180,14 +208,11 @@ function checkbox_select_default() {
             localStorage.setItem(checkbox, dvalue)
         }
     }
-    book_selector = document.getElementById("book_selector")
-    for (var i = 0; i < checkbox_names.length; i++) {
-        book_selector.appendChild(build_checkbox_option(checkbox_names[i], localStorage.getItem(checkbox_names[i]) === "true"))
-    }
-
-    search_selector = document.getElementById("search_selector")
-    for (var i = 0; i < checkbox_search_names.length; i++) {
-        search_selector.appendChild(build_checkbox_option(checkbox_search_names[i], localStorage.getItem(checkbox_search_names[i]) === "true"))
+    for (let [checkbox_div, checkboxes] of Object.entries(selector_map)) {
+        div = document.getElementById(checkbox_div);
+        for (const checkbox of checkboxes) {
+            div.appendChild(build_checkbox_option(checkbox, localStorage.getItem(checkbox) === "true"))
+        }
     }
 }
 function build_checkbox_option(name, value) {
@@ -200,7 +225,7 @@ function build_checkbox_option(name, value) {
     checkbox.id = name
     checkbox.checked = value
     checkbox.onchange = checkbox_changed
-    
+    checkbox.autocomplete = 'off' // prevent refresh refill; only localStorage
     container.appendChild(checkbox)
     
     checkmark = document.createElement("span")
@@ -215,14 +240,12 @@ function build_checkbox_option(name, value) {
     return checkbox*/
 }
 function checkbox_changed() {
-    var all_checkboxes = checkbox_names.concat(checkbox_search_names)
-    for (var i = 0; i < all_checkboxes.length; i++) {
-        if ((localStorage.getItem(all_checkboxes[i]) === "true") != document.getElementById(all_checkboxes[i]).checked) {
-            if (localStorage.getItem(all_checkboxes[i]) === "true") {
-                localStorage.setItem(all_checkboxes[i], false)
-            } else {
-                localStorage.setItem(all_checkboxes[i], true)
-            }
+    for (let checkbox of Object.keys(checkbox_labels)) {
+        let is_checked = document.getElementById(checkbox).checked
+
+        // only store if it had a default
+        if (checkbox in checkbox_defaults) {
+            localStorage.setItem(checkbox, is_checked)
         }
     }
     clear_dictionary()
@@ -238,10 +261,10 @@ function str_matches(str1, str2) {
     str2 = str2.normalize("NFD").replace(/\p{Diacritic}/gu, "")
     str1 = str1.toLowerCase()
     str2 = str2.toLowerCase()
-    fuzzy = document.getElementById("checkbox_fuzzy").checked
-    if (fuzzy) {
-        return str1.fuzzy(str2)
-    } return str1.includes(str2)
+    definition_search = document.getElementById("checkbox_definitions").checked
+    if (definition_search) { // INTENDED: don't fuzzy search defs, it sucks
+        return str1.includes(str2);
+    } return str1.fuzzy(str2)
 }
 
 function search_changed(searchbar) {
@@ -265,23 +288,22 @@ function search_changed(searchbar) {
 function single_word_mode() {
     show_word = urlParams.get('q')
     document.getElementById("searchbar").value = ""
-    document.getElementById("book_selector").style.display = "none"
-    document.getElementById("search_selector").style.display = "none"
+    for (let checkbox_div of Object.keys(selector_map)) {
+        document.getElementById(checkbox_div).style.display = "none"
+    }
     document.getElementById("searchbar").style.display = "none"
     document.getElementById("normal_mode_button").style.display = "initial"
-    /*normal_mode_button = document.createElement("button")
-    normal_mode_button.appendChild(build_text("Show other words"))
-    normal_mode_button.id = "normal_mode_button"
-    normal_mode_button.addEventListener("click", normal_mode)
-    document.getElementsByClassName("page_width_limiter")[0].appendChild(normal_mode_button)*/
 }
 function normal_mode() {
     show_word = null
     clear_dictionary()
     fill_dictionary()
-    document.getElementById("book_selector").style.display = ""
+    for (let checkbox_div of Object.keys(selector_map)) {
+        document.getElementById(checkbox_div).style.display = ""
+    }
     document.getElementById("searchbar").style.display = ""
     document.getElementById("normal_mode_button").style.display = "none"
+    window.location.search = "" // remove query from url
 }
 
 
@@ -290,18 +312,24 @@ const bundle = JSON.parse(Get(bundle_url))
 const data = bundle["data"]
 const languages = bundle["languages"]
 
-const checkbox_search_names = [
-    // "checkbox_ignore_case",
-    // "checkbox_ignore_diacritics",
-    "checkbox_fuzzy",
-    "checkbox_definitions"
-]
-const checkbox_names = [
-    "checkbox_pu",
-    "checkbox_kusuli",
-    "checkbox_kulili",
-    "checkbox_none"
-]
+const selector_map = {
+    // these keys must have a corresponding div in index.html
+    "book_selector": [
+        "checkbox_pu",
+        "checkbox_kusuli",
+        "checkbox_kulili",
+        "checkbox_none",
+    ],
+    "search_selector": [
+    ],
+    "settings_selector": [
+        "checkbox_lightmode",
+        "checkbox_detailed",
+        "checkbox_definitions",  
+        // TODO: move 'definitions' to search selector
+        // whenever the page looks prettier
+    ]
+}
 const books_to_checkboxes = {
     "pu": "checkbox_pu",
     "ku suli": "checkbox_kusuli",
@@ -309,24 +337,24 @@ const books_to_checkboxes = {
     "none": "checkbox_none"
 }
 const checkbox_labels = {
-    "checkbox_pu": "show pu words",
-    "checkbox_kusuli": "show ku suli words",
-    "checkbox_kulili": "show ku lili words",
-    "checkbox_none": "show other words",
-    // "checkbox_ignore_diacritics": "ignore diacritics",
-    // "checkbox_ignore_case": "ignore case"
-    "checkbox_fuzzy": "fuzzy search",
+    "checkbox_pu": "pu words",
+    "checkbox_kusuli": "ku suli words",
+    "checkbox_kulili": "ku lili words",
+    "checkbox_none": "other words",
     "checkbox_definitions": "definition search",
+    "checkbox_detailed": "detailed mode",
+    "checkbox_lightmode": "light mode"
 }
+
+// must be strings bc localstorage only saves strings
 const checkbox_defaults = {
-    "checkbox_pu": true,
-    "checkbox_kusuli": true,
-    "checkbox_kulili": false,
-    "checkbox_none": false,
-    // "checkbox_ignore_diacritics": true,
-    // "checkbox_ignore_case": true
-    "checkbox_fuzzy": false,
-    "checkbox_definitions": false,
+    "checkbox_pu": 'true',
+    "checkbox_kusuli": 'true',
+    "checkbox_kulili": 'false',
+    "checkbox_none": 'false',
+    // "checkbox_definitions": 'false',  // do not save, user consideration
+    // "checkbox_detailed": 'false', // INTENDED: do not save this setting, it's Laggy
+    "checkbox_lightmode": 'false',
 }
 const urlParams = new URLSearchParams(window.location.search)
 var show_word = null

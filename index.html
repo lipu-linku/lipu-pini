@@ -17,22 +17,14 @@
                 </select>
             </div>
             <div id="checkbox_container">
-                <div id="book_selector">
-                    <label class="container">light mode
-                        <input type="checkbox" id="checkbox_light_mode">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="container">show ku data
-                        <input type="checkbox" id="checkbox_ku_data">
-                        <span class="checkmark"></span>
-                    </label>
-                </div>
-                <div id="search_selector"></div>
+                <div id="book_selector"> </div>
+                <div id="settings_selector"> </div>
+                <div id="search_selector"> </div> <!-- MOVE NEXT TO SEARCH BAR -->
             </div>
             <div>
                 <input id="searchbar" placeholder="nimi" onkeyup="search_changed(this)" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false"></input>
             </div>
-			<button id="normal_mode_button" onclick="normal_mode()">More words</button>
+			<button id="normal_mode_button" onclick="normal_mode()">Back to dictionary</button>
 			<div id="dictionary">
 			</div>
 		</div>
