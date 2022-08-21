@@ -129,8 +129,8 @@ function build_word(id, word, force = false) {
         }
 
         if (word["audio"]) {
-            audio_kalaasi = build_element("a", "kala asi speaks", "audio_kalaasi", word["audio"]["kala_asi"])
-            audio_janlakuse = build_element("a", "jan lakuse speaks", "audio_janlakuse", word["audio"]["jan_lakuse"])
+            audio_kalaasi = build_element("a", "kala Asi speaks", "audio_kalaasi", word["audio"]["kala_asi"])
+            audio_janlakuse = build_element("a", "jan Lakuse speaks", "audio_janlakuse", word["audio"]["jan_lakuse"])
             // audio_kalaasi = build_element("audio", "", "audio_kalaasi", word["audio"]["kala_asi"])
             // audio_janlakuse = build_element("audio", "", "audio_janlakuse", word["audio"]["jan_lakuse"])
             // audio_kalaasi.controls = true
