@@ -1,6 +1,6 @@
-String.prototype.fuzzy = function (s) {
+String.prototype.fuzzy = function(s) {
     var i = 0, n = -1, l;
-    for (; l = s[i++] ;) if (!~(n = this.indexOf(l, n + 1))) return false;
+    for (; l = s[i++];) if (!~(n = this.indexOf(l, n + 1))) return false;
     return true;
 };
 
@@ -31,13 +31,12 @@ function build_element(tag, text, classname = null, src = null) {
 
 function fill_dictionary() {
     dictionary = document.getElementById("dictionary")
-    for (var id in data) {
-        if (!show_word) {
+    if (show_word) {
+        dictionary.appendChild(build_word(show_word, data[show_word], true))
+        return;
+    } else {
+        for (var id in data) {
             if (localStorage.getItem(books_to_checkboxes[data[id]["book"]]) === "true") {
-                dictionary.appendChild(build_word(id, data[id]))
-            }
-        } else {
-            if (show_word == id) {
                 dictionary.appendChild(build_word(id, data[id]))
             }
         }
@@ -51,13 +50,13 @@ function clear_dictionary() {
     }
 }
 
-function build_word(id, word) {
+function build_word(id, word, force = false) {
     var word_container = document.createElement("div")
     word_container.id = id
     word_container.className = "entry"
-    
+
     word_container.appendChild(document.createElement("hr"))
-    
+
     if (word["source_language"]) {
         word_container.appendChild(build_element("div", word["source_language"], "sourcelanguage"))
     }
@@ -84,13 +83,13 @@ function build_word(id, word) {
             break
         }
     }
-    
+
     if (word["sitelen_pona"]) {
         word_container.appendChild(build_element("div", word["sitelen_pona"], "sitelenpona"))
     }
     word_container.appendChild(build_element("div", word["word"], "word"))
     // The switch statement is temporary!
-    
+
     definition = word["def"][localStorage.getItem("selected_language")]
     if (definition) {
         word_container.appendChild(build_element("div", definition, "definition"))
@@ -104,7 +103,7 @@ function build_word(id, word) {
         word_container.appendChild(build_element("div", "{see " + word["see_also"] + "}", "seealso"))
     }
     var details = document.getElementById("checkbox_detailed").checked
-    if (details === true) {
+    if (details === true | force === true) {
         var details_div = build_element("div", "", "details")
         var details_container = build_element("details", "")
         details_container.appendChild(build_element("summary", "more info"))
@@ -142,13 +141,13 @@ function build_word(id, word) {
 
         // TODO: hide or show by default?
         details_container.open = true;
-        if (details_div.childNodes.length > 1) { 
+        if (details_div.childNodes.length > 1) {
             // only append if non-empty; # text is present tho
             word_container.appendChild(details_container)
-        }  
+        }
     }
-    
-    
+
+
     return word_container
 }
 
@@ -162,7 +161,7 @@ function main() {
     checkbox_select_default()
     // Generate words
     fill_dictionary()
-    
+
     checkbox_lightmode = document.getElementById("checkbox_lightmode")
     checkbox_lightmode.checked = localStorage.checkbox_lightmode === 'true';
     if (checkbox_lightmode.checked) {
@@ -170,7 +169,7 @@ function main() {
     }
     checkbox_lightmode.addEventListener('change', function(e) {
         localStorage.checkbox_lightmode = e.target.checked;
-        if (e.target.checked) {document.body.classList.add('lightmode');}
+        if (e.target.checked) { document.body.classList.add('lightmode'); }
         else document.body.classList.remove('lightmode')
     });
 }
@@ -185,7 +184,7 @@ function language_select_default() {
     if (!localStorage.getItem("selected_language")) {
         localStorage.setItem("selected_language", "en")
     }
-    
+
     language_selector = document.getElementById("language_selector")
     for (var id in languages) {
         option = build_select_option(id, languages[id]["name_endonym"])
@@ -219,7 +218,7 @@ function build_checkbox_option(name, value) {
     container = document.createElement("label")
     container.className = "container"
     container.appendChild(build_text(checkbox_labels[name]))
-    
+
     checkbox = document.createElement("input")
     checkbox.type = "checkbox"
     checkbox.id = name
@@ -227,7 +226,7 @@ function build_checkbox_option(name, value) {
     checkbox.onchange = checkbox_changed
     checkbox.autocomplete = 'off' // prevent refresh refill; only localStorage
     container.appendChild(checkbox)
-    
+
     checkmark = document.createElement("span")
     checkmark.className = "checkmark"
     container.appendChild(checkmark)
@@ -325,7 +324,7 @@ const selector_map = {
     "settings_selector": [
         "checkbox_lightmode",
         "checkbox_detailed",
-        "checkbox_definitions",  
+        "checkbox_definitions",
         // TODO: move 'definitions' to search selector
         // whenever the page looks prettier
     ]
