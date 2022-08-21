@@ -157,7 +157,6 @@ hr {
 }
 .lukapona {
     grid-area: lukapona;
-	color: var(--shade-color);
 }
 summary {
 	color: var(--shade-color);
@@ -169,7 +168,7 @@ summary {
     grid-area: audio_kalaasi;
 }
 .sitelenemosi {
-    font-size: 300%;
+    font-size: 200%;
     grid-area: emosi
 }
 .sitelenponaetymology {

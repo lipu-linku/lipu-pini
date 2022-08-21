@@ -119,10 +119,9 @@ function build_word(id, word, force = false) {
             details_div.appendChild(build_element("div", word["sitelen_pona_etymology"], "sitelenponaetymology", word["sitelen_pona_etymology"]))
         }
 
-        // NOTE: not currently working; third party links to the site won't load the image
+        // NOTE: maybe embed later, instead of linking?
         if (word["luka_pona"]) {
-            details_div.appendChild(build_element("div", "luka pona coming later!", "lukapona"))
-            // details_div.appendChild(build_element("img", "", "lukapona", word["luka_pona"]["gif"]))
+            details_div.appendChild(build_element("a", "view luka pona", "lukapona", word["luka_pona"]["gif"]))
         }
         if (word["sitelen_emosi"]) {
             details_div.appendChild(build_element("div", word["sitelen_emosi"], "sitelenemosi"))
