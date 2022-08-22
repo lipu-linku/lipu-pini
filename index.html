@@ -1,32 +1,47 @@
 ﻿<!DOCTYPE html>
 <html>
-	<head>
-		<title>lipu Linku - toki pona dictionary</title>
-		<link rel="stylesheet" type="text/css" href="css.css" />
-		<link rel="stylesheet" type="text/css" href="checkbox.css" />
-		<link rel="shortcut icon" href="icon.png">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto%20Serif:regular,italic,bold,bolditalic">
-		<script type="text/javascript" src="scripts.js"></script>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	</head>
-	<body onload="main()">
-		<div class="page_width_limiter">
-			<a class="navlink" href="about">Click here to read more about Linku</a>
-            <div>
-                <select id="language_selector" onchange="language_select_changed(this)">
-                </select>
-            </div>
-            <div id="checkbox_container">
-                <div id="book_selector"> </div>
-                <div id="settings_selector"> </div>
-                <div id="search_selector"> </div> <!-- MOVE NEXT TO SEARCH BAR -->
-            </div>
-            <div>
-                <input id="searchbar" placeholder="nimi" onkeyup="search_changed(this)" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false"></input>
-            </div>
-			<button id="normal_mode_button" onclick="normal_mode()">Back to dictionary</button>
-			<div id="dictionary">
-			</div>
-		</div>
-	</body>
+  <head>
+    <title>lipu Linku - toki pona dictionary</title>
+    <link rel="stylesheet" type="text/css" href="css.css" />
+    <link rel="stylesheet" type="text/css" href="checkbox.css" />
+    <link rel="shortcut icon" href="icon.png" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Noto%20Serif:regular,italic,bold,bolditalic"
+    />
+    <script type="text/javascript" src="scripts.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body onload="main()">
+    <div class="page_width_limiter">
+      <a class="navlink" href="about">Click here to read more about Linku</a>
+      <div>
+        <select
+          id="language_selector"
+          onchange="language_select_changed(this)"
+        ></select>
+      </div>
+      <div id="checkbox_container">
+        <div id="book_selector"></div>
+        <div id="settings_selector"></div>
+        <div id="search_selector"></div>
+        <!-- MOVE NEXT TO SEARCH BAR -->
+      </div>
+      <div>
+        <input
+          id="searchbar"
+          placeholder="nimi"
+          onkeyup="search_changed(this)"
+          autocapitalize="off"
+          autocomplete="off"
+          autocorrect="off"
+          spellcheck="false"
+        />
+      </div>
+      <button id="normal_mode_button" onclick="normal_mode()">
+        Back to dictionary
+      </button>
+      <div id="dictionary"></div>
+    </div>
+  </body>
 </html>

@@ -1,218 +1,223 @@
 @font-face {
-	font-family: "sitelen seli kiwen";
-	font-style: normal;
-	font-weight: 400;
-	src: url(https://raw.githubusercontent.com/lipu-linku/nasin-sitelen/main/sitelenselikiwenasuki.ttf);
+  font-family: "sitelen seli kiwen";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://raw.githubusercontent.com/lipu-linku/nasin-sitelen/main/sitelenselikiwenasuki.ttf);
 }
 
 body {
-	font-family: "Noto Serif", Verdana, "Lucida Sans Unicode", sans-serif;
-	text-align: center;
-	background-color: var(--bg-color);
-	color: var(--txt-color);
-	display: grid;
+  font-family: "Noto Serif", Verdana, "Lucida Sans Unicode", sans-serif;
+  text-align: center;
+  background-color: var(--bg-color);
+  color: var(--txt-color);
+  display: grid;
 }
 :root {
-	--bg-color: #000000;
-	--txt-color: #ffffff;
-	--highlight-color: #ffab40;
-	--link-color: #008472;
-	--shade-color: #999999;
+  --bg-color: #000000;
+  --txt-color: #ffffff;
+  --highlight-color: #ffab40;
+  --link-color: #008472;
+  --shade-color: #999999;
 }
 .lightmode {
-	--bg-color: #ffffff;
-	--txt-color: #000000;
-	--highlight-color: #ffab40;
-	--link-color: #008472;
-	--shade-color: #999999;
+  --bg-color: #ffffff;
+  --txt-color: #000000;
+  --highlight-color: #ffab40;
+  --link-color: #008472;
+  --shade-color: #999999;
 }
 
 input {
-	text-align: center;
-	font-size: 180%;
-	font-family: inherit;
-	font-weight: bold;
-	font-style: italic;
-	width: 400px;
-	background-color: var(--bg-color);
-	color: var(--highlight-color);
-	padding: 0;
-	border-color: var(--shade-color);
-	margin-top: 10px;
+  text-align: center;
+  font-size: 180%;
+  font-family: inherit;
+  font-weight: bold;
+  font-style: italic;
+  width: 400px;
+  background-color: var(--bg-color);
+  color: var(--highlight-color);
+  padding: 0;
+  border-color: var(--shade-color);
+  margin-top: 10px;
 }
 a {
-	color: var(--link-color);
-	text-decoration: none;
+  color: var(--link-color);
+  text-decoration: none;
 }
 .navlink {
-	display: block;
-	margin: 10px 0px 15px 0px;
-	font-size: 120%;
+  display: block;
+  margin: 10px 0px 15px 0px;
+  font-size: 120%;
 }
 .code {
-	color: var(--shade-color);
-	font-family: "Courier New";
-	font-weight: bold;
-	margin: 4px;
+  color: var(--shade-color);
+  font-family: "Courier New";
+  font-weight: bold;
+  margin: 4px;
 }
-h1, h2 {
-	color: var(--highlight-color);
+h1,
+h2 {
+  color: var(--highlight-color);
 }
 ::placeholder {
   color: var(--shade-color);
   opacity: 0.5;
 }
 .page_width_limiter {
-	margin: auto;
-	max-width: 840px;
-	width: -moz-available;          /* WebKit-based browsers will ignore this. */
-    width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
-    width: fill-available;
+  margin: auto;
+  max-width: 840px;
+  width: -moz-available; /* WebKit-based browsers will ignore this. */
+  width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+  width: fill-available;
 }
 .entry {
-	display: grid;
-	grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 2fr) minmax(0, 2fr) minmax(0, 1fr);
-	grid-column-gap: 10px;
-	grid-template-areas: 
-		'hr hr hr hr hr'
-		'sourcelanguage sourcelanguage creator creator creator'
-		'etymology etymology etymology coined coined'
-		'sitelenpona book book book sitelensitelen'
-		'sitelenpona recognition recognition recognition sitelensitelen'
-		'sitelenpona word word word sitelensitelen'
-		'sitelenpona definition definition definition sitelensitelen'
-		'. seealso seealso seealso .'
-        'details details details details details';
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr) minmax(0, 2fr) minmax(0, 2fr) minmax(0, 2fr)
+    minmax(0, 1fr);
+  grid-column-gap: 10px;
+  grid-template-areas:
+    "hr hr hr hr hr"
+    "sourcelanguage sourcelanguage creator creator creator"
+    "etymology etymology etymology coined coined"
+    "sitelenpona book book book sitelensitelen"
+    "sitelenpona recognition recognition recognition sitelensitelen"
+    "sitelenpona word word word sitelensitelen"
+    "sitelenpona definition definition definition sitelensitelen"
+    ". seealso seealso seealso ."
+    "details details details details details";
 }
 details {
-    margin: 5px;
-    border: 1px;
-	border-color: var(--shade-color);
-    grid-area: details;
+  margin: 5px;
+  border: 1px;
+  border-color: var(--shade-color);
+  grid-area: details;
 }
 .details {
-    display: grid;
-	grid-template-columns: minmax(0, 1fr) minmax(0, 2.6fr) minmax(0, 0.8fr) minmax(0, 2.6fr) minmax(0, 1fr);
-	grid-column-gap: 10px;
-	grid-template-areas:
-        'emosi . . lukapona lukapona'
-		'spetymology spetymology . commentary commentary'
-        'kudata kudata kudata kudata kudata'
-        'audio_kalaasi audio_kalaasi . audio_janlakuse audio_janlakuse'
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr) minmax(0, 2.6fr) minmax(0, 0.8fr) minmax(0, 2.6fr)
+    minmax(0, 1fr);
+  grid-column-gap: 10px;
+  grid-template-areas:
+    "emosi . . lukapona lukapona"
+    "spetymology spetymology . commentary commentary"
+    "kudata kudata kudata kudata kudata"
+    "audio_kalaasi audio_kalaasi . audio_janlakuse audio_janlakuse";
 }
 hr {
-	border-color: var(--shade-color);
-	grid-area: hr;
-	width: 100%;
+  border-color: var(--shade-color);
+  grid-area: hr;
+  width: 100%;
 }
 .word {
-	grid-area: word;
-	font-size: 200%;
-	color: var(--highlight-color);
-	font-weight: bold;
-	font-style: italic;
+  grid-area: word;
+  font-size: 200%;
+  color: var(--highlight-color);
+  font-weight: bold;
+  font-style: italic;
 }
 .book {
-	grid-area: book;
-	font-style: italic;
+  grid-area: book;
+  font-style: italic;
 }
 .recognition {
-	grid-area: recognition;
-	color: var(--shade-color);
-	font-style: italic;
+  grid-area: recognition;
+  color: var(--shade-color);
+  font-style: italic;
 }
 .etymology {
-	grid-area: etymology;
-	color: var(--shade-color);
-	text-align: left;
+  grid-area: etymology;
+  color: var(--shade-color);
+  text-align: left;
 }
 .sourcelanguage {
-	grid-area: sourcelanguage;
-	color: var(--shade-color);
-	text-align: left;
+  grid-area: sourcelanguage;
+  color: var(--shade-color);
+  text-align: left;
 }
 .creator {
-	grid-area: creator;
-	color: var(--shade-color);
-	text-align: right;
+  grid-area: creator;
+  color: var(--shade-color);
+  text-align: right;
 }
 .coined {
-	grid-area: coined;
-	color: var(--shade-color);
-	text-align: right;
+  grid-area: coined;
+  color: var(--shade-color);
+  text-align: right;
 }
 .definition {
-	grid-area: definition;
+  grid-area: definition;
 }
 .seealso {
-	grid-area: seealso;
-	color: var(--shade-color);
+  grid-area: seealso;
+  color: var(--shade-color);
 }
 .kudata {
-	grid-area: kudata;
-	color: var(--shade-color);
+  grid-area: kudata;
+  color: var(--shade-color);
 }
 .lukapona {
-    grid-area: lukapona;
+  grid-area: lukapona;
 }
 summary {
-	color: var(--shade-color);
+  color: var(--shade-color);
 }
 .audio_janlakuse {
-    grid-area: audio_janlakuse
+  grid-area: audio_janlakuse;
 }
 .audio_kalaasi {
-    grid-area: audio_kalaasi;
+  grid-area: audio_kalaasi;
 }
 .sitelenemosi {
-    font-size: 200%;
-    grid-area: emosi
+  font-size: 200%;
+  grid-area: emosi;
 }
 .sitelenponaetymology {
-    grid-area: spetymology;
-	color: var(--shade-color);
+  grid-area: spetymology;
+  color: var(--shade-color);
 }
 .commentary {
-	grid-area: commentary;
-	color: var(--shade-color);
+  grid-area: commentary;
+  color: var(--shade-color);
 }
 .sitelenpona {
-	grid-area: sitelenpona;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-family: "sitelen seli kiwen";
-	font-size: 320%;
+  grid-area: sitelenpona;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "sitelen seli kiwen";
+  font-size: 320%;
 }
 .sitelensitelen {
-	grid-area: sitelensitelen;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-    filter: invert(100%);
-    color: var(--bg-color);
-    height: 50px;
-    width: 50px;
-    margin: auto;
+  grid-area: sitelensitelen;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: invert(100%);
+  color: var(--bg-color);
+  height: 50px;
+  width: 50px;
+  margin: auto;
 }
 .lightmode .sitelensitelen {
-    filter: none;
+  filter: none;
 }
 .shaded {
-	color: var(--shade-color);
+  color: var(--shade-color);
 }
 #checkbox_container {
-	display: inline-block;
+  display: inline-block;
 }
 #book_selector {
-	display: inline-grid;
+  display: inline-grid;
 }
 #search_selector {
-	display: inline-grid;
+  display: inline-grid;
 }
 #settings_selector {
-	display: inline-grid;
+  display: inline-grid;
 }
 #normal_mode_button {
-	display: none;
+  display: none;
 }
