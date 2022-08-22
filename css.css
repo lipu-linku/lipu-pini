@@ -92,14 +92,12 @@ details {
 }
 .details {
     display: grid;
-	grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 2fr) minmax(0, 2fr) minmax(0, 1fr);
+	grid-template-columns: minmax(0, 1fr) minmax(0, 2.6fr) minmax(0, 0.8fr) minmax(0, 2.6fr) minmax(0, 1fr);
 	grid-column-gap: 10px;
 	grid-template-areas:
         'emosi . . lukapona lukapona'
-        'emosi . . lukapona lukapona'
 		'spetymology spetymology . commentary commentary'
-		'spetymology spetymology . commentary commentary'
-        'kudata kudata kudata kudata kudata '
+        'kudata kudata kudata kudata kudata'
         'audio_kalaasi audio_kalaasi . audio_janlakuse audio_janlakuse'
 }
 hr {
