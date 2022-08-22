@@ -93,7 +93,10 @@ function build_word(id, word, force = false) {
       Object.entries(word["recognition"]).reverse()
     )) {
       percent = word["recognition"][date];
-      recognition = "recognition: " + percent + "% (" + date + ")";
+      usage_category = word["usage_category"]
+        ? word["usage_category"]
+        : "unknown";
+      recognition = `${usage_category} (${percent}% in ${date})`;
       word_container.appendChild(
         build_element("div", recognition, "recognition")
       );
