@@ -10,7 +10,6 @@ body {
 	text-align: center;
 	background-color: var(--bg-color);
 	color: var(--txt-color);
-	font-size: 110%;
 	display: grid;
 }
 :root {
