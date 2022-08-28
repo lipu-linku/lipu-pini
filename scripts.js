@@ -126,9 +126,20 @@ function build_word(id, word, force = false) {
     );
   }
   if (word["see_also"]) {
-    word_container.appendChild(
-      build_element("div", "{see " + word["see_also"] + "}", "seealso")
-    );
+    let see_also_div = build_element("div", "{see ", "seealso");
+    let see_alsos = word["see_also"].split(", ");
+    for (let i = 0; i < see_alsos.length; i++) {
+      seen = see_alsos[i];
+      see_also_div.appendChild(
+        build_element("a", seen, "seealsolink", "#" + seen)
+      );
+      // why i didn't forEach
+      if (i != see_alsos.length - 1) {
+        see_also_div.innerHTML += ", ";
+      }
+    }
+    see_also_div.innerHTML += "}";
+    word_container.appendChild(see_also_div);
   }
   var details = document.getElementById("checkbox_detailed").checked;
   if ((details === true) | (force === true)) {
