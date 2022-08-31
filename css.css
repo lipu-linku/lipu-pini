@@ -212,6 +212,9 @@ summary {
 #book_selector {
   display: inline-grid;
 }
+#usage_selector {
+  display: inline-grid;
+}
 #search_selector {
   display: inline-grid;
 }

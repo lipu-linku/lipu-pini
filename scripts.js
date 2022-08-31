@@ -39,7 +39,9 @@ function fill_dictionary() {
   } else {
     for (var id in data) {
       if (
-        localStorage.getItem(books_to_checkboxes[data[id]["book"]]) === "true"
+        localStorage.getItem(
+          usages_to_checkboxes[data[id]["usage_category"]]
+        ) === "true"
       ) {
         dictionary.appendChild(build_word(id, data[id]));
       }
@@ -385,11 +387,19 @@ const languages = bundle["languages"];
 
 const selector_map = {
   // these keys must have a corresponding div in index.html
-  book_selector: [
-    "checkbox_pu",
-    "checkbox_kusuli",
-    "checkbox_kulili",
-    "checkbox_none",
+  // book_selector: [
+  //   "checkbox_pu",
+  //   "checkbox_kusuli",
+  //   "checkbox_kulili",
+  //   "checkbox_none",
+  // ],
+  usage_selector: [
+    "checkbox_core",
+    "checkbox_widespread",
+    "checkbox_common",
+    "checkbox_uncommon",
+    "checkbox_rare",
+    "checkbox_obscure",
   ],
   search_selector: [],
   settings_selector: [
@@ -400,17 +410,31 @@ const selector_map = {
     // whenever the page looks prettier
   ],
 };
-const books_to_checkboxes = {
-  pu: "checkbox_pu",
-  "ku suli": "checkbox_kusuli",
-  "ku lili": "checkbox_kulili",
-  none: "checkbox_none",
+// const books_to_checkboxes = {
+//   pu: "checkbox_pu",
+//   "ku suli": "checkbox_kusuli",
+//   "ku lili": "checkbox_kulili",
+//   none: "checkbox_none",
+// };
+const usages_to_checkboxes = {
+  core: "checkbox_core",
+  widespread: "checkbox_widespread",
+  common: "checkbox_common",
+  uncommon: "checkbox_uncommon",
+  rare: "checkbox_rare",
+  obscure: "checkbox_obscure",
 };
 const checkbox_labels = {
-  checkbox_pu: "pu words",
-  checkbox_kusuli: "ku suli words",
-  checkbox_kulili: "ku lili words",
-  checkbox_none: "other words",
+  // checkbox_pu: "pu words",
+  // checkbox_kusuli: "ku suli words",
+  // checkbox_kulili: "ku lili words",
+  // checkbox_none: "other words",
+  checkbox_core: "core words",
+  checkbox_widespread: "widespread words",
+  checkbox_common: "common words",
+  checkbox_uncommon: "uncommon words",
+  checkbox_rare: "rare words",
+  checkbox_obscure: "obscure words",
   checkbox_definitions: "definition search",
   checkbox_detailed: "detailed mode",
   checkbox_lightmode: "light mode",
@@ -418,10 +442,16 @@ const checkbox_labels = {
 
 // must be strings bc localstorage only saves strings
 const checkbox_defaults = {
-  checkbox_pu: "true",
-  checkbox_kusuli: "true",
-  checkbox_kulili: "false",
-  checkbox_none: "false",
+  // checkbox_pu: "true",
+  // checkbox_kusuli: "true",
+  // checkbox_kulili: "false",
+  // checkbox_none: "false",
+  checkbox_core: "true",
+  checkbox_widespread: "true",
+  checkbox_common: "false",
+  checkbox_uncommon: "false",
+  checkbox_rare: "false",
+  checkbox_obscure: "false",
   // "checkbox_definitions": 'false',  // do not save, user consideration
   // "checkbox_detailed": 'false', // INTENDED: do not save this setting, it's Laggy
   checkbox_lightmode: "false",
