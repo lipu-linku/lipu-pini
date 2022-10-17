@@ -180,11 +180,11 @@ function build_word(id, word, force = false) {
         )
       );
     }
-    if (word["sitelen_emosi"]) {
-      details_div.appendChild(
-        build_element("div", word["sitelen_emosi"], "sitelenemosi")
-      );
-    }
+    // if (word["sitelen_emosi"]) {
+    //   details_div.appendChild(
+    //     build_element("div", word["sitelen_emosi"], "sitelenemosi")
+    //   );
+    // }
 
     if (word["audio"]) {
       audio_kalaasi = build_element(
