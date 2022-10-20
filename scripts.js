@@ -377,15 +377,7 @@ function single_word_mode() {
   document.getElementById("normal_mode_button").style.display = "initial";
 }
 function normal_mode() {
-  show_word = null;
-  clear_dictionary();
-  fill_dictionary();
-  for (let checkbox_div of Object.keys(selector_map)) {
-    document.getElementById(checkbox_div).style.display = "";
-  }
-  document.getElementById("searchbar").style.display = "";
-  document.getElementById("normal_mode_button").style.display = "none";
-  window.location.search = ""; // remove query from url
+  window.location.search = ""; // remove query and refresh
 }
 
 const bundle_url = "https://lipu-linku.github.io/jasima/data.json";
