@@ -1,3 +1,4 @@
+"use strict";
 String.prototype.fuzzy = function (s) {
   var i = 0,
     n = -1,
@@ -109,11 +110,11 @@ function build_word(id, word) {
     for (var date in Object.fromEntries(
       Object.entries(word["recognition"]).reverse()
     )) {
-      percent = word["recognition"][date];
-      usage_category = word["usage_category"]
+      let percent = word["recognition"][date];
+      let usage_category = word["usage_category"]
         ? word["usage_category"]
         : "unknown";
-      recognition = `${usage_category} (${percent}% in ${date})`;
+      let recognition = `${usage_category} (${percent}% in ${date})`;
       word_container.appendChild(
         build_element("div", recognition, "recognition")
       );
@@ -129,7 +130,7 @@ function build_word(id, word) {
   word_container.appendChild(build_element("div", word["word"], "word"));
   // The switch statement is temporary!
 
-  definition = word["def"][localStorage.getItem("selected_language")];
+  let definition = word["def"][localStorage.getItem("selected_language")];
   if (definition) {
     word_container.appendChild(build_element("div", definition, "definition"));
   } else {
@@ -146,7 +147,7 @@ function build_word(id, word) {
     let see_also_div = build_element("div", "{see ", "seealso");
     let see_alsos = word["see_also"].split(", ");
     for (let i = 0; i < see_alsos.length; i++) {
-      seen = see_alsos[i];
+      let seen = see_alsos[i];
       see_also_div.appendChild(
         build_element("a", seen, "seealsolink", "#" + seen)
       );
@@ -251,7 +252,7 @@ function main() {
 }
 
 function build_select_option(option_value, text) {
-  option_node = document.createElement("option");
+  let option_node = document.createElement("option");
   option_node.value = option_value;
   option_node.appendChild(build_text(text));
   return option_node;
@@ -262,8 +263,8 @@ function language_select_default() {
   }
 
   language_selector = document.getElementById("language_selector");
-  for (var id in languages) {
-    option = build_select_option(id, languages[id]["name_endonym"]);
+  for (let id in languages) {
+    let option = build_select_option(id, languages[id]["name_endonym"]);
     if (id == localStorage.getItem("selected_language")) {
       option.selected = true;
     }
@@ -285,7 +286,7 @@ function checkbox_select_default() {
     }
   }
   for (let [checkbox_div, checkboxes] of Object.entries(selector_map)) {
-    div = document.getElementById(checkbox_div);
+    let div = document.getElementById(checkbox_div);
     for (const checkbox of checkboxes) {
       div.appendChild(
         build_checkbox_option(
@@ -297,11 +298,11 @@ function checkbox_select_default() {
   }
 }
 function build_checkbox_option(name, value) {
-  container = document.createElement("label");
+  let container = document.createElement("label");
   container.className = "container";
   container.appendChild(build_text(checkbox_labels[name]));
 
-  checkbox = document.createElement("input");
+  let checkbox = document.createElement("input");
   checkbox.type = "checkbox";
   checkbox.id = name;
   checkbox.checked = value;
@@ -309,16 +310,10 @@ function build_checkbox_option(name, value) {
   checkbox.autocomplete = "off"; // prevent refresh refill; only localStorage
   container.appendChild(checkbox);
 
-  checkmark = document.createElement("span");
+  let checkmark = document.createElement("span");
   checkmark.className = "checkmark";
   container.appendChild(checkmark);
   return container;
-  /*checkbox = document.createElement("input")
-    checkbox.type = "checkbox"
-    checkbox.id = name
-    checkbox.checked = value
-    checkbox.onchange = checkbox_changed
-    return checkbox*/
 }
 function checkbox_changed() {
   for (let checkbox of Object.keys(checkbox_labels)) {
@@ -341,7 +336,9 @@ function str_matches(str1, str2) {
   str2 = str2.normalize("NFD").replace(/\p{Diacritic}/gu, "");
   str1 = str1.toLowerCase();
   str2 = str2.toLowerCase();
-  definition_search = document.getElementById("checkbox_definitions").checked;
+  let definition_search = document.getElementById(
+    "checkbox_definitions"
+  ).checked;
   if (definition_search) {
     // INTENDED: don't fuzzy search defs, it sucks
     return str1.includes(str2);
@@ -350,10 +347,10 @@ function str_matches(str1, str2) {
 }
 
 function search_changed(searchbar) {
-  search = searchbar.value.trim();
-  search_defs = document.getElementById("checkbox_definitions").checked;
-  entries = document.getElementsByClassName("entry");
-  for (var i = 0; i < entries.length; i++) {
+  let search = searchbar.value.trim();
+  let search_defs = document.getElementById("checkbox_definitions").checked;
+  let entries = document.getElementsByClassName("entry");
+  for (let i = 0; i < entries.length; i++) {
     var match = entries[i].id;
     if (search_defs) {
       match = entries[i].querySelector(".definition").textContent;
