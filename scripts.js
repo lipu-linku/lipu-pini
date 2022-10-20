@@ -31,23 +31,38 @@ function build_element(tag, text, classname = null, src = null) {
   return div;
 }
 
+function set_visibility(elem, display) {
+  if (elem) {
+    elem.style.display = display;
+  }
+}
+
+function update_visibility() {
+  dictionary = document.getElementById("dictionary");
+  for (var id in data) {
+    let word = dictionary.querySelector("#" + id);
+    localStorage.getItem(usages_to_checkboxes[data[id]["usage_category"]]) ===
+    "true"
+      ? set_visibility(word, "")
+      : set_visibility(word, "none");
+
+    document.getElementById("checkbox_detailed").checked === true
+      ? set_visibility(word.querySelector("details"), "")
+      : set_visibility(word.querySelector("details"), "none");
+  }
+}
+
 function fill_dictionary() {
   dictionary = document.getElementById("dictionary");
   if (show_word) {
-    dictionary.appendChild(build_word(show_word, data[show_word], true));
+    dictionary.appendChild(build_word(show_word, data[show_word]));
     return;
   } else {
     for (var id in data) {
-      if (
-        localStorage.getItem(
-          usages_to_checkboxes[data[id]["usage_category"]]
-        ) === "true"
-      ) {
-        dictionary.appendChild(build_word(id, data[id]));
-      }
+      dictionary.appendChild(build_word(id, data[id]));
     }
+    search_changed(document.getElementById("searchbar"));
   }
-  search_changed(document.getElementById("searchbar"));
 }
 function clear_dictionary() {
   dictionary = document.getElementById("dictionary");
@@ -56,7 +71,7 @@ function clear_dictionary() {
   }
 }
 
-function build_word(id, word, force = false) {
+function build_word(id, word) {
   var word_container = document.createElement("div");
   word_container.id = id;
   word_container.className = "entry";
@@ -79,7 +94,7 @@ function build_word(id, word, force = false) {
       build_element("div", word["etymology"], "etymology")
     );
   }
-  coined = [
+  let coined = [
     word["coined_year"] ? word["coined_year"] + " " : "",
     word["coined_era"] ? "(" + word["coined_era"] + ")" : "",
   ].join(" ");
@@ -143,76 +158,68 @@ function build_word(id, word, force = false) {
     see_also_div.innerHTML += "}";
     word_container.appendChild(see_also_div);
   }
-  var details = document.getElementById("checkbox_detailed").checked;
-  if ((details === true) | (force === true)) {
-    var details_div = build_element("div", "", "details");
-    var details_container = build_element("details", "");
-    details_container.appendChild(build_element("summary", "more info"));
-    details_container.appendChild(details_div);
+  let details_div = build_element("div", "", "details");
+  let details_container = build_element("details", "");
+  details_container.appendChild(build_element("summary", "more info"));
+  details_container.appendChild(details_div);
 
-    if (word["commentary"]) {
-      details_div.appendChild(
-        build_element("div", word["commentary"], "commentary")
-      );
-    }
-    if (word["ku_data"]) {
-      details_div.appendChild(build_element("div", word["ku_data"], "kudata"));
-    }
-    if (word["sitelen_pona_etymology"]) {
-      details_div.appendChild(
-        build_element(
-          "div",
-          word["sitelen_pona_etymology"],
-          "sitelenponaetymology",
-          word["sitelen_pona_etymology"]
-        )
-      );
-    }
+  if (word["commentary"]) {
+    details_div.appendChild(
+      build_element("div", word["commentary"], "commentary")
+    );
+  }
+  if (word["ku_data"]) {
+    details_div.appendChild(build_element("div", word["ku_data"], "kudata"));
+  }
+  if (word["sitelen_pona_etymology"]) {
+    details_div.appendChild(
+      build_element(
+        "div",
+        word["sitelen_pona_etymology"],
+        "sitelenponaetymology",
+        word["sitelen_pona_etymology"]
+      )
+    );
+  }
 
-    // NOTE: maybe embed later, instead of linking?
-    if (word["luka_pona"]) {
-      details_div.appendChild(
-        build_element(
-          "a",
-          "view luka pona",
-          "lukapona",
-          word["luka_pona"]["gif"]
-        )
-      );
-    }
-    // if (word["sitelen_emosi"]) {
-    //   details_div.appendChild(
-    //     build_element("div", word["sitelen_emosi"], "sitelenemosi")
-    //   );
-    // }
+  // NOTE: maybe embed later, instead of linking?
+  if (word["luka_pona"]) {
+    details_div.appendChild(
+      build_element("a", "view luka pona", "lukapona", word["luka_pona"]["gif"])
+    );
+  }
+  // if (word["sitelen_emosi"]) {
+  //   details_div.appendChild(
+  //     build_element("div", word["sitelen_emosi"], "sitelenemosi")
+  //   );
+  // }
 
-    if (word["audio"]) {
-      audio_kalaasi = build_element(
-        "a",
-        "kala Asi speaks",
-        "audio_kalaasi",
-        word["audio"]["kala_asi"]
-      );
-      audio_janlakuse = build_element(
-        "a",
-        "jan Lakuse speaks",
-        "audio_janlakuse",
-        word["audio"]["jan_lakuse"]
-      );
-      // audio_kalaasi = build_element("audio", "", "audio_kalaasi", word["audio"]["kala_asi"])
-      // audio_janlakuse = build_element("audio", "", "audio_janlakuse", word["audio"]["jan_lakuse"])
-      // audio_kalaasi.controls = true
-      // audio_janlakuse.controls = true
-      details_div.appendChild(audio_kalaasi);
-      details_div.appendChild(audio_janlakuse);
-    }
+  if (word["audio"]) {
+    let audio_kalaasi = build_element(
+      "a",
+      "kala Asi speaks",
+      "audio_kalaasi",
+      word["audio"]["kala_asi"]
+    );
+    let audio_janlakuse = build_element(
+      "a",
+      "jan Lakuse speaks",
+      "audio_janlakuse",
+      word["audio"]["jan_lakuse"]
+    );
+    // audio_kalaasi = build_element("audio", "", "audio_kalaasi", word["audio"]["kala_asi"])
+    // audio_janlakuse = build_element("audio", "", "audio_janlakuse", word["audio"]["jan_lakuse"])
+    // audio_kalaasi.controls = true
+    // audio_janlakuse.controls = true
+    details_div.appendChild(audio_kalaasi);
+    details_div.appendChild(audio_janlakuse);
+  }
 
-    // TODO: hide or show by default?
-    details_container.open = true;
-    if (details_div.childNodes.length > 1) {
-      // only append if non-empty; # text is present tho
-      word_container.appendChild(details_container);
-    }
+  // TODO: hide or show by default?
+  details_container.open = true;
+  if (details_div.childNodes.length > 1) {
+    // only append if non-empty; # text is present tho
+    word_container.appendChild(details_container);
   }
 
   return word_container;
@@ -228,6 +235,7 @@ function main() {
   checkbox_select_default();
   // Generate words
   fill_dictionary();
+  update_visibility();
 
   checkbox_lightmode = document.getElementById("checkbox_lightmode");
   checkbox_lightmode.checked = localStorage.checkbox_lightmode === "true";
@@ -267,6 +275,7 @@ function language_select_changed(select_node) {
   localStorage.setItem("selected_language", selected_option.value);
   clear_dictionary();
   fill_dictionary();
+  update_visibility();
 }
 
 function checkbox_select_default() {
@@ -320,8 +329,7 @@ function checkbox_changed() {
       localStorage.setItem(checkbox, is_checked);
     }
   }
-  clear_dictionary();
-  fill_dictionary();
+  update_visibility();
 }
 
 function str_matches(str1, str2) {
@@ -351,11 +359,11 @@ function search_changed(searchbar) {
       match = entries[i].querySelector(".definition").textContent;
     }
 
-    if (str_matches(match, search)) {
-      entries[i].style.display = "";
-    } else {
-      entries[i].style.display = "none";
-    }
+    // if (str_matches(match, search)) {
+    //   entries[i].style.display = "";
+    // } else {
+    //   entries[i].style.display = "none";
+    // }
   }
 }
 
