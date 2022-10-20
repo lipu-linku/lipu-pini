@@ -216,7 +216,6 @@ function build_word(id, word) {
     details_div.appendChild(audio_janlakuse);
   }
 
-  // TODO: hide or show by default?
   details_container.open = true;
   if (details_div.childNodes.length > 1) {
     // only append if non-empty; # text is present tho
@@ -236,6 +235,7 @@ function main() {
   checkbox_select_default();
   // Generate words
   fill_dictionary();
+  // show based on settings
   update_visibility();
 
   checkbox_lightmode = document.getElementById("checkbox_lightmode");
@@ -328,10 +328,6 @@ function checkbox_changed() {
 }
 
 function str_matches(str1, str2) {
-  // ignore_diacritics = document.getElementById("checkbox_ignore_diacritics").checked
-  // if (ignore_diacritics) { }
-  // ignore_case = document.getElementById("checkbox_ignore_case").checked
-  // if (ignore_case) { }
   str1 = str1.normalize("NFD").replace(/\p{Diacritic}/gu, "");
   str2 = str2.normalize("NFD").replace(/\p{Diacritic}/gu, "");
   str1 = str1.toLowerCase();
@@ -356,6 +352,7 @@ function search_changed(searchbar) {
       match = entries[i].querySelector(".definition").textContent;
     }
 
+    // TODO
     // if (str_matches(match, search)) {
     //   entries[i].style.display = "";
     // } else {
