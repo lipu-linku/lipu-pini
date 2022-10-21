@@ -174,7 +174,7 @@ function update_visibility(search_term) {
 }
 
 function fill_dictionary() {
-  dictionary = document.getElementById("dictionary");
+  let dictionary = document.getElementById("dictionary");
   if (show_word) {
     dictionary.appendChild(build_word(show_word, data[show_word]));
     return;
@@ -357,7 +357,7 @@ function main() {
   // show based on settings
   search_changed(document.getElementById("searchbar"));
 
-  checkbox_lightmode = document.getElementById("checkbox_lightmode");
+  let checkbox_lightmode = document.getElementById("checkbox_lightmode");
   checkbox_lightmode.checked = localStorage.checkbox_lightmode === "true";
   if (checkbox_lightmode.checked) {
     document.body.classList.add("lightmode");
@@ -381,7 +381,7 @@ function language_select_default() {
     localStorage.setItem("selected_language", "en");
   }
 
-  language_selector = document.getElementById("language_selector");
+  let language_selector = document.getElementById("language_selector");
   for (let id in languages) {
     let option = build_select_option(id, languages[id]["name_endonym"]);
     if (id == localStorage.getItem("selected_language")) {
