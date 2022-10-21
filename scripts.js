@@ -1,4 +1,107 @@
 "use strict";
+// === BEGIN: MIT license from https://github.com/gustf/js-levenshtein/blob/master/LICENSE
+const levenshtein = (function () {
+  function _min(d0, d1, d2, bx, ay) {
+    return d0 < d1 || d2 < d1
+      ? d0 > d2
+        ? d2 + 1
+        : d0 + 1
+      : bx === ay
+      ? d1
+      : d1 + 1;
+  }
+
+  return function (a, b) {
+    if (a === b) {
+      return 0;
+    }
+
+    if (a.length > b.length) {
+      var tmp = a;
+      a = b;
+      b = tmp;
+    }
+
+    var la = a.length;
+    var lb = b.length;
+
+    while (la > 0 && a.charCodeAt(la - 1) === b.charCodeAt(lb - 1)) {
+      la--;
+      lb--;
+    }
+
+    var offset = 0;
+
+    while (offset < la && a.charCodeAt(offset) === b.charCodeAt(offset)) {
+      offset++;
+    }
+
+    la -= offset;
+    lb -= offset;
+
+    if (la === 0 || lb < 3) {
+      return lb;
+    }
+
+    var x = 0;
+    var y;
+    var d0;
+    var d1;
+    var d2;
+    var d3;
+    var dd;
+    var dy;
+    var ay;
+    var bx0;
+    var bx1;
+    var bx2;
+    var bx3;
+
+    var vector = [];
+
+    for (y = 0; y < la; y++) {
+      vector.push(y + 1);
+      vector.push(a.charCodeAt(offset + y));
+    }
+
+    var len = vector.length - 1;
+
+    for (; x < lb - 3; ) {
+      bx0 = b.charCodeAt(offset + (d0 = x));
+      bx1 = b.charCodeAt(offset + (d1 = x + 1));
+      bx2 = b.charCodeAt(offset + (d2 = x + 2));
+      bx3 = b.charCodeAt(offset + (d3 = x + 3));
+      dd = x += 4;
+      for (y = 0; y < len; y += 2) {
+        dy = vector[y];
+        ay = vector[y + 1];
+        d0 = _min(dy, d0, d1, bx0, ay);
+        d1 = _min(d0, d1, d2, bx1, ay);
+        d2 = _min(d1, d2, d3, bx2, ay);
+        dd = _min(d2, d3, dd, bx3, ay);
+        vector[y] = dd;
+        d3 = d2;
+        d2 = d1;
+        d1 = d0;
+        d0 = dy;
+      }
+    }
+
+    for (; x < lb; ) {
+      bx0 = b.charCodeAt(offset + (d0 = x));
+      dd = ++x;
+      for (y = 0; y < len; y += 2) {
+        dy = vector[y];
+        vector[y] = dd = _min(dy, d0, dd, bx0, vector[y + 1]);
+        d0 = dy;
+      }
+    }
+
+    return dd;
+  };
+})();
+// END: MIT license
+
 String.prototype.fuzzy = function (s) {
   var i = 0,
     n = -1,
@@ -38,15 +141,32 @@ function set_visibility(elem, display) {
   }
 }
 
-function update_visibility() {
-  dictionary = document.getElementById("dictionary");
+function find_vis_state(search_term, id, word_elem) {
+  let usage_cat_set = localStorage.getItem(
+    usages_to_checkboxes[data[id]["usage_category"]]
+  );
+  // hide if not in current usage categories
+  if (usage_cat_set !== "true") return "none";
+  if (search_term === "") return ""; // no need to check search behaviors
+
+  let match = id;
+  if (document.getElementById("checkbox_definitions").checked) {
+    match = word_elem.querySelector(".definition").textContent;
+  }
+
+  return str_matches(match, search_term) ? "" : "none";
+}
+
+function update_visibility(search_term) {
+  // works together with search_changed, but solely changes visibility
+  let dictionary = document.getElementById("dictionary");
+
   for (var id in data) {
     let word = dictionary.querySelector("#" + id);
-    localStorage.getItem(usages_to_checkboxes[data[id]["usage_category"]]) ===
-    "true"
-      ? set_visibility(word, "")
-      : set_visibility(word, "none");
+    set_visibility(word, find_vis_state(search_term, id, word));
 
+    // this is independent of whole word visibility
+    // could be done only on checkbox_changed but that's more logic extraction
     document.getElementById("checkbox_detailed").checked === true
       ? set_visibility(word.querySelector("details"), "")
       : set_visibility(word.querySelector("details"), "none");
@@ -62,7 +182,6 @@ function fill_dictionary() {
     for (var id in data) {
       dictionary.appendChild(build_word(id, data[id]));
     }
-    search_changed(document.getElementById("searchbar"));
   }
 }
 function clear_dictionary() {
@@ -236,7 +355,7 @@ function main() {
   // Generate words
   fill_dictionary();
   // show based on settings
-  update_visibility();
+  search_changed(document.getElementById("searchbar"));
 
   checkbox_lightmode = document.getElementById("checkbox_lightmode");
   checkbox_lightmode.checked = localStorage.checkbox_lightmode === "true";
@@ -272,11 +391,11 @@ function language_select_default() {
   }
 }
 function language_select_changed(select_node) {
-  selected_option = select_node.options[select_node.selectedIndex];
+  let selected_option = select_node.options[select_node.selectedIndex];
   localStorage.setItem("selected_language", selected_option.value);
   clear_dictionary();
   fill_dictionary();
-  update_visibility();
+  search_changed(document.getElementById("searchbar"));
 }
 
 function checkbox_select_default() {
@@ -324,7 +443,7 @@ function checkbox_changed() {
       localStorage.setItem(checkbox, is_checked);
     }
   }
-  update_visibility();
+  search_changed(document.getElementById("searchbar"));
 }
 
 function str_matches(str1, str2) {
@@ -342,22 +461,66 @@ function str_matches(str1, str2) {
   return str1.fuzzy(str2);
 }
 
-function search_changed(searchbar) {
-  let search = searchbar.value.trim();
-  let search_defs = document.getElementById("checkbox_definitions").checked;
-  let entries = document.getElementsByClassName("entry");
-  for (let i = 0; i < entries.length; i++) {
-    var match = entries[i].id;
-    if (search_defs) {
-      match = entries[i].querySelector(".definition").textContent;
-    }
+function edit_distance(str1, str2) {
+  str1 = str1.toLowerCase();
+  str2 = str2.toLowerCase();
+  return levenshtein(str1, str2);
+}
 
-    // TODO
-    // if (str_matches(match, search)) {
-    //   entries[i].style.display = "";
-    // } else {
-    //   entries[i].style.display = "none";
-    // }
+function alphabetical(a, b) {
+  // expects [elem, ...]
+  // reverse sort
+  a = a.id; // TODO
+  b = b.id;
+  a = a.toLowerCase();
+  b = b.toLowerCase();
+
+  if (a > b) return -1;
+  if (a == b) return 0;
+  if (a < b) return 1;
+}
+
+function scored(a, b) {
+  // expects [[elem, int], ...]
+  // reverse sort
+  if (a[1] > b[1]) return -1;
+  if (a[1] == b[1]) return alphabetical(a[0], b[0]); // stabilize
+  if (a[1] < b[1]) return 1;
+}
+
+function search_changed(searchbar) {
+  // search_changed is solely responsible for:
+  // - triggering a view refresh (we need the fuzzy match)
+  // - sorting the words
+  // after this call to update vis, no style changes are made
+  let search_term = searchbar.value.trim();
+  update_visibility(search_term); // obligate
+
+  let dictionary = document.getElementById("dictionary");
+  let entries = document.getElementsByClassName("entry");
+
+  if (search_term === "") {
+    // they're in an html collection instead of an array so...
+    let sorted_entries = [...entries].sort(alphabetical);
+    for (let i in sorted_entries) {
+      dictionary.prepend(sorted_entries[i]); // puts in order on page
+    }
+    return;
+  }
+
+  if (!document.getElementById("checkbox_definitions").checked) {
+    let scores = [];
+    for (let i = 0; i < entries.length; i++) {
+      // for performance, limit scope to visible
+      if (entries[i].style.display === "") {
+        let match = entries[i].id;
+        scores.push([entries[i], edit_distance(search_term, match)]);
+      }
+    }
+    scores.sort(scored);
+    for (let i in scores) {
+      dictionary.prepend(scores[i][0]);
+    }
   }
 }
 
