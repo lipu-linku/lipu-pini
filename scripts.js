@@ -185,7 +185,7 @@ function fill_dictionary() {
   }
 }
 function clear_dictionary() {
-  dictionary = document.getElementById("dictionary");
+  let dictionary = document.getElementById("dictionary");
   while (dictionary.firstChild) {
     dictionary.removeChild(dictionary.lastChild);
   }
