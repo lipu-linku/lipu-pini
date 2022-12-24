@@ -308,6 +308,10 @@ function build_word(id, word) {
       build_element("a", "view luka pona", "lukapona", word["luka_pona"]["gif"])
     );
   }
+  if (word["ucsur"]) {
+    details_div.appendChild(build_element("div", word["ucsur"], "ucsur"));
+  }
+
   // if (word["sitelen_emosi"]) {
   //   details_div.appendChild(
   //     build_element("div", word["sitelen_emosi"], "sitelenemosi")

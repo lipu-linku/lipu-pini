@@ -100,7 +100,7 @@ details {
     minmax(0, 1fr);
   grid-column-gap: 10px;
   grid-template-areas:
-    "emosi . . lukapona lukapona"
+    "ucsur . . lukapona lukapona"
     "spetymology spetymology . commentary commentary"
     "kudata kudata kudata kudata kudata"
     "audio_kalaasi audio_kalaasi . audio_janlakuse audio_janlakuse";
@@ -169,7 +169,12 @@ summary {
 .audio_kalaasi {
   grid-area: audio_kalaasi;
 }
+.ucsur {
+  font-size: 150%;
+  grid-area: ucsur;
+}
 .sitelenemosi {
+  /* not shown currently; must be re-added to grid-area */
   font-size: 200%;
   grid-area: emosi;
 }
