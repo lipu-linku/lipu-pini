@@ -541,7 +541,7 @@ function normal_mode() {
   window.location.search = ""; // remove query and refresh
 }
 
-const bundle_url = "https://lipu-linku.github.io/jasima/data.json";
+const bundle_url = "https://linku.la/jasima/data.json";
 const bundle = JSON.parse(Get(bundle_url));
 const data = bundle["data"];
 const languages = bundle["languages"];
