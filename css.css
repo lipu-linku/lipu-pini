@@ -28,6 +28,9 @@ body {
 }
 
 input {
+  display: block;
+  position: sticky;
+  top: 1rem;
   text-align: center;
   font-size: 180%;
   font-family: inherit;
@@ -38,7 +41,7 @@ input {
   color: var(--highlight-color);
   padding: 0;
   border-color: var(--shade-color);
-  margin-top: 10px;
+  margin: 10px auto 0 auto;
 }
 a {
   color: var(--link-color);
