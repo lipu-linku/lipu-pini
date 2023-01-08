@@ -216,7 +216,7 @@ function build_word(id, word) {
   }
   let coined = [
     word["coined_year"] ? word["coined_year"] + " " : "",
-    word["coined_era"] ? "(" + word["coined_era"] + ")" : "",
+    word["coined_era"] ? "(" + word["coined_era"] + ")" : ""
   ].join(" ");
   if (coined) {
     word_container.appendChild(build_element("div", coined, "coined"));
@@ -272,10 +272,10 @@ function build_word(id, word) {
       );
       // why i didn't forEach
       if (i != see_alsos.length - 1) {
-        see_also_div.innerHTML += ", ";
+        see_also_div.appendChild(build_text(", "));
       }
     }
-    see_also_div.innerHTML += "}";
+    see_also_div.appendChild(build_text("}"));
     word_container.appendChild(see_also_div);
   }
   let details_div = build_element("div", "", "details");
@@ -560,16 +560,16 @@ const selector_map = {
     "checkbox_common",
     "checkbox_uncommon",
     "checkbox_rare",
-    "checkbox_obscure",
+    "checkbox_obscure"
   ],
   search_selector: [],
   settings_selector: [
     "checkbox_lightmode",
     "checkbox_detailed",
-    "checkbox_definitions",
+    "checkbox_definitions"
     // TODO: move 'definitions' to search selector
     // whenever the page looks prettier
-  ],
+  ]
 };
 // const books_to_checkboxes = {
 //   pu: "checkbox_pu",
@@ -583,7 +583,7 @@ const usages_to_checkboxes = {
   common: "checkbox_common",
   uncommon: "checkbox_uncommon",
   rare: "checkbox_rare",
-  obscure: "checkbox_obscure",
+  obscure: "checkbox_obscure"
 };
 const checkbox_labels = {
   // checkbox_pu: "pu words",
@@ -598,7 +598,7 @@ const checkbox_labels = {
   checkbox_obscure: "obscure words",
   checkbox_definitions: "definition search",
   checkbox_detailed: "detailed mode",
-  checkbox_lightmode: "light mode",
+  checkbox_lightmode: "light mode"
 };
 
 // must be strings bc localstorage only saves strings
@@ -615,7 +615,7 @@ const checkbox_defaults = {
   checkbox_obscure: "false",
   // "checkbox_definitions": 'false',  // do not save, user consideration
   // "checkbox_detailed": 'false', // INTENDED: do not save this setting, it's Laggy
-  checkbox_lightmode: "false",
+  checkbox_lightmode: "false"
 };
 const urlParams = new URLSearchParams(window.location.search);
 var show_word = null;
