@@ -272,10 +272,10 @@ function build_word(id, word) {
       );
       // why i didn't forEach
       if (i != see_alsos.length - 1) {
-        see_also_div.innerHTML += ", ";
+        see_also_div.appendChild(build_text(", "));
       }
     }
-    see_also_div.innerHTML += "}";
+    see_also_div.appendChild(build_text("}"));
     word_container.appendChild(see_also_div);
   }
   let details_div = build_element("div", "", "details");
