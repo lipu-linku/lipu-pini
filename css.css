@@ -5,12 +5,17 @@
   src: url(https://raw.githubusercontent.com/lipu-linku/nasin-sitelen/main/sitelenselikiwenasuki.ttf);
 }
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: "Noto Serif", Verdana, "Lucida Sans Unicode", sans-serif;
   text-align: center;
   background-color: var(--bg-color);
   color: var(--txt-color);
-  display: grid;
 }
 :root {
   --bg-color: #000000;
@@ -37,6 +42,7 @@ input {
   font-weight: bold;
   font-style: italic;
   width: 400px;
+  max-width: 100%;
   background-color: var(--bg-color);
   color: var(--highlight-color);
   padding: 0;
@@ -67,11 +73,9 @@ h2 {
   opacity: 0.5;
 }
 .page_width_limiter {
-  margin: auto;
+  margin: 0 auto;
+  padding: 0 10px;
   max-width: 840px;
-  width: -moz-available; /* WebKit-based browsers will ignore this. */
-  width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
-  width: fill-available;
 }
 .entry {
   display: grid;
