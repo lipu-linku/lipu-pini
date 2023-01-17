@@ -372,6 +372,8 @@ function main() {
       document.body.classList.add("lightmode");
     } else document.body.classList.remove("lightmode");
   });
+
+  document.getElementById("searchbar").focus();
 }
 
 function build_select_option(option_value, text) {
