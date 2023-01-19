@@ -61,6 +61,22 @@ body {
   border-color: var(--highlight-color);
 }
 
+#language_selector {
+  font-size: 100%;
+  font-family: inherit;
+  background-color: var(--bg-color);
+  color: var(--txt-color);
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--shade-color);
+  margin-bottom: 0.5rem;
+  transition: box-shadow 0.2s, border 0.2s;
+}
+#language_selector:focus {
+  outline: none;
+  box-shadow: 0 0 0 1px var(--highlight-color);
+  border-color: var(--highlight-color);
+}
+
 a {
   color: var(--link-color);
   text-decoration: none;
