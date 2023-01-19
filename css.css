@@ -55,17 +55,10 @@ body {
   max-width: 100%;
   background-color: var(--bg-color);
   color: var(--highlight-color);
-  padding: 0;
   border: 1px solid var(--shade-color);
   border-radius: 0.25rem;
   margin: 10px auto 0 auto;
   padding: 0.25rem 0;
-  transition: box-shadow 0.2s, border 0.2s;
-}
-.searchbar:focus {
-  outline: none;
-  box-shadow: 0 0 0 1px var(--highlight-color);
-  border-color: var(--highlight-color);
 }
 
 #language_selector {
@@ -73,14 +66,17 @@ body {
   font-family: inherit;
   background-color: var(--bg-color);
   color: var(--txt-color);
+  margin-bottom: 0.5rem;
   padding: 0.25rem 0.5rem;
+  cursor: pointer;
+}
+
+.main_input {
   border: 1px solid var(--shade-color);
   border-radius: 0.25rem;
-  margin-bottom: 0.5rem;
-  cursor: pointer;
   transition: box-shadow 0.2s, border 0.2s;
 }
-#language_selector:focus {
+.main_input:focus {
   outline: none;
   box-shadow: 0 0 0 1px var(--highlight-color);
   border-color: var(--highlight-color);
