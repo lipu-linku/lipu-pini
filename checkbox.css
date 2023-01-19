@@ -1,15 +1,13 @@
 /* The container */
 .container {
-  display: block;
-  position: relative;
-  padding-left: 35px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+
   margin-top: 4px;
   cursor: pointer;
-  text-align: left;
-
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 
@@ -24,11 +22,9 @@
 
 /* Create a custom checkbox */
 .checkmark {
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  height: 19px;
-  width: 19px;
+  position: relative;
+  height: 20px;
+  width: 20px;
   background-color: #eee;
 }
 
@@ -56,15 +52,11 @@
 
 /* Style the checkmark/indicator */
 .container .checkmark:after {
-  left: 6px;
-  top: 2px;
-  width: 4px;
-  height: 9px;
-  border: solid var(--txt-color);
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
 }
 
 /* When the checkmark is focused, add an outline to the checkbox */
