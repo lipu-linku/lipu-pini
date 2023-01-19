@@ -31,6 +31,10 @@ body {
   --link-color: hsl(172, 100%, 26%);
   --shade-color: hsl(222, 28%, 45%);
 }
+*:focus-visible {
+  outline: 2px solid var(--highlight-color);
+  outline-offset: 2px;
+}
 
 input {
   display: block;
