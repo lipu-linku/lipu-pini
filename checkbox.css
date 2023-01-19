@@ -66,3 +66,9 @@
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+/* When the checkmark is focused, add an outline to the checkbox */
+.container input:focus-visible ~ .checkmark {
+  outline: 2px solid var(--highlight-color);
+  outline-offset: 2px;
+}
