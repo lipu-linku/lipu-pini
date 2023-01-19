@@ -41,6 +41,7 @@ body {
   justify-content: center;
   position: sticky;
   top: 0.5rem;
+  z-index: 1;
 }
 .searchbar {
   text-align: center;
