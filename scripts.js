@@ -196,8 +196,6 @@ function build_word(id, word) {
   word_container.id = id;
   word_container.className = "entry";
 
-  word_container.appendChild(document.createElement("hr"));
-
   if (word["source_language"]) {
     word_container.appendChild(
       build_element("div", word["source_language"], "sourcelanguage")

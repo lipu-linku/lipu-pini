@@ -77,6 +77,11 @@ h2 {
   padding: 0 10px;
   max-width: 840px;
 }
+
+#dictionary {
+  margin-top: 0.5rem;
+}
+
 .entry {
   display: grid;
   grid-template-columns:
@@ -84,7 +89,6 @@ h2 {
     minmax(0, 1fr);
   grid-column-gap: 10px;
   grid-template-areas:
-    "hr hr hr hr hr"
     "sourcelanguage sourcelanguage creator creator creator"
     "etymology etymology etymology coined coined"
     "sitelenpona book book book sitelensitelen"
@@ -93,6 +97,8 @@ h2 {
     "sitelenpona definition definition definition sitelensitelen"
     ". seealso seealso seealso ."
     "details details details details details";
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--shade-color);
 }
 details {
   margin: 5px;
@@ -111,11 +117,6 @@ details {
     "spetymology spetymology . commentary commentary"
     "kudata kudata kudata kudata kudata"
     "audio_kalaasi audio_kalaasi . audio_janlakuse audio_janlakuse";
-}
-hr {
-  border-color: var(--shade-color);
-  grid-area: hr;
-  width: 100%;
 }
 .word {
   grid-area: word;
