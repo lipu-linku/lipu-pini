@@ -567,7 +567,7 @@ const selector_map = {
     "checkbox_rare",
     "checkbox_obscure"
   ],
-  search_selector: [],
+  // search_selector: [],
   settings_selector: [
     "checkbox_lightmode",
     "checkbox_detailed",
@@ -624,3 +624,5 @@ const checkbox_defaults = {
 };
 const urlParams = new URLSearchParams(window.location.search);
 var show_word = null;
+
+main();
