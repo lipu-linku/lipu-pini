@@ -27,7 +27,7 @@ body {
 .lightmode {
   --bg-color: #ffffff;
   --txt-color: hsl(222, 12%, 8%);
-  --highlight-color: hsl(34, 92%, 47%);
+  --highlight-color: hsl(34, 92%, 50%);
   --link-color: hsl(172, 100%, 26%);
   --shade-color: hsl(222, 28%, 45%);
 }
