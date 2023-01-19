@@ -19,17 +19,17 @@ body {
 }
 :root {
   --bg-color: #000000;
-  --txt-color: #ffffff;
-  --highlight-color: #ffab40;
-  --link-color: #008472;
-  --shade-color: #999999;
+  --txt-color: hsl(222, 100%, 99%);
+  --highlight-color: hsl(34, 100%, 63%);
+  --link-color: hsl(172, 100%, 26%);
+  --shade-color: hsl(222, 12%, 60%);
 }
 .lightmode {
   --bg-color: #ffffff;
-  --txt-color: #000000;
-  --highlight-color: #ffab40;
-  --link-color: #008472;
-  --shade-color: #999999;
+  --txt-color: hsl(222, 12%, 8%);
+  --highlight-color: hsl(34, 92%, 47%);
+  --link-color: hsl(172, 100%, 26%);
+  --shade-color: hsl(222, 28%, 45%);
 }
 
 input {
