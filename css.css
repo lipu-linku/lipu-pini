@@ -69,6 +69,7 @@ body {
   padding: 0.25rem 0.5rem;
   border: 1px solid var(--shade-color);
   margin-bottom: 0.5rem;
+  cursor: pointer;
   transition: box-shadow 0.2s, border 0.2s;
 }
 #language_selector:focus {
