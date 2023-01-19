@@ -220,19 +220,10 @@ summary {
   color: var(--shade-color);
 }
 #checkbox_container {
-  display: inline-block;
-}
-#book_selector {
-  display: inline-grid;
-}
-#usage_selector {
-  display: inline-grid;
-}
-#search_selector {
-  display: inline-grid;
-}
-#settings_selector {
-  display: inline-grid;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
 }
 #normal_mode_button {
   display: none;
