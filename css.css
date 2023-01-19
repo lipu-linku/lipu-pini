@@ -37,7 +37,7 @@ input {
   position: sticky;
   top: 1rem;
   text-align: center;
-  font-size: 180%;
+  font-size: 160%;
   font-family: inherit;
   font-weight: bold;
   font-style: italic;
@@ -48,7 +48,15 @@ input {
   padding: 0;
   border: 1px solid var(--shade-color);
   margin: 10px auto 0 auto;
+  padding: 0.25rem 0;
+  transition: box-shadow 0.2s, border 0.2s;
 }
+input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--highlight-color);
+  border-color: var(--highlight-color);
+}
+
 a {
   color: var(--link-color);
   text-decoration: none;
