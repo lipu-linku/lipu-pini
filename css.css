@@ -54,6 +54,7 @@ body {
   color: var(--highlight-color);
   padding: 0;
   border: 1px solid var(--shade-color);
+  border-radius: 0.25rem;
   margin: 10px auto 0 auto;
   padding: 0.25rem 0;
   transition: box-shadow 0.2s, border 0.2s;
@@ -71,6 +72,7 @@ body {
   color: var(--txt-color);
   padding: 0.25rem 0.5rem;
   border: 1px solid var(--shade-color);
+  border-radius: 0.25rem;
   margin-bottom: 0.5rem;
   cursor: pointer;
   transition: box-shadow 0.2s, border 0.2s;
@@ -255,7 +257,7 @@ summary {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 #normal_mode_button {
   display: none;
