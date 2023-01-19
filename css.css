@@ -58,7 +58,7 @@ a {
   margin: 10px 0px 15px 0px;
   font-size: 120%;
 }
-.code {
+code {
   color: var(--shade-color);
   font-family: "Courier New";
   font-weight: bold;
