@@ -46,7 +46,7 @@ input {
   background-color: var(--bg-color);
   color: var(--highlight-color);
   padding: 0;
-  border-color: var(--shade-color);
+  border: 1px solid var(--shade-color);
   margin: 10px auto 0 auto;
 }
 a {
