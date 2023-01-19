@@ -36,10 +36,13 @@ body {
   outline-offset: 2px;
 }
 
-.searchbar {
-  display: block;
+.search_container {
+  display: flex;
+  justify-content: center;
   position: sticky;
-  top: 1rem;
+  top: 0.5rem;
+}
+.searchbar {
   text-align: center;
   font-size: 160%;
   font-family: inherit;
