@@ -36,7 +36,7 @@ body {
   outline-offset: 2px;
 }
 
-input {
+.searchbar {
   display: block;
   position: sticky;
   top: 1rem;
@@ -55,9 +55,9 @@ input {
   padding: 0.25rem 0;
   transition: box-shadow 0.2s, border 0.2s;
 }
-input:focus {
+.searchbar:focus {
   outline: none;
-  box-shadow: 0 0 0 2px var(--highlight-color);
+  box-shadow: 0 0 0 1px var(--highlight-color);
   border-color: var(--highlight-color);
 }
 
