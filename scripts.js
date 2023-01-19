@@ -624,5 +624,3 @@ const checkbox_defaults = {
 };
 const urlParams = new URLSearchParams(window.location.search);
 var show_word = null;
-
-main();
