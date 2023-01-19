@@ -19,25 +19,29 @@ body {
 }
 :root {
   --bg-color: #000000;
-  --txt-color: #ffffff;
-  --highlight-color: #ffab40;
-  --link-color: #008472;
-  --shade-color: #999999;
+  --txt-color: hsl(222, 100%, 99%);
+  --highlight-color: hsl(34, 100%, 63%);
+  --link-color: hsl(172, 100%, 26%);
+  --shade-color: hsl(222, 12%, 60%);
 }
 .lightmode {
   --bg-color: #ffffff;
-  --txt-color: #000000;
-  --highlight-color: #ffab40;
-  --link-color: #008472;
-  --shade-color: #999999;
+  --txt-color: hsl(222, 12%, 8%);
+  --highlight-color: hsl(34, 92%, 50%);
+  --link-color: hsl(172, 100%, 26%);
+  --shade-color: hsl(222, 28%, 45%);
+}
+*:focus-visible {
+  outline: 2px solid var(--highlight-color);
+  outline-offset: 2px;
 }
 
-input {
+.searchbar {
   display: block;
   position: sticky;
   top: 1rem;
   text-align: center;
-  font-size: 180%;
+  font-size: 160%;
   font-family: inherit;
   font-weight: bold;
   font-style: italic;
@@ -46,9 +50,34 @@ input {
   background-color: var(--bg-color);
   color: var(--highlight-color);
   padding: 0;
-  border-color: var(--shade-color);
+  border: 1px solid var(--shade-color);
   margin: 10px auto 0 auto;
+  padding: 0.25rem 0;
+  transition: box-shadow 0.2s, border 0.2s;
 }
+.searchbar:focus {
+  outline: none;
+  box-shadow: 0 0 0 1px var(--highlight-color);
+  border-color: var(--highlight-color);
+}
+
+#language_selector {
+  font-size: 100%;
+  font-family: inherit;
+  background-color: var(--bg-color);
+  color: var(--txt-color);
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--shade-color);
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: box-shadow 0.2s, border 0.2s;
+}
+#language_selector:focus {
+  outline: none;
+  box-shadow: 0 0 0 1px var(--highlight-color);
+  border-color: var(--highlight-color);
+}
+
 a {
   color: var(--link-color);
   text-decoration: none;
@@ -58,7 +87,7 @@ a {
   margin: 10px 0px 15px 0px;
   font-size: 120%;
 }
-.code {
+code {
   color: var(--shade-color);
   font-family: "Courier New";
   font-weight: bold;
@@ -77,6 +106,11 @@ h2 {
   padding: 0 10px;
   max-width: 840px;
 }
+
+#dictionary {
+  margin-top: 0.5rem;
+}
+
 .entry {
   display: grid;
   grid-template-columns:
@@ -84,7 +118,6 @@ h2 {
     minmax(0, 1fr);
   grid-column-gap: 10px;
   grid-template-areas:
-    "hr hr hr hr hr"
     "sourcelanguage sourcelanguage creator creator creator"
     "etymology etymology etymology coined coined"
     "sitelenpona book book book sitelensitelen"
@@ -93,6 +126,8 @@ h2 {
     "sitelenpona definition definition definition sitelensitelen"
     ". seealso seealso seealso ."
     "details details details details details";
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--shade-color);
 }
 details {
   margin: 5px;
@@ -111,11 +146,6 @@ details {
     "spetymology spetymology . commentary commentary"
     "kudata kudata kudata kudata kudata"
     "audio_kalaasi audio_kalaasi . audio_janlakuse audio_janlakuse";
-}
-hr {
-  border-color: var(--shade-color);
-  grid-area: hr;
-  width: 100%;
 }
 .word {
   grid-area: word;
@@ -219,19 +249,10 @@ summary {
   color: var(--shade-color);
 }
 #checkbox_container {
-  display: inline-block;
-}
-#book_selector {
-  display: inline-grid;
-}
-#usage_selector {
-  display: inline-grid;
-}
-#search_selector {
-  display: inline-grid;
-}
-#settings_selector {
-  display: inline-grid;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
 }
 #normal_mode_button {
   display: none;

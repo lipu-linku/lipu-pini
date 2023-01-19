@@ -196,8 +196,6 @@ function build_word(id, word) {
   word_container.id = id;
   word_container.className = "entry";
 
-  word_container.appendChild(document.createElement("hr"));
-
   if (word["source_language"]) {
     word_container.appendChild(
       build_element("div", word["source_language"], "sourcelanguage")
@@ -258,9 +256,14 @@ function build_word(id, word) {
     );
   }
   if (word["sitelen_sitelen"]) {
-    word_container.appendChild(
-      build_element("img", "", "sitelensitelen", word["sitelen_sitelen"])
+    const img = build_element(
+      "img",
+      "",
+      "sitelensitelen",
+      word["sitelen_sitelen"]
     );
+    img.alt = `sitelen sitelen for ${word["sitelen_sitelen"]}`;
+    word_container.appendChild(img);
   }
   if (word["see_also"]) {
     let see_also_div = build_element("div", "{see ", "seealso");
