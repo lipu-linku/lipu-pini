@@ -38,25 +38,21 @@
   background-color: var(--highlight-color);
 }
 
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
+/* Checkmark indicator */
+.container .checkmark:after {
   content: "";
   position: absolute;
   display: none;
-}
-
-/* Show the checkmark when checked */
-.container input:checked ~ .checkmark:after {
-  display: block;
-}
-
-/* Style the checkmark/indicator */
-.container .checkmark:after {
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
 }
 
 /* When the checkmark is focused, add an outline to the checkbox */
