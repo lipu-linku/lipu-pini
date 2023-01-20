@@ -25,6 +25,8 @@ body {
   --highlight-color: hsl(34, 100%, 63%);
   --link-color: hsl(172, 100%, 26%);
   --shade-color: hsl(222, 12%, 60%);
+  --border-color: hsl(222, 12%, 20%);
+  --bg-alt-color: hsl(222, 0%, 7%);
 }
 .lightmode {
   --bg-color: #ffffff;
@@ -32,47 +34,75 @@ body {
   --highlight-color: hsl(34, 92%, 50%);
   --link-color: hsl(172, 100%, 26%);
   --shade-color: hsl(222, 28%, 45%);
+  --border-color: hsl(222, 28%, 75%);
+  --bg-alt-color: hsl(222, 0%, 93%);
 }
 *:focus-visible {
   outline: 2px solid var(--highlight-color);
   outline-offset: 2px;
 }
 
-.search_container {
-  display: flex;
-  justify-content: center;
+navbar {
+  display: grid;
+  grid-template-columns: 1fr minmax(60px, 400px) 1fr;
+  align-items: center;
   position: sticky;
-  top: 0.5rem;
+  padding: 0.5rem 0;
+  top: 0;
   z-index: 1;
+  width: 100%;
+  background-color: var(--bg-color);
+  border-bottom: 1px solid var(--border-color);
 }
+
+.navbar_segment {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 10px;
+}
+.left {
+  justify-content: left;
+}
+.right {
+  justify-content: right;
+}
+.navbar_segment > * {
+  margin: 0 5px;
+}
+
 .searchbar {
   text-align: center;
-  font-size: 160%;
+  font-size: 150%;
   font-family: inherit;
   font-weight: bold;
   font-style: italic;
-  width: 400px;
-  max-width: 100%;
-  background-color: var(--bg-color);
+  width: 100%;
+  background-color: var(--bg-alt-color);
   color: var(--highlight-color);
-  border: 1px solid var(--shade-color);
+  border: 1px solid var(--border-color);
   border-radius: 0.25rem;
-  margin: 10px auto 0 auto;
   padding: 0.25rem 0;
 }
 
 #language_selector {
   font-size: 100%;
-  font-family: inherit;
   background-color: var(--bg-color);
   color: var(--txt-color);
-  margin-bottom: 0.5rem;
-  padding: 0.25rem 0.5rem;
   cursor: pointer;
+
+  content: none;
+  border: none;
+  appearance: none;
+  background-image: url(world.png);
+  width: 35px;
+  height: 35px;
+  background-size: cover;
+  background-blend-mode: difference;
 }
 
 .main_input {
-  border: 1px solid var(--shade-color);
+  border: 1px solid var(--border-color);
   border-radius: 0.25rem;
   transition: box-shadow 0.2s, border 0.2s;
 }
@@ -88,9 +118,18 @@ a {
 }
 .navlink {
   display: block;
-  margin: 10px 0px 15px 0px;
-  font-size: 120%;
+  font-size: 100%;
 }
+.navlink > img {
+  width: 35px;
+  height: 35px;
+  display: block;
+  filter: none;
+}
+.lightmode .navlink > img {
+  filter: invert(100%);
+}
+
 code {
   color: var(--shade-color);
   font-family: "Courier New";
@@ -131,7 +170,7 @@ h2 {
     ". seealso seealso seealso ."
     "details details details details details";
   padding: 0.5rem 0;
-  border-top: 1px solid var(--shade-color);
+  border-top: 1px solid var(--border-color);
 }
 details {
   margin: 5px;

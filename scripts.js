@@ -426,6 +426,7 @@ function checkbox_select_default() {
   }
 }
 function build_checkbox_option(name, value) {
+  console.log("building " + name)
   let container = document.createElement("label");
   container.className = "container";
   container.appendChild(build_text(checkbox_labels[name]));
