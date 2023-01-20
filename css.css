@@ -92,15 +92,22 @@ navbar {
   color: var(--txt-color);
   cursor: pointer;
 
-  content: none;
-  content-visibility: hidden;
-  border: none;
-  appearance: none;
-  background-image: url(world.png);
   width: 35px;
   height: 35px;
-  background-size: cover;
-  background-blend-mode: difference;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+}
+
+#language_selector:focus + img {
+  outline: 2px solid var(--highlight-color);
+  outline-offset: 2px;
+}
+
+#language_selector_wrapper {
+  position: relative;
 }
 
 .main_input {
@@ -122,13 +129,13 @@ a {
   display: block;
   font-size: 100%;
 }
-.navlink > img {
+navbar img {
   width: 35px;
   height: 35px;
   display: block;
   filter: none;
 }
-.lightmode .navlink > img {
+.lightmode navbar img {
   filter: invert(100%);
 }
 
