@@ -47,11 +47,14 @@
         </button>
       </div>
       <div class="navbar_segment right">
-        <select
-          id="language_selector"
-          class="main_input"
-          onchange="language_select_changed(this)"
-        ></select>
+        <div id="language_selector_wrapper">
+          <select
+            id="language_selector"
+            class="main_input"
+            onchange="language_select_changed(this)"
+          ></select>
+          <img src="world.png" alt="Select language">
+        </div>
         <a class="navlink" href="about">
           <img src="ijo-a.png" alt="About Linku">
         </a>
