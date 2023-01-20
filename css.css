@@ -87,11 +87,13 @@ navbar {
 
 #language_selector {
   font-size: 100%;
+  font-family: inherit;
   background-color: var(--bg-color);
   color: var(--txt-color);
   cursor: pointer;
 
   content: none;
+  content-visibility: hidden;
   border: none;
   appearance: none;
   background-image: url(world.png);
