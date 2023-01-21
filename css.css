@@ -54,6 +54,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
   position: sticky;
   padding: 0.5rem 1rem;
   top: 0;
@@ -63,9 +64,14 @@ nav {
 }
 
 nav > div {
+  flex: 1;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+nav > :last-child {
+  justify-content: end;
 }
 
 nav img {
@@ -75,6 +81,12 @@ nav img {
 }
 .lightmode nav img {
   filter: invert(100%);
+}
+
+.search_container {
+  max-width: 20rem;
+  flex-basis: 100%;
+  flex-shrink: 0;
 }
 
 .searchbar {
@@ -144,7 +156,7 @@ nav img {
   color: var(--bg-color);
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 640px) {
   nav {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -156,10 +168,7 @@ nav img {
   nav > .search_container {
     grid-area: search;
     grid-column: 1 / -1;
-  }
-
-  nav :last-child {
-    justify-content: end;
+    max-width: 100%;
   }
 }
 
