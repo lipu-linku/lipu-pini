@@ -22,16 +22,21 @@
       content="interactive toki pona dictionary"
     />
     <meta property="og:url" content="https://linku.la/" />
+
+    <script>
+      if (localStorage.checkbox_lightmode === "true") {
+        document.documentElement.classList.add("lightmode");
+      }
+    </script>
   </head>
   <body onload="main()">
-    <navbar class="search_container">
-      <div class="navbar_segment left">
-        <span class="navlink">
-          <img src="icon.png" alt="lipu Linku">
-        </span>
-        <span class="navlink">lipu Linku</span>
+    <nav>
+      <div class="logo">
+        <img src="icon.png" alt="lipu Linku" />
+        lipu Linku
       </div>
-      <div>
+
+      <div class="search_container">
         <input
           id="searchbar"
           class="searchbar main_input"
@@ -43,23 +48,25 @@
           spellcheck="false"
         />
         <button id="normal_mode_button" onclick="normal_mode()">
-          Back to dictionary
+          Back to Dictionary
         </button>
       </div>
-      <div class="navbar_segment right">
-        <div id="language_selector_wrapper">
+
+      <div>
+        <label id="language_selector_wrapper" title="Select Language">
           <select
             id="language_selector"
             class="main_input"
             onchange="language_select_changed(this)"
           ></select>
-          <img src="world.png" alt="Select language">
-        </div>
-        <a class="navlink" href="about">
-          <img src="ijo-a.png" alt="About Linku">
+          <img src="world.png" alt="Select language" />
+        </label>
+        <a href="about" title="About Linku">
+          <img src="ijo-a.png" alt="About Linku" />
         </a>
       </div>
-    </navbar>
+    </nav>
+
     <div class="page_width_limiter">
       <div id="checkbox_container">
         <div id="usage_selector"></div>

@@ -365,15 +365,11 @@ function main() {
   search_changed(document.getElementById("searchbar"));
 
   let checkbox_lightmode = document.getElementById("checkbox_lightmode");
-  checkbox_lightmode.checked = localStorage.checkbox_lightmode === "true";
-  if (checkbox_lightmode.checked) {
-    document.body.classList.add("lightmode");
-  }
   checkbox_lightmode.addEventListener("change", function (e) {
     localStorage.checkbox_lightmode = e.target.checked;
     if (e.target.checked) {
-      document.body.classList.add("lightmode");
-    } else document.body.classList.remove("lightmode");
+      document.documentElement.classList.add("lightmode");
+    } else document.documentElement.classList.remove("lightmode");
   });
 
   document.getElementById("searchbar").focus();
