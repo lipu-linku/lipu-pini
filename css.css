@@ -170,6 +170,10 @@ nav img {
     top: -3rem;
   }
 
+  nav > :first-child {
+    white-space: nowrap;
+  }
+
   nav > .search_container {
     grid-area: search;
     grid-column: 1 / -1;
