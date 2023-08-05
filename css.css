@@ -181,6 +181,11 @@ nav img {
   }
 }
 
+#survey {
+  font-size: 1em;
+  margin-top: 1rem;
+}
+
 a {
   color: var(--link-color);
   text-decoration: none;
