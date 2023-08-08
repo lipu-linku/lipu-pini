@@ -150,26 +150,44 @@ function find_vis_state(search_term, id, word_elem) {
   if (search_term === "") return ""; // no need to check search behaviors
 
   let match = id;
-  if (document.getElementById("checkbox_definitions").checked) {
+  if (should_search_definitions) {
     match = word_elem.querySelector(".definition").textContent;
   }
 
   return str_matches(match, search_term) ? "" : "none";
 }
 
-function update_visibility(search_term) {
-  // works together with search_changed, but solely changes visibility
+function __update_visibility(search_term) {
+  // returns whether at least one word would have been visible
   let dictionary = document.getElementById("dictionary");
-
+  let any_visible = false;
   for (var id in data) {
     let word = dictionary.querySelector("#" + id);
-    set_visibility(word, find_vis_state(search_term, id, word));
+    let vis_state = find_vis_state(search_term, id, word);
+    if (vis_state === "") {
+      any_visible = true;
+    }
+
+    set_visibility(word, vis_state);
 
     // this is independent of whole word visibility
     // could be done only on checkbox_changed but that's more logic extraction
     document.getElementById("checkbox_detailed").checked === true
       ? set_visibility(word.querySelector("details"), "")
       : set_visibility(word.querySelector("details"), "none");
+  }
+  return any_visible;
+}
+
+function update_visibility(search_term) {
+  // works together with search_changed, but solely changes visibility
+  // NOTE: disable definition search at start so we always switch back to word search on time
+  should_search_definitions = false;
+  let any_visible = __update_visibility(search_term);
+  if (!any_visible) {
+    // no words were visible, so retry with def search on
+    should_search_definitions = true;
+    __update_visibility(search_term);
   }
 }
 
@@ -214,7 +232,7 @@ function build_word(id, word) {
   }
   let coined = [
     word["coined_year"] ? word["coined_year"] + " " : "",
-    word["coined_era"] ? "(" + word["coined_era"] + ")" : ""
+    word["coined_era"] ? "(" + word["coined_era"] + ")" : "",
   ].join(" ");
   if (coined) {
     word_container.appendChild(build_element("div", coined, "coined"));
@@ -456,10 +474,7 @@ function str_matches(str1, str2) {
   str2 = str2.normalize("NFD").replace(/\p{Diacritic}/gu, "");
   str1 = str1.toLowerCase();
   str2 = str2.toLowerCase();
-  let definition_search = document.getElementById(
-    "checkbox_definitions"
-  ).checked;
-  if (definition_search) {
+  if (should_search_definitions) {
     // INTENDED: don't fuzzy search defs, it sucks
     return str1.includes(str2);
   }
@@ -513,7 +528,7 @@ function search_changed(searchbar) {
     return;
   }
 
-  if (!document.getElementById("checkbox_definitions").checked) {
+  if (!should_search_definitions) {
     let scores = [];
     for (let i = 0; i < entries.length; i++) {
       // for performance, limit scope to visible
@@ -561,16 +576,16 @@ const selector_map = {
     "checkbox_common",
     "checkbox_uncommon",
     "checkbox_rare",
-    "checkbox_obscure"
+    "checkbox_obscure",
   ],
   // search_selector: [],
   settings_selector: [
     "checkbox_lightmode",
     "checkbox_detailed",
-    "checkbox_definitions"
+    // "checkbox_definitions",
     // TODO: move 'definitions' to search selector
     // whenever the page looks prettier
-  ]
+  ],
 };
 // const books_to_checkboxes = {
 //   pu: "checkbox_pu",
@@ -584,7 +599,7 @@ const usages_to_checkboxes = {
   common: "checkbox_common",
   uncommon: "checkbox_uncommon",
   rare: "checkbox_rare",
-  obscure: "checkbox_obscure"
+  obscure: "checkbox_obscure",
 };
 const checkbox_labels = {
   // checkbox_pu: "pu words",
@@ -597,9 +612,9 @@ const checkbox_labels = {
   checkbox_uncommon: "uncommon words",
   checkbox_rare: "rare words",
   checkbox_obscure: "obscure words",
-  checkbox_definitions: "definition search",
+  // checkbox_definitions: "definition search",
   checkbox_detailed: "detailed mode",
-  checkbox_lightmode: "light mode"
+  checkbox_lightmode: "light mode",
 };
 
 // must be strings bc localstorage only saves strings
@@ -616,7 +631,8 @@ const checkbox_defaults = {
   checkbox_obscure: "false",
   // "checkbox_definitions": 'false',  // do not save, user consideration
   // "checkbox_detailed": 'false', // INTENDED: do not save this setting, it's Laggy
-  checkbox_lightmode: "false"
+  checkbox_lightmode: "false",
 };
 const urlParams = new URLSearchParams(window.location.search);
 var show_word = null;
+var should_search_definitions = false;
