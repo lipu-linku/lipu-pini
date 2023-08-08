@@ -150,7 +150,7 @@ function find_vis_state(search_term, id, word_elem) {
   if (search_term === "") return ""; // no need to check search behaviors
 
   let match = id;
-  if (document.getElementById("checkbox_definitions").checked) {
+  if (should_search_definitions) {
     match = word_elem.querySelector(".definition").textContent;
   }
 
@@ -456,10 +456,7 @@ function str_matches(str1, str2) {
   str2 = str2.normalize("NFD").replace(/\p{Diacritic}/gu, "");
   str1 = str1.toLowerCase();
   str2 = str2.toLowerCase();
-  let definition_search = document.getElementById(
-    "checkbox_definitions"
-  ).checked;
-  if (definition_search) {
+  if (should_search_definitions) {
     // INTENDED: don't fuzzy search defs, it sucks
     return str1.includes(str2);
   }
@@ -513,7 +510,7 @@ function search_changed(searchbar) {
     return;
   }
 
-  if (!document.getElementById("checkbox_definitions").checked) {
+  if (!should_search_definitions) {
     let scores = [];
     for (let i = 0; i < entries.length; i++) {
       // for performance, limit scope to visible
@@ -567,7 +564,7 @@ const selector_map = {
   settings_selector: [
     "checkbox_lightmode",
     "checkbox_detailed",
-    "checkbox_definitions"
+    // "checkbox_definitions",
     // TODO: move 'definitions' to search selector
     // whenever the page looks prettier
   ]
@@ -597,7 +594,7 @@ const checkbox_labels = {
   checkbox_uncommon: "uncommon words",
   checkbox_rare: "rare words",
   checkbox_obscure: "obscure words",
-  checkbox_definitions: "definition search",
+  // checkbox_definitions: "definition search",
   checkbox_detailed: "detailed mode",
   checkbox_lightmode: "light mode"
 };
@@ -620,3 +617,4 @@ const checkbox_defaults = {
 };
 const urlParams = new URLSearchParams(window.location.search);
 var show_word = null;
+var should_search_definitions = false;
