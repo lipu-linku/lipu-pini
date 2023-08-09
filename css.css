@@ -244,11 +244,9 @@ h2 {
     minmax(0, 1fr);
   grid-column-gap: 10px;
   grid-template-areas:
-    "sourcelanguage sourcelanguage creator creator creator"
-    "etymology etymology etymology coined coined"
-    "sitelenpona book book book sitelensitelen"
-    "sitelenpona recognition recognition recognition sitelensitelen"
-    "sitelenpona word word word sitelensitelen"
+    "sourcelanguage sourcelanguage . creator creator"
+    "etymology etymology categories coined coined"
+    "sitelenpona . word . sitelensitelen"
     "sitelenpona definition definition definition sitelensitelen"
     ". seealso seealso seealso ."
     "details details details details details";
@@ -280,12 +278,8 @@ details {
   font-weight: bold;
   font-style: italic;
 }
-.book {
-  grid-area: book;
-  font-style: italic;
-}
-.recognition {
-  grid-area: recognition;
+.categories {
+  grid-area: categories;
   color: var(--shade-color);
   font-style: italic;
 }
