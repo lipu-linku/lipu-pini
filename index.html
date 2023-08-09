@@ -22,12 +22,6 @@
       content="interactive toki pona dictionary"
     />
     <meta property="og:url" content="https://linku.la/" />
-
-    <script>
-      if (localStorage.checkbox_lightmode === "true") {
-        document.documentElement.classList.add("lightmode");
-      }
-    </script>
   </head>
   <body onload="main()">
     <nav>
@@ -53,6 +47,11 @@
       </div>
 
       <div>
+        <label id="checkbox_lightmode_wrapper">
+          <input type="checkbox" id="checkbox_lightmode" />
+          <img src="suno.png" alt="Light Mode" />
+        </label>
+
         <label id="language_selector_wrapper" title="Select Language">
           <select
             id="language_selector"
@@ -83,4 +82,16 @@
       <div id="dictionary"></div>
     </div>
   </body>
+  <script>
+    if (localStorage.checkbox_lightmode === "true") {
+      document.documentElement.classList.add("lightmode");
+    }
+    let checkbox_lightmode = document.getElementById("checkbox_lightmode");
+    checkbox_lightmode.addEventListener("change", function (e) {
+      localStorage.checkbox_lightmode = e.target.checked;
+      if (e.target.checked) {
+        document.documentElement.classList.add("lightmode");
+      } else document.documentElement.classList.remove("lightmode");
+    });
+  </script>
 </html>

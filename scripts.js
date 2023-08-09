@@ -381,15 +381,6 @@ function main() {
   fill_dictionary();
   // show based on settings
   search_changed(document.getElementById("searchbar"));
-
-  let checkbox_lightmode = document.getElementById("checkbox_lightmode");
-  checkbox_lightmode.addEventListener("change", function (e) {
-    localStorage.checkbox_lightmode = e.target.checked;
-    if (e.target.checked) {
-      document.documentElement.classList.add("lightmode");
-    } else document.documentElement.classList.remove("lightmode");
-  });
-
   document.getElementById("searchbar").focus();
 }
 
@@ -580,7 +571,6 @@ const selector_map = {
   ],
   // search_selector: [],
   settings_selector: [
-    "checkbox_lightmode",
     "checkbox_detailed",
     // "checkbox_definitions",
     // TODO: move 'definitions' to search selector
@@ -614,7 +604,6 @@ const checkbox_labels = {
   checkbox_obscure: "obscure words",
   // checkbox_definitions: "definition search",
   checkbox_detailed: "detailed mode",
-  checkbox_lightmode: "light mode",
 };
 
 // must be strings bc localstorage only saves strings
