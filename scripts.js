@@ -169,12 +169,6 @@ function __update_visibility(search_term) {
     }
 
     set_visibility(word, vis_state);
-
-    // this is independent of whole word visibility
-    // could be done only on checkbox_changed but that's more logic extraction
-    document.getElementById("checkbox_detailed").checked === true
-      ? set_visibility(word.querySelector("details"), "")
-      : set_visibility(word.querySelector("details"), "none");
   }
   return any_visible;
 }
@@ -225,11 +219,9 @@ function build_word(id, word) {
     );
   }
 
-  if (word["etymology"]) {
-    word_container.appendChild(
-      build_element("div", word["etymology"], "etymology")
-    );
-  }
+  let etymology = word["etymology"] || "";
+  word_container.appendChild(build_element("div", etymology, "etymology"));
+
   let coined = [
     word["coined_year"] ? word["coined_year"] + " " : "",
     word["coined_era"] ? "(" + word["coined_era"] + ")" : "",
@@ -237,25 +229,31 @@ function build_word(id, word) {
   if (coined) {
     word_container.appendChild(build_element("div", coined, "coined"));
   }
-  if (word["book"]) {
-    word_container.appendChild(build_element("div", word["book"], "book"));
+
+  let book = word["book"] || "none";
+  let categories = word["usage_category"] || "";
+  if (book !== "none") {
+    categories = categories + "  ·  " + book;
   }
-  if (word["recognition"]) {
-    // Iterating over an object in reverse. this feels dirty.
-    for (var date in Object.fromEntries(
-      Object.entries(word["recognition"]).reverse()
-    )) {
-      let percent = word["recognition"][date];
-      let usage_category = word["usage_category"]
-        ? word["usage_category"]
-        : "unknown";
-      let recognition = `${usage_category} (${percent}% in ${date})`;
-      word_container.appendChild(
-        build_element("div", recognition, "recognition")
-      );
-      break;
-    }
-  }
+
+  word_container.appendChild(build_element("div", categories, "categories"));
+
+  // if (word["recognition"]) {
+  //   // Iterating over an object in reverse. this feels dirty.
+  //   for (var date in Object.fromEntries(
+  //     Object.entries(word["recognition"]).reverse()
+  //   )) {
+  //     let percent = word["recognition"][date];
+  //     let usage_category = word["usage_category"]
+  //       ? word["usage_category"]
+  //       : "unknown";
+  //     let recognition = `${usage_category} (${percent}% in ${date})`;
+  //     word_container.appendChild(
+  //       build_element("div", recognition, "recognition")
+  //     );
+  //     break;
+  //   }
+  // }
 
   if (word["sitelen_pona"]) {
     word_container.appendChild(
@@ -360,7 +358,7 @@ function build_word(id, word) {
     details_div.appendChild(audio_janlakuse);
   }
 
-  details_container.open = true;
+  details_container.open = false;
   if (details_div.childNodes.length > 1) {
     // only append if non-empty; # text is present tho
     word_container.appendChild(details_container);
@@ -555,12 +553,6 @@ const languages = bundle["languages"];
 
 const selector_map = {
   // these keys must have a corresponding div in index.html
-  // book_selector: [
-  //   "checkbox_pu",
-  //   "checkbox_kusuli",
-  //   "checkbox_kulili",
-  //   "checkbox_none",
-  // ],
   usage_selector: [
     "checkbox_core",
     "checkbox_widespread",
@@ -570,19 +562,8 @@ const selector_map = {
     "checkbox_obscure",
   ],
   // search_selector: [],
-  settings_selector: [
-    "checkbox_detailed",
-    // "checkbox_definitions",
-    // TODO: move 'definitions' to search selector
-    // whenever the page looks prettier
-  ],
+  // settings_selector: [],
 };
-// const books_to_checkboxes = {
-//   pu: "checkbox_pu",
-//   "ku suli": "checkbox_kusuli",
-//   "ku lili": "checkbox_kulili",
-//   none: "checkbox_none",
-// };
 const usages_to_checkboxes = {
   core: "checkbox_core",
   widespread: "checkbox_widespread",
@@ -592,34 +573,22 @@ const usages_to_checkboxes = {
   obscure: "checkbox_obscure",
 };
 const checkbox_labels = {
-  // checkbox_pu: "pu words",
-  // checkbox_kusuli: "ku suli words",
-  // checkbox_kulili: "ku lili words",
-  // checkbox_none: "other words",
-  checkbox_core: "core words",
-  checkbox_widespread: "widespread words",
-  checkbox_common: "common words",
-  checkbox_uncommon: "uncommon words",
-  checkbox_rare: "rare words",
-  checkbox_obscure: "obscure words",
-  // checkbox_definitions: "definition search",
-  checkbox_detailed: "detailed mode",
+  checkbox_core: "core",
+  checkbox_widespread: "widespread",
+  checkbox_common: "common",
+  checkbox_uncommon: "uncommon",
+  checkbox_rare: "rare",
+  checkbox_obscure: "obscure",
 };
 
 // must be strings bc localstorage only saves strings
 const checkbox_defaults = {
-  // checkbox_pu: "true",
-  // checkbox_kusuli: "true",
-  // checkbox_kulili: "false",
-  // checkbox_none: "false",
   checkbox_core: "true",
   checkbox_widespread: "true",
   checkbox_common: "false",
   checkbox_uncommon: "false",
   checkbox_rare: "false",
   checkbox_obscure: "false",
-  // "checkbox_definitions": 'false',  // do not save, user consideration
-  // "checkbox_detailed": 'false', // INTENDED: do not save this setting, it's Laggy
   checkbox_lightmode: "false",
 };
 const urlParams = new URLSearchParams(window.location.search);
