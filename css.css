@@ -103,6 +103,26 @@ nav img {
   padding: 0.25rem 0;
 }
 
+#checkbox_lightmode {
+  font: inherit;
+  background-color: var(--bg-color);
+  color: var(--txt-color);
+
+  cursor: pointer;
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  opacity: 0;
+}
+
+#checkbox_lightmode_wrapper {
+  position: relative;
+}
+
 #language_selector {
   font: inherit;
   background-color: var(--bg-color);
