@@ -192,6 +192,10 @@ function update_visibility(search_term) {
 function fill_dictionary() {
   let dictionary = document.getElementById("dictionary");
   if (show_word) {
+    if (!(show_word in data)) {
+      alert("Couldn't find word '" + show_word + "'!");
+    }
+
     dictionary.appendChild(build_word(show_word, data[show_word]));
     return;
   } else {
