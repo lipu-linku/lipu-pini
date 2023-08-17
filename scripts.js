@@ -368,7 +368,8 @@ function build_word(id, word) {
 }
 
 function main() {
-  if (urlParams.get("q")) {
+  let show_single_word = urlParams.get("q");
+  if (show_single_word) {
     single_word_mode();
   }
   // Select language
@@ -377,9 +378,15 @@ function main() {
   checkbox_select_default();
   // Generate words
   fill_dictionary();
+
   // show based on settings
   search_changed(document.getElementById("searchbar"));
   document.getElementById("searchbar").focus();
+
+  if (show_single_word) {
+    // HACK: we just override the vis of the one word
+    document.getElementById(show_single_word).style.display = "";
+  }
 }
 
 function build_select_option(option_value, text) {
@@ -541,6 +548,9 @@ function single_word_mode() {
   }
   document.getElementById("searchbar").style.display = "none";
   document.getElementById("normal_mode_button").style.display = "initial";
+  // console.log(show_word);
+  // document.getElementById();
+  // document.getElementById(show_word).style.display = "";
 }
 function normal_mode() {
   window.location.search = ""; // remove query and refresh
