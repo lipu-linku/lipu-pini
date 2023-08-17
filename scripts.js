@@ -142,6 +142,10 @@ function set_visibility(elem, display) {
 }
 
 function find_vis_state(search_term, id, word_elem) {
+  if (show_word === id) {
+    return "";
+  }
+
   let usage_cat_set = localStorage.getItem(
     usages_to_checkboxes[data[id]["usage_category"]]
   );
@@ -368,8 +372,7 @@ function build_word(id, word) {
 }
 
 function main() {
-  let show_single_word = urlParams.get("q");
-  if (show_single_word) {
+  if (urlParams.get("q")) {
     single_word_mode();
   }
   // Select language
@@ -382,11 +385,6 @@ function main() {
   // show based on settings
   search_changed(document.getElementById("searchbar"));
   document.getElementById("searchbar").focus();
-
-  if (show_single_word) {
-    // HACK: we just override the vis of the one word
-    document.getElementById(show_single_word).style.display = "";
-  }
 }
 
 function build_select_option(option_value, text) {
