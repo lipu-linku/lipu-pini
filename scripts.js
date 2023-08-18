@@ -142,6 +142,10 @@ function set_visibility(elem, display) {
 }
 
 function find_vis_state(search_term, id, word_elem) {
+  if (show_word === id) {
+    return "";
+  }
+
   let usage_cat_set = localStorage.getItem(
     usages_to_checkboxes[data[id]["usage_category"]]
   );
@@ -188,6 +192,10 @@ function update_visibility(search_term) {
 function fill_dictionary() {
   let dictionary = document.getElementById("dictionary");
   if (show_word) {
+    if (!(show_word in data)) {
+      alert("Couldn't find word '" + show_word + "'!");
+    }
+
     dictionary.appendChild(build_word(show_word, data[show_word]));
     return;
   } else {
@@ -377,6 +385,7 @@ function main() {
   checkbox_select_default();
   // Generate words
   fill_dictionary();
+
   // show based on settings
   search_changed(document.getElementById("searchbar"));
   document.getElementById("searchbar").focus();
@@ -541,6 +550,9 @@ function single_word_mode() {
   }
   document.getElementById("searchbar").style.display = "none";
   document.getElementById("normal_mode_button").style.display = "initial";
+  // console.log(show_word);
+  // document.getElementById();
+  // document.getElementById(show_word).style.display = "";
 }
 function normal_mode() {
   window.location.search = ""; // remove query and refresh
