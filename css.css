@@ -319,6 +319,7 @@ details {
 }
 summary {
   color: var(--shade-color);
+  cursor: pointer;
 }
 .audio_janlakuse {
   grid-area: audio_janlakuse;
