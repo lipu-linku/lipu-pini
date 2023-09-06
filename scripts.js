@@ -240,6 +240,8 @@ function build_word(id, word) {
 
   let book = word["book"] || "none";
   let categories = word["usage_category"] || "";
+  let usage_score = Object.values(word["recognition"])[Object.values(word["recognition"]).length - 1] || "0";
+  categories = categories + "  ·  " + usage_score + "%";
   if (book !== "none") {
     categories = categories + "  ·  " + book;
   }
