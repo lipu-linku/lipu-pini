@@ -9,8 +9,8 @@
 ## Overview
 
 lipu Linku is a Toki Pona dictionary, providing convenient and searchable access to
-the dictionary data in [jasima](https://github.com/lipu-linku/jasima) and
-[its sheet](https://docs.google.com/spreadsheets/d/1xwgTAxwgn4ZAc4DBnHte0cqta1aaxe112Wh1rv9w5Yk).
+the dictionary data in [sona](https://github.com/lipu-linku/sona) with the translations from [nimi](https://nimi.linku.la).
+The old sheet can be found [here](https://docs.google.com/spreadsheets/d/1xwgTAxwgn4ZAc4DBnHte0cqta1aaxe112Wh1rv9w5Yk).
 
 ## Development
 
