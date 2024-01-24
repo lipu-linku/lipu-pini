@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8" />
 
-    <link rel="stylesheet" type="text/css" href="css.css" />
-    <link rel="stylesheet" type="text/css" href="checkbox.css" />
+    <link rel="stylesheet" type="text/css" href="src/css.css" />
+    <link rel="stylesheet" type="text/css" href="src/checkbox.css" />
     <link rel="shortcut icon" href="icon.png" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Noto%20Serif:regular,italic,bold,bolditalic"
     />
-    <script type="text/javascript" src="scripts.js" defer></script>
+    <script type="text/javascript" src="src/scripts.js" defer></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>lipu Linku - toki pona dictionary</title>
@@ -26,7 +26,7 @@
   <body onload="main()">
     <nav>
       <div class="logo">
-        <img src="icon.png" alt="lipu Linku" />
+        <img src="assets/icon.png" alt="lipu Linku" />
         lipu Linku
       </div>
 
@@ -49,7 +49,7 @@
       <div>
         <label id="checkbox_lightmode_wrapper">
           <input type="checkbox" id="checkbox_lightmode" />
-          <img src="suno.png" alt="Light Mode" />
+          <img src="assets/suno.png" alt="Light Mode" />
         </label>
 
         <label id="language_selector_wrapper" title="Select Language">
@@ -58,10 +58,10 @@
             class="main_input"
             onchange="language_select_changed(this)"
           ></select>
-          <img src="world.png" alt="Select language" />
+          <img src="assets/world.png" alt="Select language" />
         </label>
         <a href="https://github.com/lipu-linku/" title="About Linku">
-          <img src="ijo-a.png" alt="About Linku" />
+          <img src="assets/ijo-a.png" alt="About Linku" />
         </a>
       </div>
     </nav>
