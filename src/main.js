@@ -211,32 +211,24 @@ function clear_dictionary() {
   }
 }
 
+
 function build_word(id, word) {
   var word_container = document.createElement("div");
   word_container.id = id;
   word_container.className = "entry";
 
-  if (word["source_language"]) {
-    word_container.appendChild(
-      build_element("div", word["source_language"], "sourcelanguage")
-    );
-  }
-  if (word["creator"]) {
-    word_container.appendChild(
-      build_element("div", word["creator"], "creator")
-    );
-  }
+  let sitelen_pona = word["sitelen_pona"] ? word["sitelen_pona"] : "";
+  word_container.appendChild(
+    build_element("div", sitelen_pona.split(" ")[0], "sitelenpona")
+  );
 
-  let etymology = word["etymology"] || "";
-  word_container.appendChild(build_element("div", etymology, "etymology"));
+  let word_main = build_element("div", "", "word_main")
+  word_container.appendChild(word_main);
 
-  let coined = [
-    word["coined_year"] ? word["coined_year"] + " " : "",
-    word["coined_era"] ? "(" + word["coined_era"] + ")" : "",
-  ].join(" ");
-  if (coined) {
-    word_container.appendChild(build_element("div", coined, "coined"));
-  }
+  let word_info = build_element("div", "", "word_info")
+  word_main.appendChild(word_info);
+
+  word_info.appendChild(build_element("div", word["word"], "word"));
 
   let book = word["book"] || "none";
   let categories = word["usage_category"] || "";
@@ -246,50 +238,15 @@ function build_word(id, word) {
     categories = categories + "  ·  " + book;
   }
 
-  word_container.appendChild(build_element("div", categories, "categories"));
-
-  // if (word["recognition"]) {
-  //   // Iterating over an object in reverse. this feels dirty.
-  //   for (var date in Object.fromEntries(
-  //     Object.entries(word["recognition"]).reverse()
-  //   )) {
-  //     let percent = word["recognition"][date];
-  //     let usage_category = word["usage_category"]
-  //       ? word["usage_category"]
-  //       : "unknown";
-  //     let recognition = `${usage_category} (${percent}% in ${date})`;
-  //     word_container.appendChild(
-  //       build_element("div", recognition, "recognition")
-  //     );
-  //     break;
-  //   }
-  // }
-
-  if (word["sitelen_pona"]) {
-    word_container.appendChild(
-      build_element("div", word["sitelen_pona"], "sitelenpona")
-    );
-  }
-  word_container.appendChild(build_element("div", word["word"], "word"));
-  // The switch statement is temporary!
+  word_info.appendChild(build_element("div", categories, "categories"));
 
   let definition = word["def"][localStorage.getItem("selected_language")];
   if (definition) {
-    word_container.appendChild(build_element("div", definition, "definition"));
+    word_main.appendChild(build_element("div", definition, "definition"));
   } else {
-    word_container.appendChild(
+    word_main.appendChild(
       build_element("div", "(en) " + word["def"]["en"], "shaded definition")
     );
-  }
-  if (word["sitelen_sitelen"]) {
-    const img = build_element(
-      "img",
-      "",
-      "sitelensitelen",
-      word["sitelen_sitelen"]
-    );
-    img.alt = `sitelen sitelen for ${word["sitelen_sitelen"]}`;
-    word_container.appendChild(img);
   }
   if (word["see_also"]) {
     let see_also_div = build_element("div", "{see ", "seealso");
@@ -305,75 +262,8 @@ function build_word(id, word) {
       }
     }
     see_also_div.appendChild(build_text("}"));
-    word_container.appendChild(see_also_div);
+    word_main.appendChild(see_also_div);
   }
-  let details_div = build_element("div", "", "details");
-  let details_container = build_element("details", "");
-  details_container.appendChild(build_element("summary", "more info"));
-  details_container.appendChild(details_div);
-
-  if (word["commentary"]) {
-    details_div.appendChild(
-      build_element("div", word["commentary"], "commentary")
-    );
-  }
-  if (word["ku_data"]) {
-    details_div.appendChild(build_element("div", word["ku_data"], "kudata"));
-  }
-  if (word["sitelen_pona_etymology"]) {
-    details_div.appendChild(
-      build_element(
-        "div",
-        word["sitelen_pona_etymology"],
-        "sitelenponaetymology",
-        word["sitelen_pona_etymology"]
-      )
-    );
-  }
-
-  // NOTE: maybe embed later, instead of linking?
-  if (word["luka_pona"]) {
-    details_div.appendChild(
-      build_element("a", "view luka pona", "lukapona", word["luka_pona"]["gif"])
-    );
-  }
-  if (word["ucsur"]) {
-    details_div.appendChild(build_element("div", word["ucsur"], "ucsur"));
-  }
-
-  // if (word["sitelen_emosi"]) {
-  //   details_div.appendChild(
-  //     build_element("div", word["sitelen_emosi"], "sitelenemosi")
-  //   );
-  // }
-
-  if (word["audio"]) {
-    let audio_kalaasi = build_element(
-      "a",
-      "kala Asi speaks",
-      "audio_kalaasi",
-      word["audio"]["kala_asi"]
-    );
-    let audio_janlakuse = build_element(
-      "a",
-      "jan Lakuse speaks",
-      "audio_janlakuse",
-      word["audio"]["jan_lakuse"]
-    );
-    // audio_kalaasi = build_element("audio", "", "audio_kalaasi", word["audio"]["kala_asi"])
-    // audio_janlakuse = build_element("audio", "", "audio_janlakuse", word["audio"]["jan_lakuse"])
-    // audio_kalaasi.controls = true
-    // audio_janlakuse.controls = true
-    details_div.appendChild(audio_kalaasi);
-    details_div.appendChild(audio_janlakuse);
-  }
-
-  details_container.open = false;
-  if (details_div.childNodes.length > 1) {
-    // only append if non-empty; # text is present tho
-    word_container.appendChild(details_container);
-  }
-
   return word_container;
 }
 
