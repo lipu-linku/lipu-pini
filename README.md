@@ -12,6 +12,21 @@ lipu Linku is a Toki Pona dictionary, providing convenient and searchable access
 the dictionary data in [sona](https://github.com/lipu-linku/sona) with the translations from [nimi](https://nimi.linku.la).
 The old sheet can be found [here](https://docs.google.com/spreadsheets/d/1xwgTAxwgn4ZAc4DBnHte0cqta1aaxe112Wh1rv9w5Yk).
 
+## Development
+
+To set up local development, make sure you have Docker running and do the following in
+the project root:
+
+```
+make dev
+```
+
+And to shut down:
+
+```
+make stopdev
+```
+
 ## Contributing
 
 <div align="center">
