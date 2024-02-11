@@ -230,7 +230,7 @@ h2 {
 .page_width_limiter {
   margin: 0 auto;
   padding: 0 10px;
-  max-width: 840px;
+  max-width: 1000px;
 }
 
 #dictionary {

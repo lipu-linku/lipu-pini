@@ -248,22 +248,22 @@ function build_word(id, word) {
       build_element("div", "(en) " + word["def"]["en"], "shaded definition")
     );
   }
-  if (word["see_also"]) {
-    let see_also_div = build_element("div", "{see ", "seealso");
-    let see_alsos = word["see_also"].split(", ");
-    for (let i = 0; i < see_alsos.length; i++) {
-      let seen = see_alsos[i];
-      see_also_div.appendChild(
-        build_element("a", seen, "seealsolink", "#" + seen)
-      );
-      // why i didn't forEach
-      if (i != see_alsos.length - 1) {
-        see_also_div.appendChild(build_text(", "));
-      }
-    }
-    see_also_div.appendChild(build_text("}"));
-    word_main.appendChild(see_also_div);
-  }
+  // if (word["see_also"]) {
+  //   let see_also_div = build_element("div", "{see ", "seealso");
+  //   let see_alsos = word["see_also"].split(", ");
+  //   for (let i = 0; i < see_alsos.length; i++) {
+  //     let seen = see_alsos[i];
+  //     see_also_div.appendChild(
+  //       build_element("a", seen, "seealsolink", "#" + seen)
+  //     );
+  //     // why i didn't forEach
+  //     if (i != see_alsos.length - 1) {
+  //       see_also_div.appendChild(build_text(", "));
+  //     }
+  //   }
+  //   see_also_div.appendChild(build_text("}"));
+  //   word_main.appendChild(see_also_div);
+  // }
   return word_container;
 }
 
