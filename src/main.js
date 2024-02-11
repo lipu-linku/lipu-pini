@@ -271,15 +271,17 @@ function build_word(id, word) {
 
       let etym_string = etym_lang;
       if (etym_word) etym_string += ` ${etym_word}`;
-      if (etym_alt) etym_string += ` ${etym_alt}`;
+      if (etym_alt)  etym_string += ` ${etym_alt}`;
       if (etym_defs) etym_string += ` ‘${etym_defs}’`;
       etymology.push(etym_string);
     }
     if (etymology) word_detailed.appendChild(build_element("div", "From " + etymology.join("; "), "definition"));
 
-
     let commentary = word["translations"][localStorage.getItem("selected_language")]["commentary"];
     if (commentary) word_detailed.appendChild(build_element("div", commentary, "definition"));
+
+    let sp_etymology = word["translations"][localStorage.getItem("selected_language")]["sp_etymology"];
+    if (sp_etymology) word_detailed.appendChild(build_element("div", `Sitelen Pona etymology: ${sp_etymology}`, "definition"));
 
     if (word["see_also"].length > 0) {
       let see_also_div = build_element("div", "{see ", "seealso");
