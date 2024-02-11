@@ -183,7 +183,7 @@ nav img {
   color: var(--bg-color);
 }
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 700px) {
   nav {
     display: grid;
     grid-template-columns: 1fr 1fr;
