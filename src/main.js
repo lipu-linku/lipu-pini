@@ -332,6 +332,12 @@ function layout_select_default() {
   if (!localStorage.getItem("selected_layout")) {
     localStorage.setItem("selected_layout", "compact");
   }
+  let layout_selector = document.getElementById("layout_selector");
+  for (let i = 0; i < layout_selector.children.length; i++) {
+    if (layout_selector[i].value == localStorage.getItem("selected_layout")) {
+      layout_selector[i].selected = true;
+    }
+  }
 }
 function layout_select_changed(select_node) {
   let selected_option = select_node.options[select_node.selectedIndex];
