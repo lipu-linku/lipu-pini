@@ -281,7 +281,7 @@ function build_word(id, word) {
     if (commentary) word_detailed.appendChild(build_element("div", commentary, "definition"));
 
     let sp_etymology = word["translations"][localStorage.getItem("selected_language")]["sp_etymology"];
-    if (sp_etymology) word_detailed.appendChild(build_element("div", `Sitelen Pona etymology: ${sp_etymology}`, "definition"));
+    if (sp_etymology) word_detailed.appendChild(build_element("div", `Sitelen Pona: ${sp_etymology}`, "definition"));
 
     if (word["see_also"].length > 0) {
       let see_also_div = build_element("div", "{see ", "seealso");
