@@ -217,7 +217,7 @@ function build_word(id, word) {
   word_container.id = id;
   word_container.className = "entry";
 
-  let word_compact = build_element("div", "", "word_section");
+  let word_compact = build_element("div", "", "word_compact");
   word_container.appendChild(word_compact);
 
   let sitelen_pona = word["representations"]["sitelen_pona"][0] ? word["representations"]["sitelen_pona"][0] : "";
@@ -244,19 +244,25 @@ function build_word(id, word) {
   word_info.appendChild(build_element("div", categories, "categories"));
 
   let definition = word["translations"][localStorage.getItem("selected_language")]["definitions"];
-  if (definition) {
-    word_main.appendChild(build_element("div", definition, "definition"));
-  } else {
-    word_main.appendChild(
-      build_element("div", "(en) " + word["translations"]["en"]["definitions"], "shaded definition")
-    );
-  }
-
-  let word_detailed = build_element("div", "", "word_section");
-  word_container.appendChild(word_detailed);
-
+  word_main.appendChild(build_element("div", definition, "definition"));
 
   if (localStorage.getItem("selected_layout") == "detailed" || urlParams.get("q")) {
+
+    let word_detailed = build_element("div", "", "word_detailed");
+    word_container.appendChild(word_detailed);
+
+    let coined = "Coined";
+    if (word["creator"].length > 0) {
+      coined += " by " + word["creator"].join(", ");
+    }
+    if (word["coined_year"]) {
+      coined += " in " + word["coined_year"];
+    }
+    if (coined != "Coined") word_detailed.appendChild(build_element("div", coined, "definition"));
+
+    let commentary = word["translations"][localStorage.getItem("selected_language")]["commentary"];
+    if (commentary) word_detailed.appendChild(build_element("div", commentary, "definition"));
+
     if (word["see_also"].length > 0) {
       let see_also_div = build_element("div", "{see ", "seealso");
       let see_alsos = word["see_also"];
@@ -273,6 +279,7 @@ function build_word(id, word) {
       see_also_div.appendChild(build_text("}"));
       word_detailed.appendChild(see_also_div);
     }
+
   }
   return word_container;
 }

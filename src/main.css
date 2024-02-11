@@ -253,8 +253,14 @@ h2 {
   margin: 10px 0px;
   gap: 10px;
 }
-.word_section {
+.word_compact {
   display: flex;
+  padding: 0px 10px;
+}
+.word_detailed {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   padding: 0px 10px;
 }
 .word_main {
