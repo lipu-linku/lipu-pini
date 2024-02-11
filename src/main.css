@@ -241,7 +241,7 @@ h2 {
   display: flex;
   text-align: initial;
   flex-direction: row;
-  padding: 5px 5px 5px 0px;
+  padding: 5px 5px 0px 0px;
   border-left-width: 2px;
   border-left-style: solid;
   margin: 10px 0px;
