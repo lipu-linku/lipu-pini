@@ -213,19 +213,22 @@ function clear_dictionary() {
 
 
 function build_word(id, word) {
-  var word_container = document.createElement("div");
+  let word_container = document.createElement("div");
   word_container.id = id;
   word_container.className = "entry";
 
+  let word_compact = build_element("div", "", "word_section");
+  word_container.appendChild(word_compact);
+
   let sitelen_pona = word["representations"]["sitelen_pona"][0] ? word["representations"]["sitelen_pona"][0] : "";
-  word_container.appendChild(
+  word_compact.appendChild(
     build_element("div", sitelen_pona, "sitelenpona")
   );
 
-  let word_main = build_element("div", "", "word_main")
-  word_container.appendChild(word_main);
+  let word_main = build_element("div", "", "word_main");
+  word_compact.appendChild(word_main);
 
-  let word_info = build_element("div", "", "word_info")
+  let word_info = build_element("div", "", "word_info");
   word_main.appendChild(word_info);
 
   word_info.appendChild(build_element("div", word["word"], "word"));
@@ -249,27 +252,28 @@ function build_word(id, word) {
     );
   }
 
+  let word_detailed = build_element("div", "", "word_section");
+  word_container.appendChild(word_detailed);
+
+
   if (localStorage.getItem("selected_layout") == "detailed" || urlParams.get("q")) {
-    word_main.appendChild(
-      build_element("div", "Detailed mode!", "definition")
-    );
+    if (word["see_also"].length > 0) {
+      let see_also_div = build_element("div", "{see ", "seealso");
+      let see_alsos = word["see_also"];
+      for (let i = 0; i < see_alsos.length; i++) {
+        let seen = see_alsos[i];
+        see_also_div.appendChild(
+          build_element("a", seen, "seealsolink", "#" + seen)
+        );
+        // why i didn't forEach
+        if (i != see_alsos.length - 1) {
+          see_also_div.appendChild(build_text(", "));
+        }
+      }
+      see_also_div.appendChild(build_text("}"));
+      word_detailed.appendChild(see_also_div);
+    }
   }
-  // if (word["see_also"]) {
-  //   let see_also_div = build_element("div", "{see ", "seealso");
-  //   let see_alsos = word["see_also"].split(", ");
-  //   for (let i = 0; i < see_alsos.length; i++) {
-  //     let seen = see_alsos[i];
-  //     see_also_div.appendChild(
-  //       build_element("a", seen, "seealsolink", "#" + seen)
-  //     );
-  //     // why i didn't forEach
-  //     if (i != see_alsos.length - 1) {
-  //       see_also_div.appendChild(build_text(", "));
-  //     }
-  //   }
-  //   see_also_div.appendChild(build_text("}"));
-  //   word_main.appendChild(see_also_div);
-  // }
   return word_container;
 }
 

@@ -17,7 +17,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 4rem;
   scroll-behavior: smooth;
 }
 
@@ -183,7 +183,7 @@ nav img {
   color: var(--bg-color);
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 680px) {
   nav {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -245,12 +245,17 @@ h2 {
 .entry {
   display: flex;
   text-align: initial;
-  flex-direction: row;
+  flex-direction: column;
   padding: 5px 5px 0px 0px;
   border-left-width: 2px;
   border-left-style: solid;
-  margin: 10px 0px;
   border-top: 1px solid var(--border-color);
+  margin: 10px 0px;
+  gap: 10px;
+}
+.word_section {
+  display: flex;
+  padding: 0px 10px;
 }
 .word_main {
   display: flex;
@@ -279,7 +284,7 @@ h2 {
   width: 60px;
   text-align: center;
   vertical-align: middle;
-  margin: 0px 10px;
+  margin-right: 10px;
 }
 .shaded {
   color: var(--shade-color);
