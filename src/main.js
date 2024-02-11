@@ -236,7 +236,7 @@ function build_word(id, word) {
   let categories = build_element("div", "", "categories");
   word_info.appendChild(categories);
   let book = word["book"] || "none";
-  if (book !== "none") categories.appendChild(build_element("span", `${book}  |  `, ""))
+  if (book !== "none") categories.appendChild(build_element("span", `${book}  `, "book"))
 
   let category = word["usage_category"] || "obscure";
   let usage_score = Object.values(word["usage"])[Object.values(word["usage"]).length - 1] || "0";
