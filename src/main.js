@@ -233,15 +233,14 @@ function build_word(id, word) {
 
   word_info.appendChild(build_element("div", word["word"], "word"));
 
+  let categories = build_element("div", "", "categories");
+  word_info.appendChild(categories);
   let book = word["book"] || "none";
-  let categories = word["usage_category"] || "";
-  let usage_score = Object.values(word["usage"])[Object.values(word["usage"]).length - 1] || "0";
-  categories = categories + "  ·  " + usage_score + "%";
-  if (book !== "none") {
-    categories = categories + "  ·  " + book;
-  }
+  if (book !== "none") categories.appendChild(build_element("span", `${book}  |  `, ""))
 
-  word_info.appendChild(build_element("div", categories, "categories"));
+  let category = word["usage_category"] || "obscure";
+  let usage_score = Object.values(word["usage"])[Object.values(word["usage"]).length - 1] || "0";
+  categories.appendChild(build_bar(category, usage_score));
 
   let definition = word["translations"][localStorage.getItem("selected_language")]["definitions"];
   word_main.appendChild(build_element("div", definition, "definition"));
@@ -302,6 +301,22 @@ function build_word(id, word) {
 
   }
   return word_container;
+}
+
+function build_bar(usage_category, percentage) {
+
+  let indicator = document.createElement("span");
+  indicator.title = `${usage_category} (${percentage}%)`;
+  indicator.className = "indicator";
+  indicator.style.gap = "1px";
+  for (let i = 0; i < 5; i++) {
+    let bar = document.createElement("span");
+    bar.appendChild(document.createTextNode("━ "));
+    bar.className = usage_categories_bars[usage_category] <= i ? "bar_off" : "bar_on";
+    indicator.appendChild(bar);
+  }
+
+  return indicator;
 }
 
 function main() {
@@ -512,6 +527,15 @@ const WORDS_URL = "https://raw.githubusercontent.com/lipu-linku/sona/main/raw/wo
 const data = JSON.parse(Get(WORDS_URL));
 const LANGS_URL = "https://raw.githubusercontent.com/lipu-linku/sona/main/raw/languages.json";
 const languages = JSON.parse(Get(LANGS_URL));
+
+const usage_categories_bars = {
+  "core": 5,
+  "widespread": 4,
+  "common": 3,
+  "uncommon": 2,
+  "rare": 1,
+  "obscure": 0,
+}
 
 const selector_map = {
   // these keys must have a corresponding div in index.html
