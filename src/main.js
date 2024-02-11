@@ -220,7 +220,7 @@ function build_word(id, word) {
   let word_compact = build_element("div", "", "word_compact");
   word_container.appendChild(word_compact);
 
-  let sitelen_pona = word["representations"]["sitelen_pona"][0] ? word["representations"]["sitelen_pona"][0] : "";
+  let sitelen_pona = word["representations"]["sitelen_pona"][0] || "";
   word_compact.appendChild(
     build_element("div", sitelen_pona, "sitelenpona")
   );
