@@ -296,7 +296,7 @@ function language_select_default() {
 
   let language_selector = document.getElementById("language_selector");
   for (let id in languages) {
-    let option = build_select_option(id, languages[id]["name_endonym"]);
+    let option = build_select_option(id, languages[id]["name"]["endonym"]);
     if (id == localStorage.getItem("selected_language")) {
       option.selected = true;
     }
