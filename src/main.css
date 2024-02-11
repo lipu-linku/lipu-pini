@@ -120,7 +120,7 @@ nav img {
   position: relative;
 }
 
-#language_selector {
+.selector {
   font: inherit;
   background-color: var(--bg-color);
   color: var(--txt-color);
@@ -136,16 +136,21 @@ nav img {
   opacity: 0;
 }
 
-#language_selector + img {
-  pointer-events: none;
+.round {
   border-radius: 100%;
 }
-#language_selector:focus + img {
+.round + img {
+  border-radius: 100%;
+}
+.selector + img {
+  pointer-events: none;
+}
+.selector:focus + img {
   outline: 2px solid var(--highlight-color);
   outline-offset: 2px;
 }
 
-#language_selector_wrapper {
+.selector_wrapper {
   position: relative;
 }
 

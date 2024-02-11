@@ -52,15 +52,27 @@
           <img src="assets/suno.png" alt="Light Mode" />
         </label>
 
-        <label id="language_selector_wrapper" title="Select Language">
+        <label id="layout_selector_wrapper" class="selector_wrapper" title="Select Layout">
+          <select
+            id="layout_selector"
+            class="main_input selector"
+            onchange="layout_select_changed(this)"
+          >
+            <option value="compact">Compact layout</option>
+            <option value="detailed">Detailed layout</option>
+            <option value="grid">Grid layout</option>
+          </select>
+          <img src="assets/layout.png" alt="Select layout" />
+        </label>
+        <label id="language_selector_wrapper" class="selector_wrapper" title="Select Language">
           <select
             id="language_selector"
-            class="main_input"
+            class="main_input selector round"
             onchange="language_select_changed(this)"
           ></select>
           <img src="assets/world.png" alt="Select language" />
         </label>
-        <a href="https://github.com/lipu-linku/" title="About Linku">
+        <a href="https://github.com/lipu-linku/" class="round" title="About Linku">
           <img src="assets/ijo-a.png" alt="About Linku" />
         </a>
       </div>
