@@ -217,9 +217,9 @@ function build_word(id, word) {
   word_container.id = id;
   word_container.className = "entry";
 
-  let sitelen_pona = word["sitelen_pona"] ? word["sitelen_pona"] : "";
+  let sitelen_pona = word["representations"]["sitelen_pona"][0] ? word["representations"]["sitelen_pona"][0] : "";
   word_container.appendChild(
-    build_element("div", sitelen_pona.split(" ")[0], "sitelenpona")
+    build_element("div", sitelen_pona, "sitelenpona")
   );
 
   let word_main = build_element("div", "", "word_main")
@@ -232,7 +232,7 @@ function build_word(id, word) {
 
   let book = word["book"] || "none";
   let categories = word["usage_category"] || "";
-  let usage_score = Object.values(word["recognition"])[Object.values(word["recognition"]).length - 1] || "0";
+  let usage_score = Object.values(word["usage"])[Object.values(word["usage"]).length - 1] || "0";
   categories = categories + "  ·  " + usage_score + "%";
   if (book !== "none") {
     categories = categories + "  ·  " + book;
@@ -240,12 +240,12 @@ function build_word(id, word) {
 
   word_info.appendChild(build_element("div", categories, "categories"));
 
-  let definition = word["def"][localStorage.getItem("selected_language")];
+  let definition = word["translations"][localStorage.getItem("selected_language")]["definitions"];
   if (definition) {
     word_main.appendChild(build_element("div", definition, "definition"));
   } else {
     word_main.appendChild(
-      build_element("div", "(en) " + word["def"]["en"], "shaded definition")
+      build_element("div", "(en) " + word["translations"]["en"]["definitions"], "shaded definition")
     );
   }
   // if (word["see_also"]) {
@@ -450,10 +450,10 @@ function normal_mode() {
   window.location.search = ""; // remove query and refresh
 }
 
-const bundle_url = "https://raw.githubusercontent.com/lipu-linku/jasima/main/data.json";
-const bundle = JSON.parse(Get(bundle_url));
-const data = bundle["data"];
-const languages = bundle["languages"];
+const WORDS_URL = "https://raw.githubusercontent.com/lipu-linku/sona/main/raw/words.json";
+const data = JSON.parse(Get(WORDS_URL));
+const LANGS_URL = "https://raw.githubusercontent.com/lipu-linku/sona/main/raw/languages.json";
+const languages = JSON.parse(Get(LANGS_URL));
 
 const selector_map = {
   // these keys must have a corresponding div in index.html
