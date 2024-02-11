@@ -248,6 +248,12 @@ function build_word(id, word) {
       build_element("div", "(en) " + word["translations"]["en"]["definitions"], "shaded definition")
     );
   }
+
+  if (localStorage.getItem("selected_layout") == "detailed" || urlParams.get("q")) {
+    word_main.appendChild(
+      build_element("div", "Detailed mode!", "definition")
+    );
+  }
   // if (word["see_also"]) {
   //   let see_also_div = build_element("div", "{see ", "seealso");
   //   let see_alsos = word["see_also"].split(", ");
@@ -271,6 +277,8 @@ function main() {
   if (urlParams.get("q")) {
     single_word_mode();
   }
+  // Select layout
+  layout_select_default();
   // Select language
   language_select_default();
   // Select options
@@ -289,6 +297,19 @@ function build_select_option(option_value, text) {
   option_node.appendChild(build_text(text));
   return option_node;
 }
+function layout_select_default() {
+  if (!localStorage.getItem("selected_layout")) {
+    localStorage.setItem("selected_layout", "compact");
+  }
+}
+function layout_select_changed(select_node) {
+  let selected_option = select_node.options[select_node.selectedIndex];
+  localStorage.setItem("selected_layout", selected_option.value);
+  clear_dictionary();
+  fill_dictionary();
+  search_changed(document.getElementById("searchbar"));
+}
+
 function language_select_default() {
   if (!localStorage.getItem("selected_language")) {
     localStorage.setItem("selected_language", "en");
