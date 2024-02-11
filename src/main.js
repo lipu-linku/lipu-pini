@@ -260,6 +260,24 @@ function build_word(id, word) {
     }
     if (coined != "Coined") word_detailed.appendChild(build_element("div", coined, "definition"));
 
+    let etymology = [];
+    let etymology_translated = word["translations"][localStorage.getItem("selected_language")]["etymology"];
+
+    for (let i = 0; i < word["etymology"].length; i++) {
+      let etym_alt = word["etymology"][i]["alt"];
+      let etym_word = word["etymology"][i]["word"];
+      let etym_defs = (etymology_translated.length > i) ? etymology_translated[i]["definition"] : "";
+      let etym_lang = (etymology_translated.length > i) ? etymology_translated[i]["language"] : "";
+
+      let etym_string = etym_lang;
+      if (etym_word) etym_string += ` ${etym_word}`;
+      if (etym_alt) etym_string += ` ${etym_alt}`;
+      if (etym_defs) etym_string += ` ‘${etym_defs}’`;
+      etymology.push(etym_string);
+    }
+    if (etymology) word_detailed.appendChild(build_element("div", "From " + etymology.join("; "), "definition"));
+
+
     let commentary = word["translations"][localStorage.getItem("selected_language")]["commentary"];
     if (commentary) word_detailed.appendChild(build_element("div", commentary, "definition"));
 
