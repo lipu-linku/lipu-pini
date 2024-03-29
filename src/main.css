@@ -34,6 +34,7 @@ body {
   --link-color: hsl(172, 100%, 26%);
   --shade-color: hsl(222, 12%, 60%);
   --border-color: hsl(222, 12%, 20%);
+  --heavy-border-color: hsl(222, 12%, 40%);
   --bg-alt-color: hsl(222, 0%, 7%);
 }
 .lightmode {
@@ -43,6 +44,7 @@ body {
   --link-color: hsl(172, 100%, 26%);
   --shade-color: hsl(222, 28%, 45%);
   --border-color: hsl(222, 28%, 75%);
+  --heavy-border-color: hsl(222, 28%, 45%);
   --bg-alt-color: hsl(222, 0%, 93%);
 }
 *:focus-visible {
@@ -247,11 +249,14 @@ h2 {
   text-align: initial;
   flex-direction: column;
   padding: 5px 5px 0px 0px;
-  border-left-width: 2px;
-  border-left-style: solid;
   border-top: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
   margin: 10px 0px;
   gap: 10px;
+}
+.entry:hover {
+  border-top: 1px solid var(--heavy-border-color);
+  border-left: 1px solid var(--heavy-border-color);
 }
 .word_compact {
   display: flex;
