@@ -561,7 +561,7 @@ const checkbox_mouseover = {
 // must be strings bc localstorage only saves strings
 const checkbox_defaults = {
   checkbox_core: "true",
-  checkbox_common: "false",
+  checkbox_common: "true",
   checkbox_uncommon: "false",
   checkbox_obscure: "false",
   checkbox_lightmode: "false",
