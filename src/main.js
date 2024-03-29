@@ -220,7 +220,7 @@ function build_word(id, word) {
   let word_compact = build_element("div", "", "word_compact");
   word_container.appendChild(word_compact);
 
-  let sitelen_pona = word["representations"]["sitelen_pona"][0] || "";
+  let sitelen_pona = word["representations"]["ligatures"][0] || "";
   word_compact.appendChild(
     build_element("div", sitelen_pona, "sitelenpona")
   );
@@ -242,7 +242,7 @@ function build_word(id, word) {
   let usage_score = Object.values(word["usage"])[Object.values(word["usage"]).length - 1] || "0";
   categories.appendChild(build_bar(category, usage_score));
 
-  let definition = word["translations"][localStorage.getItem("selected_language")]["definitions"];
+  let definition = word["translations"][localStorage.getItem("selected_language")]["definition"];
   word_main.appendChild(build_element("div", definition, "definition"));
 
   if (localStorage.getItem("selected_layout") == "detailed" || urlParams.get("q")) {
@@ -523,9 +523,9 @@ function normal_mode() {
   window.location.search = ""; // remove query and refresh
 }
 
-const WORDS_URL = "https://raw.githubusercontent.com/lipu-linku/sona/main/raw/words.json";
+const WORDS_URL = "https://raw.githubusercontent.com/lipu-linku/sona/main/api/raw/words.json";
 const data = JSON.parse(Get(WORDS_URL));
-const LANGS_URL = "https://raw.githubusercontent.com/lipu-linku/sona/main/raw/languages.json";
+const LANGS_URL = "https://raw.githubusercontent.com/lipu-linku/sona/main/api/raw/languages.json";
 const languages = JSON.parse(Get(LANGS_URL));
 
 const usage_categories_bars = {
