@@ -300,6 +300,9 @@ h2 {
 .shaded {
   color: var(--shade-color);
 }
+.categories {
+  font-size: 95%;
+}
 #checkbox_container {
   display: flex;
   flex-wrap: wrap;
