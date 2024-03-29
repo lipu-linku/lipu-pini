@@ -394,6 +394,7 @@ function build_checkbox_option(name, value) {
   let container = document.createElement("label");
   container.className = "container";
   container.appendChild(build_text(checkbox_labels[name]));
+  container.title = checkbox_mouseover[name];
 
   let checkbox = document.createElement("input");
   checkbox.type = "checkbox";
@@ -549,6 +550,12 @@ const checkbox_labels = {
   checkbox_common: "common",
   checkbox_uncommon: "uncommon *",
   checkbox_obscure: "obscure **",
+};
+const checkbox_mouseover = {
+  checkbox_core: "Core words are used by > 90% of Toki Pona speakers.",
+  checkbox_common: "Common words are used by 60-90% of Toki Pona speakers.",
+  checkbox_uncommon: "Uncommon words are used by 30-60% of Toki Pona speakers.",
+  checkbox_obscure: "Obscure words are used by 2-30% of Toki Pona speakers.",
 };
 
 // must be strings bc localstorage only saves strings
