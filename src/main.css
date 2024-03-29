@@ -292,25 +292,6 @@ h2 {
   vertical-align: middle;
   margin-right: 10px;
 }
-.categories {
-  color: var(--shade-color);
-}
-.indicator {
-  font-size: 100%;
-  font-weight: bold;
-  background-color: var(--border-color);
-  padding: 0px 10px;
-  border-radius: 5px;
-}
-.book {
-  padding: 0px 5px;
-}
-.bar_off {
-  color: var(--shade-color);
-}
-.bar_on {
-  color: var(--highlight-color);
-}
 .shaded {
   color: var(--shade-color);
 }
