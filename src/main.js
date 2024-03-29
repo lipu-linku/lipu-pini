@@ -519,10 +519,8 @@ const selector_map = {
   // these keys must have a corresponding div in index.html
   usage_selector: [
     "checkbox_core",
-    "checkbox_widespread",
     "checkbox_common",
     "checkbox_uncommon",
-    "checkbox_rare",
     "checkbox_obscure",
   ],
   // search_selector: [],
@@ -530,28 +528,22 @@ const selector_map = {
 };
 const usages_to_checkboxes = {
   core: "checkbox_core",
-  widespread: "checkbox_widespread",
   common: "checkbox_common",
   uncommon: "checkbox_uncommon",
-  rare: "checkbox_rare",
   obscure: "checkbox_obscure",
 };
 const checkbox_labels = {
   checkbox_core: "core",
-  checkbox_widespread: "widespread",
   checkbox_common: "common",
   checkbox_uncommon: "uncommon",
-  checkbox_rare: "rare",
   checkbox_obscure: "obscure",
 };
 
 // must be strings bc localstorage only saves strings
 const checkbox_defaults = {
   checkbox_core: "true",
-  checkbox_widespread: "true",
   checkbox_common: "false",
   checkbox_uncommon: "false",
-  checkbox_rare: "false",
   checkbox_obscure: "false",
   checkbox_lightmode: "false",
 };
