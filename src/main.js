@@ -260,24 +260,9 @@ function build_word(id, word) {
     if (word["coined_year"]) {
       coined += " in " + word["coined_year"];
     }
-    if (coined != "Coined") word_detailed.appendChild(build_element("div", coined, "shaded"));
 
-    let etymology = [];
-    let etymology_translated = word["translations"][localStorage.getItem("selected_language")]["etymology"];
-
-    for (let i = 0; i < word["etymology"].length; i++) {
-      let etym_alt = word["etymology"][i]["alt"];
-      let etym_word = word["etymology"][i]["word"];
-      let etym_defs = (etymology_translated.length > i) ? etymology_translated[i]["definition"] : "";
-      let etym_lang = (etymology_translated.length > i) ? etymology_translated[i]["language"] : "";
-
-      let etym_string = etym_lang;
-      if (etym_word) etym_string += ` ${etym_word}`;
-      if (etym_alt)  etym_string += ` ${etym_alt}`;
-      if (etym_defs) etym_string += ` ‘${etym_defs}’`;
-      etymology.push(etym_string);
-    }
-    if (etymology) word_detailed.appendChild(build_element("div", "From " + etymology.join("; "), "shaded"));
+    let etymology = format_etymology(word);
+    if (etymology) word_detailed.appendChild(build_element("div", etymology, "shaded"));
 
     let commentary = word["translations"][localStorage.getItem("selected_language")]["commentary"];
     if (commentary) word_detailed.appendChild(build_element("div", commentary, "shaded"));
@@ -301,6 +286,37 @@ function build_word(id, word) {
 
   }
   return word_container;
+}
+
+function format_etymology(word) {
+  let coined = "Coined";
+  if (word["creator"].length > 0) {
+    coined += " by " + word["creator"].join(", ");
+  }
+  if (word["coined_year"]) {
+    coined += " in " + word["coined_year"];
+  }
+
+  let etymology = [];
+  let etymology_translated = word["translations"][localStorage.getItem("selected_language")]["etymology"];
+
+  for (let i = 0; i < word["etymology"].length; i++) {
+    let etym_alt = word["etymology"][i]["alt"];
+    let etym_word = word["etymology"][i]["word"];
+    let etym_defs = (etymology_translated.length > i) ? etymology_translated[i]["definition"] : "";
+    let etym_lang = (etymology_translated.length > i) ? etymology_translated[i]["language"] : "";
+
+    let etym_string = etym_lang;
+    if (etym_word) etym_string += ` ${etym_word}`;
+    if (etym_alt)  etym_string += ` ${etym_alt}`;
+    if (etym_defs) etym_string += ` ‘${etym_defs}’`;
+    etymology.push(etym_string);
+  }
+  let etymology_full = "from " + etymology.join("; ");
+  if (coined != "Coined") {
+    etymology_full = coined + " · " + etymology_full;
+  }
+  return etymology_full
 }
 
 function main() {
