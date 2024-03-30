@@ -308,6 +308,7 @@ h2 {
 .categories {
   font-size: 95%;
   color: var(--shade-color);
+  margin-left: 10px;
 }
 #checkbox_container {
   display: flex;
