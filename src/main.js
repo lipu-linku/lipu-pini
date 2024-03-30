@@ -314,7 +314,7 @@ function format_etymology(word) {
   }
   let etymology_full = "from " + etymology.join("; ");
   if (coined != "Coined") {
-    etymology_full = coined + " · " + etymology_full;
+    etymology_full = coined + "\u2002·\u2002" + etymology_full;
   }
   return etymology_full
 }
