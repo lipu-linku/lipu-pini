@@ -239,6 +239,11 @@ h2 {
   padding: 0 10px;
   max-width: 1000px;
 }
+@media screen and (max-width: 550px) {
+  .page_width_limiter {
+    padding: 0;
+  }
+}
 
 #dictionary {
   margin-top: 1rem;
