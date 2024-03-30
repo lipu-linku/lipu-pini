@@ -260,7 +260,7 @@ function build_word(id, word) {
     if (word["coined_year"]) {
       coined += " in " + word["coined_year"];
     }
-    if (coined != "Coined") word_detailed.appendChild(build_element("div", coined, "definition"));
+    if (coined != "Coined") word_detailed.appendChild(build_element("div", coined, "shaded"));
 
     let etymology = [];
     let etymology_translated = word["translations"][localStorage.getItem("selected_language")]["etymology"];
@@ -277,16 +277,16 @@ function build_word(id, word) {
       if (etym_defs) etym_string += ` ‘${etym_defs}’`;
       etymology.push(etym_string);
     }
-    if (etymology) word_detailed.appendChild(build_element("div", "From " + etymology.join("; "), "definition"));
+    if (etymology) word_detailed.appendChild(build_element("div", "From " + etymology.join("; "), "shaded"));
 
     let commentary = word["translations"][localStorage.getItem("selected_language")]["commentary"];
-    if (commentary) word_detailed.appendChild(build_element("div", commentary, "definition"));
+    if (commentary) word_detailed.appendChild(build_element("div", commentary, "shaded"));
 
     let sp_etymology = word["translations"][localStorage.getItem("selected_language")]["sp_etymology"];
-    if (sp_etymology) word_detailed.appendChild(build_element("div", `Sitelen Pona: ${sp_etymology}`, "definition"));
+    if (sp_etymology) word_detailed.appendChild(build_element("div", `Sitelen Pona: ${sp_etymology}`, "shaded"));
 
     if (word["see_also"].length > 0) {
-      let see_also_div = build_element("div", "{see ", "seealso");
+      let see_also_div = build_element("div", "{see ", "seealso shaded");
       let see_alsos = word["see_also"];
       for (let i = 0; i < see_alsos.length; i++) {
         let seen = see_alsos[i];
