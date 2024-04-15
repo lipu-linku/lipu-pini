@@ -1,4 +1,4 @@
-# lipu Linku
+# lipu pini Linku
 
 <div align="center">
   <a href="https://discord.gg/A3ZPqnHHsy">
@@ -8,9 +8,9 @@
 
 ## Overview
 
-lipu Linku is a Toki Pona dictionary, providing convenient and searchable access to
-the dictionary data in [sona](https://github.com/lipu-linku/sona) with the translations from [nimi](https://nimi.linku.la).
-The old sheet can be found [here](https://docs.google.com/spreadsheets/d/1xwgTAxwgn4ZAc4DBnHte0cqta1aaxe112Wh1rv9w5Yk).
+lipu pini Linku is a vanilla JS Toki Pona dictionary, which uses dictionary data from [sona](https://github.com/lipu-linku/sona).
+
+It has been deprecated in favour of [a SvelteKit frontend](https://github.com/lipu-linku/lipu).
 
 ## Development
 
@@ -30,8 +30,8 @@ make stopdev
 ## Contributing
 
 <div align="center">
-  <a href="https://github.com/lipu-linku/lipu-linku.github.io/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=lipu-linku/lipu-linku.github.io" />
+  <a href="https://github.com/lipu-linku/lipu-pini/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=lipu-linku/lipu-pini" />
   </a>
 </div>
 
@@ -40,4 +40,4 @@ You can also join the discord to contribute translations and talk to the maintai
 
 ## License
 
-lipu Linku (`lipu-linku.github.io`) is licensed under the GNU General Public License Version 3.
+lipu pini Linku (`pini.linku.la`) is licensed under the GNU General Public License Version 3.

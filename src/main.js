@@ -568,7 +568,7 @@ const checkbox_mouseover = {
   checkbox_core: "Core words are used by > 90% of Toki Pona speakers.",
   checkbox_common: "Common words are used by 60-90% of Toki Pona speakers.",
   checkbox_uncommon: "Uncommon words are used by 30-60% of Toki Pona speakers.",
-  checkbox_obscure: "Obscure words are used by 2-30% of Toki Pona speakers.",
+  checkbox_obscure: "Obscure words are used by 5-30% of Toki Pona speakers.",
 };
 
 // must be strings bc localstorage only saves strings
