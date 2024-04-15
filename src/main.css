@@ -17,7 +17,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 4rem;
   scroll-behavior: smooth;
 }
 
@@ -34,6 +34,7 @@ body {
   --link-color: hsl(172, 100%, 26%);
   --shade-color: hsl(222, 12%, 60%);
   --border-color: hsl(222, 12%, 20%);
+  --heavy-border-color: hsl(222, 12%, 40%);
   --bg-alt-color: hsl(222, 0%, 7%);
 }
 .lightmode {
@@ -43,6 +44,7 @@ body {
   --link-color: hsl(172, 100%, 26%);
   --shade-color: hsl(222, 28%, 45%);
   --border-color: hsl(222, 28%, 75%);
+  --heavy-border-color: hsl(222, 28%, 45%);
   --bg-alt-color: hsl(222, 0%, 93%);
 }
 *:focus-visible {
@@ -120,7 +122,7 @@ nav img {
   position: relative;
 }
 
-#language_selector {
+.selector {
   font: inherit;
   background-color: var(--bg-color);
   color: var(--txt-color);
@@ -136,16 +138,21 @@ nav img {
   opacity: 0;
 }
 
-#language_selector + img {
-  pointer-events: none;
+.round {
   border-radius: 100%;
 }
-#language_selector:focus + img {
+.round + img {
+  border-radius: 100%;
+}
+.selector + img {
+  pointer-events: none;
+}
+.selector:focus + img {
   outline: 2px solid var(--highlight-color);
   outline-offset: 2px;
 }
 
-#language_selector_wrapper {
+.selector_wrapper {
   position: relative;
 }
 
@@ -178,7 +185,7 @@ nav img {
   color: var(--bg-color);
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 700px) {
   nav {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -198,7 +205,7 @@ nav img {
   }
 }
 
-#survey {
+.disclaimer {
   font-size: 1.2em;
   font-weight: bold;
   margin-top: 1rem;
@@ -230,7 +237,12 @@ h2 {
 .page_width_limiter {
   margin: 0 auto;
   padding: 0 10px;
-  max-width: 840px;
+  max-width: 1000px;
+}
+@media screen and (max-width: 550px) {
+  .page_width_limiter {
+    padding: 0;
+  }
 }
 
 #dictionary {
@@ -238,136 +250,65 @@ h2 {
 }
 
 .entry {
-  display: grid;
-  grid-template-columns:
-    minmax(0, 1fr) minmax(0, 2fr) minmax(0, 2fr) minmax(0, 2fr)
-    minmax(0, 1fr);
-  grid-column-gap: 10px;
-  grid-template-areas:
-    "sourcelanguage sourcelanguage . creator creator"
-    "etymology etymology categories coined coined"
-    "sitelenpona . word . sitelensitelen"
-    "sitelenpona definition definition definition sitelensitelen"
-    ". seealso seealso seealso ."
-    "details details details details details";
-  padding: 0.5rem 0;
+  display: flex;
+  text-align: initial;
+  flex-direction: column;
+  padding: 5px 5px 0px 0px;
   border-top: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
+  margin: 10px 0px;
+  gap: 10px;
 }
-details {
-  margin: 5px;
-  border: 1px;
-  border-color: var(--shade-color);
-  grid-area: details;
+.entry:hover {
+  border-top: 1px solid var(--heavy-border-color);
+  border-left: 1px solid var(--heavy-border-color);
 }
-.details {
-  display: grid;
-  grid-template-columns:
-    minmax(0, 1fr) minmax(0, 2.6fr) minmax(0, 0.8fr) minmax(0, 2.6fr)
-    minmax(0, 1fr);
-  grid-column-gap: 10px;
-  grid-template-areas:
-    "ucsur . . lukapona lukapona"
-    "spetymology spetymology . commentary commentary"
-    "kudata kudata kudata kudata kudata"
-    "audio_kalaasi audio_kalaasi . audio_janlakuse audio_janlakuse";
+.word_compact {
+  display: flex;
+  padding: 0px 10px;
+}
+.word_detailed {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0px 10px;
+}
+.word_main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.word_info {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
 }
 .word {
-  grid-area: word;
-  font-size: 200%;
+  display: inline-block;
+  font-size: 150%;
   color: var(--highlight-color);
   font-weight: bold;
   font-style: italic;
-}
-.categories {
-  grid-area: categories;
-  color: var(--shade-color);
-  font-style: italic;
-}
-.etymology {
-  grid-area: etymology;
-  color: var(--shade-color);
-  text-align: left;
-}
-.sourcelanguage {
-  grid-area: sourcelanguage;
-  color: var(--shade-color);
-  text-align: left;
-}
-.creator {
-  grid-area: creator;
-  color: var(--shade-color);
-  text-align: right;
-}
-.coined {
-  grid-area: coined;
-  color: var(--shade-color);
-  text-align: right;
-}
-.definition {
-  grid-area: definition;
-}
-.seealso {
-  grid-area: seealso;
-  color: var(--shade-color);
-}
-.kudata {
-  grid-area: kudata;
-  color: var(--shade-color);
-}
-.lukapona {
-  grid-area: lukapona;
-}
-summary {
-  color: var(--shade-color);
-  cursor: pointer;
-}
-.audio_janlakuse {
-  grid-area: audio_janlakuse;
-}
-.audio_kalaasi {
-  grid-area: audio_kalaasi;
-}
-.ucsur {
-  font-size: 150%;
-  grid-area: ucsur;
-}
-.sitelenemosi {
-  /* not shown currently; must be re-added to grid-area */
-  font-size: 200%;
-  grid-area: emosi;
-}
-.sitelenponaetymology {
-  grid-area: spetymology;
-  color: var(--shade-color);
-}
-.commentary {
-  grid-area: commentary;
-  color: var(--shade-color);
+  vertical-align: middle;
 }
 .sitelenpona {
-  grid-area: sitelenpona;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: inline-block;
   font-family: "sitelen seli kiwen";
-  font-size: 320%;
-}
-.sitelensitelen {
-  grid-area: sitelensitelen;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  filter: invert(100%);
-  color: var(--bg-color);
-  height: 50px;
-  width: 50px;
-  margin: auto;
-}
-.lightmode .sitelensitelen {
-  filter: none;
+  font-size: 50px;
+  width: 60px;
+  text-align: center;
+  vertical-align: middle;
+  margin-right: 10px;
 }
 .shaded {
   color: var(--shade-color);
+}
+.categories {
+  font-size: 95%;
+  color: var(--shade-color);
+  margin-left: 10px;
 }
 #checkbox_container {
   display: flex;

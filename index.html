@@ -3,17 +3,17 @@
   <head>
     <meta charset="utf-8" />
 
-    <link rel="stylesheet" type="text/css" href="css.css" />
-    <link rel="stylesheet" type="text/css" href="checkbox.css" />
-    <link rel="shortcut icon" href="icon.png" />
+    <link rel="stylesheet" type="text/css" href="src/main.css" />
+    <link rel="stylesheet" type="text/css" href="src/checkbox.css" />
+    <link rel="shortcut icon" href="assets/icon.png" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Noto%20Serif:regular,italic,bold,bolditalic"
     />
-    <script type="text/javascript" src="scripts.js" defer></script>
+    <script type="text/javascript" src="src/main.js" defer></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>lipu Linku - toki pona dictionary</title>
+    <title>lipu pini Linku - a toki pona dictionary</title>
     <meta name="description" content="toki pona dictionary" />
 
     <meta property="og:title" content="lipu Linku" />
@@ -26,8 +26,8 @@
   <body onload="main()">
     <nav>
       <div class="logo">
-        <img src="icon.png" alt="lipu Linku" />
-        lipu Linku
+        <img src="assets/icon.png" alt="lipu Linku" />
+        lipu pini Linku
       </div>
 
       <div class="search_container">
@@ -49,28 +49,47 @@
       <div>
         <label id="checkbox_lightmode_wrapper">
           <input type="checkbox" id="checkbox_lightmode" />
-          <img src="suno.png" alt="Light Mode" />
+          <img src="assets/suno.png" alt="Light Mode" />
         </label>
 
-        <label id="language_selector_wrapper" title="Select Language">
+        <label id="layout_selector_wrapper" class="selector_wrapper" title="Select Layout">
+          <select
+            id="layout_selector"
+            class="main_input selector"
+            onchange="layout_select_changed(this)"
+          >
+            <option value="compact">Compact layout</option>
+            <option value="detailed">Detailed layout</option>
+          </select>
+          <img src="assets/layout.png" alt="Select layout" />
+        </label>
+        <label id="language_selector_wrapper" class="selector_wrapper" title="Select Language">
           <select
             id="language_selector"
-            class="main_input"
+            class="main_input selector round"
             onchange="language_select_changed(this)"
           ></select>
-          <img src="world.png" alt="Select language" />
+          <img src="assets/world.png" alt="Select language" />
         </label>
-        <a href="about" title="About Linku">
-          <img src="ijo-a.png" alt="About Linku" />
+        <a href="https://github.com/lipu-linku/" class="round" title="About Linku">
+          <img src="assets/ijo-a.png" alt="About Linku" />
         </a>
       </div>
     </nav>
-    <!-- <div class="survey" id="survey"> -->
-    <!--   <a href="https://github.com/lipu-linku/ijo/blob/main/survey/2023/results.md" -->
-    <!--     >2023 Word Survey results: -->
-    <!--     See&nbsp;the&nbsp;changes!</a -->
-    <!--   > -->
-    <!-- </div> -->
+    <div class="disclaimer">
+      lipu ni li pini.
+      <a href="https://linku.la"
+         >
+         o&nbsp;tawa&nbsp;lipu&nbsp;sin!</a
+       >
+     </div>
+    <div class="disclaimer">
+      this page is no longer actively maintained.
+      <a href="https://linku.la"
+         >
+         go&nbsp;to&nbsp;the&nbsp;new&nbsp;version!</a
+       >
+     </div>
 
     <div class="page_width_limiter">
       <div id="checkbox_container">
@@ -78,6 +97,8 @@
         <!-- <div id="settings_selector"></div> -->
         <!-- MOVE NEXT TO SEARCH BAR -->
       </div>
+      <p id="warn_uncommon" style="display: none">Many speakers don't use <b><i>uncommon</i></b> words.</p>
+      <p id="warn_obscure" style="display: none">Most speakers don't use or understand <b><i>obscure</i></b> words.</p>
 
       <div id="dictionary"></div>
     </div>

@@ -211,176 +211,120 @@ function clear_dictionary() {
   }
 }
 
+
 function build_word(id, word) {
-  var word_container = document.createElement("div");
+  let word_container = document.createElement("div");
   word_container.id = id;
   word_container.className = "entry";
 
-  if (word["source_language"]) {
-    word_container.appendChild(
-      build_element("div", word["source_language"], "sourcelanguage")
-    );
-  }
-  if (word["creator"]) {
-    word_container.appendChild(
-      build_element("div", word["creator"], "creator")
-    );
-  }
+  let word_compact = build_element("div", "", "word_compact");
+  word_container.appendChild(word_compact);
 
-  let etymology = word["etymology"] || "";
-  word_container.appendChild(build_element("div", etymology, "etymology"));
+  let sitelen_pona = word["representations"]["ligatures"][0] || "";
+  word_compact.appendChild(
+    build_element("div", sitelen_pona, "sitelenpona")
+  );
 
-  let coined = [
-    word["coined_year"] ? word["coined_year"] + " " : "",
-    word["coined_era"] ? "(" + word["coined_era"] + ")" : "",
-  ].join(" ");
-  if (coined) {
-    word_container.appendChild(build_element("div", coined, "coined"));
-  }
+  let word_main = build_element("div", "", "word_main");
+  word_compact.appendChild(word_main);
+
+  let word_info = build_element("div", "", "word_info");
+  word_main.appendChild(word_info);
+
+  word_info.appendChild(build_element("div", word["word"], "word"));
 
   let book = word["book"] || "none";
+
   let categories = word["usage_category"] || "";
-  let usage_score = Object.values(word["recognition"])[Object.values(word["recognition"]).length - 1] || "0";
+
+  let usage_score = Object.values(word["usage"])[Object.values(word["usage"]).length - 1] || "0";
   categories = categories + "  ·  " + usage_score + "%";
   if (book !== "none") {
     categories = categories + "  ·  " + book;
   }
 
-  word_container.appendChild(build_element("div", categories, "categories"));
+  word_info.appendChild(build_element("div", categories, "categories"));
 
-  // if (word["recognition"]) {
-  //   // Iterating over an object in reverse. this feels dirty.
-  //   for (var date in Object.fromEntries(
-  //     Object.entries(word["recognition"]).reverse()
-  //   )) {
-  //     let percent = word["recognition"][date];
-  //     let usage_category = word["usage_category"]
-  //       ? word["usage_category"]
-  //       : "unknown";
-  //     let recognition = `${usage_category} (${percent}% in ${date})`;
-  //     word_container.appendChild(
-  //       build_element("div", recognition, "recognition")
-  //     );
-  //     break;
-  //   }
-  // }
+  let definition = word["translations"][localStorage.getItem("selected_language")]["definition"];
+  word_main.appendChild(build_element("div", definition, "definition"));
 
-  if (word["sitelen_pona"]) {
-    word_container.appendChild(
-      build_element("div", word["sitelen_pona"], "sitelenpona")
-    );
-  }
-  word_container.appendChild(build_element("div", word["word"], "word"));
-  // The switch statement is temporary!
+  if (localStorage.getItem("selected_layout") == "detailed" || urlParams.get("q")) {
 
-  let definition = word["def"][localStorage.getItem("selected_language")];
-  if (definition) {
-    word_container.appendChild(build_element("div", definition, "definition"));
-  } else {
-    word_container.appendChild(
-      build_element("div", "(en) " + word["def"]["en"], "shaded definition")
-    );
-  }
-  if (word["sitelen_sitelen"]) {
-    const img = build_element(
-      "img",
-      "",
-      "sitelensitelen",
-      word["sitelen_sitelen"]
-    );
-    img.alt = `sitelen sitelen for ${word["sitelen_sitelen"]}`;
-    word_container.appendChild(img);
-  }
-  if (word["see_also"]) {
-    let see_also_div = build_element("div", "{see ", "seealso");
-    let see_alsos = word["see_also"].split(", ");
-    for (let i = 0; i < see_alsos.length; i++) {
-      let seen = see_alsos[i];
-      see_also_div.appendChild(
-        build_element("a", seen, "seealsolink", "#" + seen)
-      );
-      // why i didn't forEach
-      if (i != see_alsos.length - 1) {
-        see_also_div.appendChild(build_text(", "));
-      }
+    let word_detailed = build_element("div", "", "word_detailed");
+    word_container.appendChild(word_detailed);
+
+    let coined = "Coined";
+    if (word["creator"].length > 0) {
+      coined += " by " + word["creator"].join(", ");
     }
-    see_also_div.appendChild(build_text("}"));
-    word_container.appendChild(see_also_div);
-  }
-  let details_div = build_element("div", "", "details");
-  let details_container = build_element("details", "");
-  details_container.appendChild(build_element("summary", "more info"));
-  details_container.appendChild(details_div);
+    if (word["coined_year"]) {
+      coined += " in " + word["coined_year"];
+    }
 
-  if (word["commentary"]) {
-    details_div.appendChild(
-      build_element("div", word["commentary"], "commentary")
-    );
-  }
-  if (word["ku_data"]) {
-    details_div.appendChild(build_element("div", word["ku_data"], "kudata"));
-  }
-  if (word["sitelen_pona_etymology"]) {
-    details_div.appendChild(
-      build_element(
-        "div",
-        word["sitelen_pona_etymology"],
-        "sitelenponaetymology",
-        word["sitelen_pona_etymology"]
-      )
-    );
-  }
+    let etymology = format_etymology(word);
+    if (etymology) word_detailed.appendChild(build_element("div", etymology, "shaded"));
 
-  // NOTE: maybe embed later, instead of linking?
-  if (word["luka_pona"]) {
-    details_div.appendChild(
-      build_element("a", "view luka pona", "lukapona", word["luka_pona"]["gif"])
-    );
-  }
-  if (word["ucsur"]) {
-    details_div.appendChild(build_element("div", word["ucsur"], "ucsur"));
-  }
+    let commentary = word["translations"][localStorage.getItem("selected_language")]["commentary"];
+    if (commentary) word_detailed.appendChild(build_element("div", commentary, "shaded"));
 
-  // if (word["sitelen_emosi"]) {
-  //   details_div.appendChild(
-  //     build_element("div", word["sitelen_emosi"], "sitelenemosi")
-  //   );
-  // }
+    if (word["see_also"].length > 0) {
+      let see_also_div = build_element("div", "{see ", "seealso shaded");
+      let see_alsos = word["see_also"];
+      for (let i = 0; i < see_alsos.length; i++) {
+        let seen = see_alsos[i];
+        see_also_div.appendChild(
+          build_element("a", seen, "seealsolink", "#" + seen)
+        );
+        // why i didn't forEach
+        if (i != see_alsos.length - 1) {
+          see_also_div.appendChild(build_text(", "));
+        }
+      }
+      see_also_div.appendChild(build_text("}"));
+      word_detailed.appendChild(see_also_div);
+    }
 
-  if (word["audio"]) {
-    let audio_kalaasi = build_element(
-      "a",
-      "kala Asi speaks",
-      "audio_kalaasi",
-      word["audio"]["kala_asi"]
-    );
-    let audio_janlakuse = build_element(
-      "a",
-      "jan Lakuse speaks",
-      "audio_janlakuse",
-      word["audio"]["jan_lakuse"]
-    );
-    // audio_kalaasi = build_element("audio", "", "audio_kalaasi", word["audio"]["kala_asi"])
-    // audio_janlakuse = build_element("audio", "", "audio_janlakuse", word["audio"]["jan_lakuse"])
-    // audio_kalaasi.controls = true
-    // audio_janlakuse.controls = true
-    details_div.appendChild(audio_kalaasi);
-    details_div.appendChild(audio_janlakuse);
   }
-
-  details_container.open = false;
-  if (details_div.childNodes.length > 1) {
-    // only append if non-empty; # text is present tho
-    word_container.appendChild(details_container);
-  }
-
   return word_container;
+}
+
+function format_etymology(word) {
+  let coined = "Coined";
+  if (word["creator"].length > 0) {
+    coined += " by " + word["creator"].join(", ");
+  }
+  if (word["coined_year"]) {
+    coined += " in " + word["coined_year"];
+  }
+
+  let etymology = [];
+  let etymology_translated = word["translations"][localStorage.getItem("selected_language")]["etymology"];
+
+  for (let i = 0; i < word["etymology"].length; i++) {
+    let etym_alt = word["etymology"][i]["alt"];
+    let etym_word = word["etymology"][i]["word"];
+    let etym_defs = (etymology_translated.length > i) ? etymology_translated[i]["definition"] : "";
+    let etym_lang = (etymology_translated.length > i) ? etymology_translated[i]["language"] : "";
+
+    let etym_string = etym_lang;
+    if (etym_word) etym_string += ` ${etym_word}`;
+    if (etym_alt)  etym_string += ` ${etym_alt}`;
+    if (etym_defs) etym_string += ` ‘${etym_defs}’`;
+    etymology.push(etym_string);
+  }
+  let etymology_full = "from " + etymology.join("; ");
+  if (coined != "Coined") {
+    etymology_full = coined + "\u2002·\u2002" + etymology_full;
+  }
+  return etymology_full
 }
 
 function main() {
   if (urlParams.get("q")) {
     single_word_mode();
   }
+  // Select layout
+  layout_select_default();
   // Select language
   language_select_default();
   // Select options
@@ -389,6 +333,7 @@ function main() {
   fill_dictionary();
 
   // show based on settings
+  checkbox_changed();
   search_changed(document.getElementById("searchbar"));
   document.getElementById("searchbar").focus();
 }
@@ -399,6 +344,25 @@ function build_select_option(option_value, text) {
   option_node.appendChild(build_text(text));
   return option_node;
 }
+function layout_select_default() {
+  if (!localStorage.getItem("selected_layout")) {
+    localStorage.setItem("selected_layout", "compact");
+  }
+  let layout_selector = document.getElementById("layout_selector");
+  for (let i = 0; i < layout_selector.children.length; i++) {
+    if (layout_selector[i].value == localStorage.getItem("selected_layout")) {
+      layout_selector[i].selected = true;
+    }
+  }
+}
+function layout_select_changed(select_node) {
+  let selected_option = select_node.options[select_node.selectedIndex];
+  localStorage.setItem("selected_layout", selected_option.value);
+  clear_dictionary();
+  fill_dictionary();
+  search_changed(document.getElementById("searchbar"));
+}
+
 function language_select_default() {
   if (!localStorage.getItem("selected_language")) {
     localStorage.setItem("selected_language", "en");
@@ -406,7 +370,7 @@ function language_select_default() {
 
   let language_selector = document.getElementById("language_selector");
   for (let id in languages) {
-    let option = build_select_option(id, languages[id]["name_endonym"]);
+    let option = build_select_option(id, languages[id]["name"]["endonym"]);
     if (id == localStorage.getItem("selected_language")) {
       option.selected = true;
     }
@@ -443,6 +407,7 @@ function build_checkbox_option(name, value) {
   let container = document.createElement("label");
   container.className = "container";
   container.appendChild(build_text(checkbox_labels[name]));
+  container.title = checkbox_mouseover[name];
 
   let checkbox = document.createElement("input");
   checkbox.type = "checkbox";
@@ -465,6 +430,17 @@ function checkbox_changed() {
     if (checkbox in checkbox_defaults) {
       localStorage.setItem(checkbox, is_checked);
     }
+  }
+
+  if (localStorage.getItem("checkbox_obscure") == "true") {
+    document.getElementById("warn_obscure").style.display = "inherit";
+  } else {
+    document.getElementById("warn_obscure").style.display = "none";
+  }
+  if (localStorage.getItem("checkbox_uncommon") == "true") {
+    document.getElementById("warn_uncommon").style.display = "inherit";
+  } else {
+    document.getElementById("warn_uncommon").style.display = "none";
   }
   search_changed(document.getElementById("searchbar"));
 }
@@ -560,19 +536,17 @@ function normal_mode() {
   window.location.search = ""; // remove query and refresh
 }
 
-const bundle_url = "https://raw.githubusercontent.com/lipu-linku/jasima/main/data.json";
-const bundle = JSON.parse(Get(bundle_url));
-const data = bundle["data"];
-const languages = bundle["languages"];
+const WORDS_URL = "https://raw.githubusercontent.com/lipu-linku/sona/main/api/raw/words.json";
+const data = JSON.parse(Get(WORDS_URL));
+const LANGS_URL = "https://raw.githubusercontent.com/lipu-linku/sona/main/api/raw/languages.json";
+const languages = JSON.parse(Get(LANGS_URL));
 
 const selector_map = {
   // these keys must have a corresponding div in index.html
   usage_selector: [
     "checkbox_core",
-    "checkbox_widespread",
     "checkbox_common",
     "checkbox_uncommon",
-    "checkbox_rare",
     "checkbox_obscure",
   ],
   // search_selector: [],
@@ -580,28 +554,28 @@ const selector_map = {
 };
 const usages_to_checkboxes = {
   core: "checkbox_core",
-  widespread: "checkbox_widespread",
   common: "checkbox_common",
   uncommon: "checkbox_uncommon",
-  rare: "checkbox_rare",
   obscure: "checkbox_obscure",
 };
 const checkbox_labels = {
   checkbox_core: "core",
-  checkbox_widespread: "widespread",
   checkbox_common: "common",
-  checkbox_uncommon: "uncommon",
-  checkbox_rare: "rare",
-  checkbox_obscure: "obscure",
+  checkbox_uncommon: "uncommon *",
+  checkbox_obscure: "obscure **",
+};
+const checkbox_mouseover = {
+  checkbox_core: "Core words are used by > 90% of Toki Pona speakers.",
+  checkbox_common: "Common words are used by 60-90% of Toki Pona speakers.",
+  checkbox_uncommon: "Uncommon words are used by 30-60% of Toki Pona speakers.",
+  checkbox_obscure: "Obscure words are used by 2-30% of Toki Pona speakers.",
 };
 
 // must be strings bc localstorage only saves strings
 const checkbox_defaults = {
   checkbox_core: "true",
-  checkbox_widespread: "true",
-  checkbox_common: "false",
+  checkbox_common: "true",
   checkbox_uncommon: "false",
-  checkbox_rare: "false",
   checkbox_obscure: "false",
   checkbox_lightmode: "false",
 };
